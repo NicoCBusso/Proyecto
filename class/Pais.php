@@ -1,8 +1,7 @@
 <?php
-
+require_once 'MySQL.php';
 class Pais {
 	private $_idPais;
-	private $_arrProvincia;
 	private $_descripcion;
 
 	public function __construct($descripcion) {
@@ -15,33 +14,6 @@ class Pais {
     {
         return $this->_idPais;
     }
-
-    /**
-     * @param mixed $_idPais
-     *
-     * @return self
-     */
-
-    /**
-     * @return mixed
-     */
-    public function getArrProvincia()
-    {
-        return $this->_arrProvincia;
-    }
-
-    /**
-     * @param mixed $_arrProvincia
-     *
-     * @return self
-     */
-    public function setArrProvincia($_arrProvincia)
-    {
-        $this->_arrProvincia = $_arrProvincia;
-
-        return $this;
-    }
-
     /**
      * @return mixed
      */
@@ -49,7 +21,6 @@ class Pais {
     {
         return $this->_descripcion;
     }
-
     /**
      * @param mixed $_descripcion
      *
@@ -77,6 +48,63 @@ class Pais {
 
     }
 
+    public static function obtenerTodos()
+    {
+        $sql= "SELECT id_pais,nombre FROM pais";
+        $mysql = new MySQL();
+        $datos = $mysql->consultar($sql);
+        $mysql->desconectar();
+
+        $listado = self::_generarListadoPais($datos);
+
+        return $listado;
+    }
+
+    public static function obtenerPorId($id)
+    {
+        $sql = "SELECT * FROM pais WHERE id_pais =" . $id;
+        $mysql = new MySQL();
+        $datos = $mysql->consultar($sql);
+        $mysql->desconectar();
+
+        $registro = $datos->fetch_assoc();
+
+        $pais = new Pais($registro['nombre']);
+        $pais->_idPais = $registro['id_pais'];
+
+        return $pais;
+    }
+    private function _generarPais($registro){
+
+        $pais = new Pais ($registro['nombre']);
+        $pais->_idPais = $registro['id_pais'];
+        return $pais;
+    }
+    public function _generarListadoPais($datos){
+        $listado = array();
+        while ($registro = $datos->fetch_assoc())
+            {
+            $pais = new Pais ($registro['nombre']);
+            $pais->_descripcion = $registro['nombre'];
+            $pais->_idPais = $registro['id_pais'];
+            $listado[] = $pais;
+            }
+        return $listado;
+    }
+
+    public static function obtenerPorIdProvincia($id){
+        $sql = "SELECT pais.nombre, pais.id_pais FROM provincia INNER JOIN pais ON provincia.id_pais = pais.id_pais WHERE id_provincia =" . $id;
+        //var_dump($sql);
+        $mysql = new MySQL();
+        $datos = $mysql->consultar($sql);
+        $mysql->desconectar();
+
+        $registro = $datos->fetch_assoc();
+
+        $pais = self::_generarPais($registro);
+
+        return $pais;
+    }
 }
 
 

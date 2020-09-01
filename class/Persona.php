@@ -1,10 +1,10 @@
-<?php
-
+    <?php
+require_once 'Direccion.php';
 require_once 'MySQL.php';
 
 class Persona{
 	protected $_idPersona;
-	protected $_arrDireccion;
+	public $direccion;
 	protected $_arrContacto;
 
     /**
@@ -24,9 +24,9 @@ class Persona{
     /**
      * @return mixed
      */
-    public function getArrDireccion()
+    public function getDireccion()
     {
-        return $this->_arrDireccion;
+        return $this->_direccion;
     }
 
     /**
@@ -34,11 +34,13 @@ class Persona{
      *
      * @return self
      */
-    public function setArrDireccion($_arrDireccion)
+    public function setDireccion()
     {
-        $this->_arrDireccion = $_arrDireccion;
+        /*$this->_arrDireccion = $_arrDireccion;
 
-        return $this;
+        return $this;*/
+
+        $this->direccion = Direccion::obtenerPorIdPersona($this->_idPersona);
     }
 
     /**

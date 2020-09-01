@@ -10,6 +10,7 @@ $listadoEmpleados = Empleado::obtenerTodos();
 </head>
 
 <body>
+<p align="center"><?php require_once"../../menu.php"; ?></p>
 <a href="alta.php"  role="button">Agregar</a>
 <table align="center" border="1 " width="50% ">
                   <thead>
@@ -17,7 +18,7 @@ $listadoEmpleados = Empleado::obtenerTodos();
                       			  <th>DNI</th>
 						          <th>Nombre</th>
 						          <th>Apellido</th>
-						          <th>Fecha Nacimiento</th>
+                      <th>Cargo</th>
 						          <th>Acciones</th>
                     </tr>
                   </thead>
@@ -30,9 +31,10 @@ $listadoEmpleados = Empleado::obtenerTodos();
 							           <td> <?php echo $empleado->getDni(); ?> </td>
 							           <td> <?php echo $empleado->getNombre(); ?> </td>
 							           <td> <?php echo $empleado->getApellido(); ?> </td>
-                         			   <td> <?php echo $empleado->getFechaNacimiento(); ?> </td>
+                         <td><?php echo $empleado->cargo->getNombre();?></td>
 							           <td width="50%"> 
-								            <a href="actualizar.php?id=<?php echo $empleado->getEmpleado(); ?>" role="button" title="Editar">actualizar</a>
+								            <a href="actualizar.php?id=<?php echo $empleado->getEmpleado(); ?>" role="button" title="Editar">Actualizar</a>
+                            <a href="detalle.php?id=<?php echo $empleado->getEmpleado(); ?>">Ver Detalle</a>
 								       </td>
 			          </tr>
                     
@@ -41,5 +43,6 @@ $listadoEmpleados = Empleado::obtenerTodos();
                 	<?php endforeach ?>
 
                 </table>
+<a href="../../menu.php"  role="button">Menu</a>                
 </body>
 </html>

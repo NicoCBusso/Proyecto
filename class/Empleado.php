@@ -1,5 +1,6 @@
 <?php
 require_once 'PersonaFisica.php';
+require_once 'Cargo.php';
 //require_once 'Cargo.php';
 
 class Empleado extends PersonaFisica{
@@ -7,17 +8,19 @@ class Empleado extends PersonaFisica{
 	protected $_idEmpleado;
 	protected $_idCargo;
 
+    public $cargo;
+
     public function getEmpleado()
     {
         return $this->_idEmpleado;
     }
 
-    public function getCargo()
+    public function getIdCargo()
     {
         return $this->_idCargo;
     }
 
-    public function setCargo($_idCargo)
+    public function setIdCargo($_idCargo)
     {
         $this->_idCargo = $_idCargo; 
 
@@ -26,7 +29,7 @@ class Empleado extends PersonaFisica{
 
     public static function obtenerTodos()
     {
-        $sql="SELECT personafisica.id_persona_fisica, personafisica.nombre, personafisica.apellido, personafisica.dni, personafisica.fecha_nacimiento, personafisica.sexo, empleado.id_empleado FROM empleado INNER JOIN personafisica ON empleado.id_persona_fisica = personafisica.id_persona_fisica";
+        $sql="SELECT * FROM empleado INNER JOIN personafisica ON empleado.id_persona_fisica = personafisica.id_persona_fisica";
 
         $mysql = new MySQL();
         $datos = $mysql->consultar($sql);
@@ -46,26 +49,28 @@ class Empleado extends PersonaFisica{
         $mysql->desconectar();
 
         $registro = $datos->fetch_assoc();
+        $empleado = self::_generarEmpleado($registro);
+        return $empleado;
 
+    }
+    public function _generarEmpleado($registro){
         $empleado = new Empleado($registro['nombre'], $registro['apellido']);
         $empleado->_idEmpleado = $registro['id_empleado'];
         $empleado->_idPersonaFisica = $registro['id_persona_fisica'];
+        $empleado->_idPersona = $registro['id_persona'];
+        $empleado->_idCargo = $registro['id_cargo'];
         $empleado->_dni = $registro['dni'];
         $empleado->_fechaNacimiento = $registro['fecha_nacimiento'];
         $empleado->_sexo = $registro['sexo'];
+        $empleado->setCargo();
+        $empleado->setDireccion();
         return $empleado;
-
     }
 
     public function _generarListadoEmpleado($datos){
         $listado = array();
         while ($registro = $datos->fetch_assoc()) {
-            $empleado = new Empleado($registro['nombre'], $registro['apellido']);
-            $empleado->_idEmpleado = $registro['id_empleado'];
-            $empleado->_idPersonaFisica = $registro['id_persona_fisica'];
-            $empleado->_dni = $registro['dni'];
-            $empleado->_fechaNacimiento = $registro['fecha_nacimiento'];
-            $empleado->_sexo= $registro['sexo'];
+            $empleado = self::_generarEmpleado($registro);
             $listado[] = $empleado;
             }
         return $listado; 
@@ -89,8 +94,10 @@ class Empleado extends PersonaFisica{
         $mysql = new MySQL();
                 var_dump($sql);
         $mysql->actualizar($sql);
+    }
 
-
+    public function setCargo() {
+        $this->cargo = Cargo::obtenerPorIdEmpleado($this->_idEmpleado);
     }
 
 }
