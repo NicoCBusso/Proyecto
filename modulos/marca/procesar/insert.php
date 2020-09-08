@@ -23,6 +23,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 }
 $marca = new Marca ($nombre);
 $marca->guardar();
-
+//highlight_string(var_export($marca,true));
 header("location: ../listado.php");
 ?>

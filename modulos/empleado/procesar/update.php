@@ -106,7 +106,7 @@ $empleado->setDni($dni);
 $empleado->setFechaNacimiento($fechaNacimiento);
 $empleado->setSexo($genero);
 $empleado->setIdCargo($cargo);
-highlight_string(var_export($empleado,true));
+//highlight_string(var_export($empleado,true));
 $empleado->actualizar();
 
 header("location: ../listado.php");

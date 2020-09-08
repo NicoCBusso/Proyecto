@@ -1,8 +1,6 @@
 <?php
 session_start();
 require_once "../../../class/Direccion.php";;
-$id = $_POST['txtId'];
-echo $id;
 $idPersona = $_POST['txtIdPersona'];
 $idLlamada = $_POST['txtIdLlamada'];
 $localidad = $_POST['cboLocalidad'];
@@ -50,7 +48,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 		$_SESSION['mensaje_error'] = "El numero debe ser identificado con solo numeros";
 		header("location: ../actualizar.php?id_persona=$idPersona&idLlamada=$idLlamada&modulo=$modulo&id_direccion=$id");
 		exit;
-	} elseif (strlen(trim($numero)) < 5) {
+	} elseif (strlen(trim($numero)) > 5) {
 		$_SESSION['mensaje_error'] = "El campo numero debe contener una Altura real";
 		header("location: ../actualizar.php?id_persona=$idPersona&idLlamada=$idLlamada&modulo=$modulo&id_direccion=$id");
 		exit;
@@ -61,7 +59,7 @@ $direccion = Direccion::obtenerPorIdPersona($idPersona);;
 $direccion->setIdLocalidad($localidad);
 $direccion->setCalle($calle);
 $direccion->setNumero($numero);
-$direccion->setIdPersona($id);
+$direccion->setIdPersona($idPersona);
 highlight_string(var_export($direccion,true));
 $direccion->actualizar();
 

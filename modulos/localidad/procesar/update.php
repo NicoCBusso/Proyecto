@@ -25,18 +25,18 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 		header("location: ../actualizar.php?id=$id");
 		exit;
 	}
-	//De Perfil
+	//De Provincia
 	if ((int) $provincia == 0) {
 		$_SESSION['mensaje_error'] = "El campo Provincia debe ser seleccionado";
 		header("location: ../actualizar.php?id=$id");
 		exit;
 	}	
 }
-$provincia = Localidad::obtenerPorId($id);
-$provincia->setDescripcion($nombre);
-$provincia->setIdProvincia($provincia);
-$provincia->actualizar();
-
+$localidad = Localidad::obtenerPorId($id);
+$localidad->setDescripcion($nombre);
+$localidad->setIdProvincia($provincia);
+$localidad->actualizar();
+//highlight_string(var_export($localidad,true));
 header("location: ../listado.php");
 
 ?>

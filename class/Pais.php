@@ -85,7 +85,6 @@ class Pais {
         while ($registro = $datos->fetch_assoc())
             {
             $pais = new Pais ($registro['nombre']);
-            $pais->_descripcion = $registro['nombre'];
             $pais->_idPais = $registro['id_pais'];
             $listado[] = $pais;
             }
@@ -93,7 +92,7 @@ class Pais {
     }
 
     public static function obtenerPorIdProvincia($id){
-        $sql = "SELECT pais.nombre, pais.id_pais FROM provincia INNER JOIN pais ON provincia.id_pais = pais.id_pais WHERE id_provincia =" . $id;
+        $sql = "SELECT pais.nombre, pais.id_pais FROM provincia INNER JOIN pais ON provincia.id_pais = pais.id_pais WHERE provincia.id_provincia =" . $id;
         //var_dump($sql);
         $mysql = new MySQL();
         $datos = $mysql->consultar($sql);

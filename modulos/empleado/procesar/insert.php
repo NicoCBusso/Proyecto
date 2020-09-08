@@ -3,7 +3,7 @@ require_once "../../../class/Empleado.php";
 session_start();
 $nombre = $_POST['txtNombre'];
 $apellido = $_POST['txtApellido'];
-$dni = $_POST['txtDNI'];
+$dni = $_POST['txtDni'];
 $fechaNacimiento = $_POST['txtFechaNacimiento'];
 $genero = $_POST['cboSexo'];
 $cargo = $_POST['cboCargo'];
@@ -53,10 +53,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 	$fechaNacimientoComparar = new DateTime ($fechaNacimiento);
 	$fechaActual = new DateTime();
 	$diferencia = $fechaActual->diff($fechaNacimientoComparar);
-	highlight_string(var_export($diferencia,true));
+	//highlight_string(var_export($diferencia,true));
 	$edad = $diferencia->y;
-	highlight_string(var_export($edad,true));
-	echo $edad;
+	//highlight_string(var_export($edad,true));
+	//echo $edad;
 
 	if ($edad < 18) {
 		$_SESSION['mensaje_error'] = "El empleado es menor de edad, edad: ".$edad;
@@ -105,6 +105,6 @@ $empleado->setSexo($genero);
 $empleado->setIdCargo($cargo);
 
 $empleado->guardar();
-
+//highlight_string(var_export($empleado,true));
 header("location: ../listado.php");
 ?>

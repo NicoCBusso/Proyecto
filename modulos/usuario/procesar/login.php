@@ -10,7 +10,8 @@ $usuario = Usuario::login($username, $password);
 if ($usuario->estaLogueado()) {
 	session_start();
 	$_SESSION['usuario'] = $usuario;
-	header("location: ../../../dashboard.php");
+	$_SESSION["estaLogueado"] = true;
+	header("location: ../../dashboard/dashboard.php");
 } else {
 	header("location: ../../../formulario_login.php");
 }

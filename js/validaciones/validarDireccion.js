@@ -46,7 +46,7 @@ function validar(){
 		alert("El numero debe ser identificado con numeros");
 		return;
 	}
-	if(numero.length < 5){
+	if(numero.length > 4){
 		alert("El campo numero debe tener una altura real");
 		return;
 	}

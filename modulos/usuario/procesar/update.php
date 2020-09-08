@@ -11,6 +11,9 @@ $apellido = $_POST['txtApellido'];
 $dni = $_POST['txtDni'];
 $fechaNacimiento = $_POST['txtFechaNacimiento'];
 $genero = $_POST['cboSexo'];
+$imagen = $_FILES['fileImagen'];
+highlight_string(var_export($imagen));
+$dirImagenes = '../../../img/usuarios/';
 
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
@@ -117,8 +120,20 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 		header("location: ../actualizar.php?id=$id");
 		exit;
 	}
+	//de Imagen
+	if (empty($imagen['name'])){
+		$nombreImagen = 'user.png';
+	} else {
+		//Subir Imagen
+		$extension = pathinfo($imagen['name'], PATHINFO_EXTENSION);
+		$nombreSinEspacios = str_replace(" ", "_", $imagen['name']);
+		$fechaHora = date("dmYHis");
+		$nombreImagen = $fechaHora . "_" . $nombreSinEspacios;
+		$rutaImagen = $dirImagenes . $nombreImagen;
+		move_uploaded_file($imagen['tmp_name'], $rutaImagen);
+		//
+	}
 }
-
 $usuario = Usuario::obtenerPorId($id);
 $usuario->setPassword($password);
 $usuario->setIdPerfil($perfil);
@@ -127,6 +142,7 @@ $usuario->setApellido($apellido);
 $usuario->setDni($dni);
 $usuario->setFechaNacimiento($fechaNacimiento);
 $usuario->setSexo($genero);
+$usuario->setAvatar($nombreImagen);
 $usuario->actualizar();
 
 //highlight_string(var_export($usuario,true));

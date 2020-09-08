@@ -10,6 +10,7 @@ class Usuario extends PersonaFisica {
 	protected $_idPerfil;
     protected $_fechaUltimoLogin;
     protected $_estaLogueado;
+    protected $_avatar;
 
     public $perfil;
 
@@ -19,7 +20,7 @@ class Usuario extends PersonaFisica {
 		}	
     public function guardar(){
         parent::guardar();
-    	$sql = "INSERT INTO usuario (id_usuario,username,password,id_perfil,id_persona_fisica) VALUES (NULL,'$this->_username','$this->_password',$this->_idPerfil,$this->_idPersonaFisica)";
+    	$sql = "INSERT INTO usuario (id_usuario,username,password,id_perfil,id_persona_fisica,avatar) VALUES (NULL,'$this->_username','$this->_password',$this->_idPerfil,$this->_idPersonaFisica, '$this->_avatar')";
 
     	$mysql = new MySQL();
     	$idInsertado = $mysql->insertar($sql);
@@ -30,7 +31,7 @@ class Usuario extends PersonaFisica {
     }	
     public function actualizar() {
 
-        $sql = "UPDATE usuario SET username = '$this->_username', password = '$this->_password', id_perfil = $this->_idPerfil WHERE id_usuario = $this->_idUsuario";
+        $sql = "UPDATE usuario SET username = '$this->_username', password = '$this->_password', id_perfil = $this->_idPerfil, avatar = '$this->_avatar' WHERE id_usuario = $this->_idUsuario";
         var_dump($sql);
         $mysql = new MySQL();
         $mysql->actualizar($sql);
@@ -76,7 +77,7 @@ class Usuario extends PersonaFisica {
     }
     public function _generarUsuario($registro)
     {
-        $usuario = new Usuario($registro['nombre'], $registro['apellido']);
+        $usuario = new Usuario($registro['nombre'], $registro['password']);
         $usuario->_idPersona = $registro['id_persona'];
         $usuario->_idPersonaFisica = $registro['id_persona_fisica'];
         $usuario->_idUsuario = $registro['id_usuario'];
@@ -92,6 +93,7 @@ class Usuario extends PersonaFisica {
         $usuario->_estaLogueado = true;
         $usuario->perfil = Perfil::obtenerPorId($usuario->_idPerfil);        
         $usuario->setDireccion();
+        $usuario->_avatar = $registro['avatar'];
 
         return $usuario;
     }
@@ -205,6 +207,26 @@ class Usuario extends PersonaFisica {
     public function __toString() {
         return $this->_username;
     }  
+
+    /**
+     * @return mixed
+     */
+    public function getAvatar()
+    {
+        return $this->_avatar;
+    }
+
+    /**
+     * @param mixed $_avatar
+     *
+     * @return self
+     */
+    public function setAvatar($_avatar)
+    {
+        $this->_avatar = $_avatar;
+
+        return $this;
+    }
 }
 
 ?>

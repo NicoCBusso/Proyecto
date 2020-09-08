@@ -48,7 +48,7 @@ $proveedor->setRazonSocial($razonsocial);
 $proveedor->setCuit($cuit);
 
 $proveedor->actualizar();
-highlight_string(var_export($proveedor,true));
-//header("location: ../listado.php");
+//highlight_string(var_export($proveedor,true));
+header("location: ../listado.php");
 
 ?>

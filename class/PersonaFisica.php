@@ -95,7 +95,7 @@ class PersonaFisica extends Persona{
     public function guardar() {
     	parent::guardar();
 
-    	$sql = "INSERT INTO personafisica (id_persona_fisica,id_persona,nombre,apellido,fecha_nacimiento,sexo,dni,estado_persona) VALUES (NULL,$this->_idPersona,'$this->_nombre','$this->_apellido', $this->_fechaNacimiento, '$this->_sexo','$this->_dni', '$this->_estadoPersona')" ;
+    	$sql = "INSERT INTO personafisica (id_persona_fisica,id_persona,nombre,apellido,fecha_nacimiento,sexo,dni,estado_persona) VALUES (NULL,$this->_idPersona,'$this->_nombre','$this->_apellido', '$this->_fechaNacimiento', $this->_sexo,'$this->_dni', $this->_estadoPersona)" ;
     	$mysql = new MySQL();
     	$idInsertado = $mysql->insertar($sql);
 

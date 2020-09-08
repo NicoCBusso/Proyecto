@@ -4,8 +4,8 @@ function validar(){
 		alert("El campo Nombre no debe estar vacio");
 		return;
 	}
-	if(nombre.length < 4){
-		alert("El campo Nombre debe contener al menos 4 caracteres");
+	if(nombre.length < 3){
+		alert("El campo Nombre debe contener al menos 3 caracteres");
 		return;
 	}
 	if(nombre.length > 51){

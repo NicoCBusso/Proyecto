@@ -12,7 +12,7 @@ class Proveedor extends Persona{
 		}
     public function guardar(){
     	parent::guardar();
-    	$sql = "INSERT INTO proveedor (id_proveedor,cuit, razon_social, id_persona) VALUES (NULL,'$this->_cuit','$this->_razonSocial','$this->_idPersona')";
+    	$sql = "INSERT INTO proveedor (id_proveedor,cuit, razon_social, id_persona) VALUES (NULL,$this->_cuit,'$this->_razonSocial','$this->_idPersona')";
 
     	$mysql = new MySQL();
     	$idInsertado = $mysql->insertar($sql);
@@ -26,7 +26,7 @@ class Proveedor extends Persona{
     public function actualizar() {
         //parent::actualizar();
 
-        $sql = "UPDATE proveedor SET cuit = '$this->_cuit', razon_social = '$this->_razonSocial' WHERE id_proveedor = $this->_idProveedor";
+        $sql = "UPDATE proveedor SET cuit = $this->_cuit, razon_social = '$this->_razonSocial' WHERE id_proveedor = $this->_idProveedor";
         //var_dump($sql);
         $mysql = new MySQL();
         $mysql->actualizar($sql);

@@ -22,7 +22,7 @@ class Localidad {
         echo "insertado";
     }
     public function actualizar() {
-        $sql = "UPDATE localidad SET nombre = '$this->_descripcion' WHERE id_localidad = $this->_idLocalidad";
+        $sql = "UPDATE localidad SET nombre = '$this->_descripcion', id_provincia = $this->_idProvincia WHERE id_localidad = $this->_idLocalidad";
         $mysql = new MySQL();
         $mysql->actualizar($sql);
 
@@ -65,7 +65,6 @@ class Localidad {
 
     private function _generarLocalidad($registro){
         $localidad = new Localidad ($registro['nombre']);
-        $localidad->_descripcion = $registro['nombre'];
         $localidad->_idLocalidad = $registro['id_localidad'];
         $localidad->_idProvincia = $registro['id_provincia'];
         $localidad->setProvincia();

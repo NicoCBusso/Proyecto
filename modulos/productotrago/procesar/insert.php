@@ -35,10 +35,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 $productoTrago = new ProductoTrago($cantidad);
 $productoTrago->setIdTrago($trago);
 $productoTrago->setIdProducto($ingrediente);
-//$productoTrago->setCantidad($cantidad);
+$productoTrago->setCantidad($cantidad);
 
 $productoTrago->guardar();
 //highlight_string(var_export($productoTrago,true));
-//highlight_string(var_export($productoTrago,true));
+
 header("location: ../listado.php?id=$tragoVer");
 ?>

@@ -111,6 +111,6 @@ $producto->setIdMarca($marca);
 $producto->setIdEnvase($envase);
 $producto->setIdSubCategoria($subcategoria);
 $producto->guardar();
-highlight_string(var_export($producto,true));
-//header("location: ../listado.php");
+//highlight_string(var_export($producto,true));
+header("location: ../listado.php");
 ?>

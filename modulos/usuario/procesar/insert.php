@@ -9,6 +9,11 @@ $apellido = $_POST['txtApellido'];
 $dni = $_POST['txtDni'];
 $fechaNacimiento = $_POST['txtFechaNacimiento'];
 $genero = $_POST['cboSexo'];
+$imagen = $_FILES['fileImagen'];
+$estadoPersona = 1;
+$imagenNombre = $username;
+$dirImagenes = '../../../img/usuarios/';
+
 
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
 	//De Username
@@ -133,7 +138,21 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 		header("location: ../alta.php");
 		exit;
 	}
+	//de Imagen
+	if (empty($imagen['name'])){
+		$nombreImagen = 'user.png';
+	} else {
+		//Subir Imagen
+		$extension = pathinfo($imagen['name'], PATHINFO_EXTENSION);
+		$nombreSinEspacios = str_replace(" ", "_", $imagen['name']);
+		$fechaHora = date("dmYHis");
+		$nombreImagen = $fechaHora . "_" . $nombreSinEspacios;
+		$rutaImagen = $dirImagenes . $nombreImagen;
+		move_uploaded_file($imagen['tmp_name'], $rutaImagen);
+		//
+	}
 }
+
 $usuario = new Usuario ($username,$password);
 $usuario->setIdPerfil($perfil);
 $usuario->setNombre($nombre);
@@ -141,7 +160,11 @@ $usuario->setApellido($apellido);
 $usuario->setDni($dni);
 $usuario->setFechaNacimiento($fechaNacimiento);
 $usuario->setSexo($genero);
+$usuario->setEstadoPersona($estadoPersona);
+$usuario->setAvatar($nombreImagen);
 
 $usuario->guardar();
+//echo $dirImagenes;
+//highlight_string(var_export($usuario,true));
 header("location: ../listado.php");
 ?>
