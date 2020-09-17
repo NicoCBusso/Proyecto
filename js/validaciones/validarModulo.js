@@ -5,8 +5,8 @@ function validar(){
 		alert("El campo Nombre no debe estar vacio");
 		return;
 	}
-	if(nombre.length < 6){
-		alert("El campo Nombre debe contener al menos 6 caracteres");
+	if(nombre.length < 4){
+		alert("El campo Nombre debe contener al menos 4 caracteres");
 		return;
 	}
 	if(nombre.length > 51){
@@ -23,8 +23,8 @@ function validar(){
 		alert("El campo Directorio no debe estar vacio");
 		return;
 	}
-	if(directorio.length < 6){
-		alert("El campo Directorio debe contener al menos 6 caracteres");
+	if(directorio.length < 4){
+		alert("El campo Directorio debe contener al menos 4 caracteres");
 		return;
 	}
 	if(directorio.length > 51){

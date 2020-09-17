@@ -10,8 +10,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 		echo $_SESSION['mensaje_error'];
 		header("location: ../alta.php");
 		exit;
-	} elseif (strlen(trim($nombre)) < 6) {
-		$_SESSION['mensaje_error'] = "El campo Nombre debe contener al menos 6 caracteres";
+	} elseif (strlen(trim($nombre)) < 3) {
+		$_SESSION['mensaje_error'] = "El campo Nombre debe contener al menos 4 caracteres";
 		header("location: ../alta.php");
 		exit;
 	} elseif (strlen(trim($nombre)) > 51) {
@@ -29,8 +29,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 		echo $_SESSION['mensaje_error'];
 		header("location: ../alta.php");
 		exit;
-	} elseif (strlen(trim($directorio)) < 6) {
-		$_SESSION['mensaje_error'] = "El campo Directorio debe contener al menos 6 caracteres";
+	} elseif (strlen(trim($directorio)) < 3) {
+		$_SESSION['mensaje_error'] = "El campo Directorio debe contener al menos 4 caracteres";
 		header("location: ../alta.php");
 		exit;
 	} elseif (strlen(trim($directorio)) > 51) {

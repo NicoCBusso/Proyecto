@@ -37,11 +37,14 @@ class ProductoFinal{
     
     public static function obtenerPorId($id){
         $sql = "SELECT * FROM productofinal WHERE id_producto_final =". $id;
+
         $mysql = new MySQL();
         $datos = $mysql->consultar($sql);
         $mysql->desconectar();
+
         $registro = $datos->fetch_assoc();
-        $productoFinal = self::_generarListadoProductoFinal($datos);
+
+        $productoFinal = self::_generarProductoFinal($registro);
 
         return $productoFinal;
     }
