@@ -30,17 +30,33 @@ CREATE TABLE `asistencia` (
 
 /*Data for the table `asistencia` */
 
+/*Table structure for table `cargo` */
+
+DROP TABLE IF EXISTS `cargo`;
+
+CREATE TABLE `cargo` (
+  `id_cargo` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id_cargo`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
+
+/*Data for the table `cargo` */
+
+insert  into `cargo`(`id_cargo`,`nombre`) values (1,'Gerente'),(2,'Barman'),(3,'Cajero'),(4,'Seguridad'),(5,'Personal Baño'),(6,'ValidacionOK');
+
 /*Table structure for table `categoria` */
 
 DROP TABLE IF EXISTS `categoria`;
 
 CREATE TABLE `categoria` (
-  `id_categoria` int(11) NOT NULL,
-  `nombre` varchar(100) NOT NULL,
+  `id_categoria` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(50) NOT NULL,
   PRIMARY KEY (`id_categoria`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `categoria` */
+
+insert  into `categoria`(`id_categoria`,`nombre`) values (1,'Alcoholica'),(2,'Sin Alcohol'),(3,'ValidacionOK');
 
 /*Table structure for table `compra` */
 
@@ -72,21 +88,39 @@ CREATE TABLE `detallecompra` (
 
 /*Data for the table `detallecompra` */
 
-/*Table structure for table `domicilio` */
+/*Table structure for table `detalleventa` */
 
-DROP TABLE IF EXISTS `domicilio`;
+DROP TABLE IF EXISTS `detalleventa`;
 
-CREATE TABLE `domicilio` (
-  `id_domicilio` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `detalleventa` (
+  `id_detalle_venta` int(11) NOT NULL AUTO_INCREMENT,
+  `id_venta` int(11) DEFAULT NULL,
+  `id_producto_final` int(11) DEFAULT NULL,
+  `precio` float DEFAULT NULL,
+  `estado` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id_detalle_venta`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+
+/*Data for the table `detalleventa` */
+
+insert  into `detalleventa`(`id_detalle_venta`,`id_venta`,`id_producto_final`,`precio`,`estado`) values (1,1,11,350,1),(2,1,7,150,1);
+
+/*Table structure for table `direccion` */
+
+DROP TABLE IF EXISTS `direccion`;
+
+CREATE TABLE `direccion` (
+  `id_direccion` int(11) NOT NULL AUTO_INCREMENT,
   `id_persona` int(11) NOT NULL,
   `id_localidad` int(11) NOT NULL,
-  `descripcion` varchar(200) NOT NULL,
-  PRIMARY KEY (`id_domicilio`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4;
+  `calle` varchar(50) NOT NULL,
+  `numero` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id_direccion`)
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4;
 
-/*Data for the table `domicilio` */
+/*Data for the table `direccion` */
 
-insert  into `domicilio`(`id_domicilio`,`id_persona`,`id_localidad`,`descripcion`) values (19,1,2,'Mitre 423'),(20,1,2,'Mitre 423'),(21,1,2,'Mitre 423');
+insert  into `direccion`(`id_direccion`,`id_persona`,`id_localidad`,`calle`,`numero`) values (19,1,2,'Mitre ',523),(20,1,2,'Mitre ',523),(21,1,2,'Mitre ',523),(22,87,1,'Mitreasd',55521312),(23,89,4,'Mitre',555),(24,89,4,'Mitre',555),(25,92,1,'Mitre',555),(26,88,1,'Mitre',555),(27,95,7,'Pellegrini',2859),(28,96,1,'asdasd3321',123123),(29,93,1,'Mitre',555),(30,97,2,'Mitreasd',52332213);
 
 /*Table structure for table `empleado` */
 
@@ -97,21 +131,25 @@ CREATE TABLE `empleado` (
   `id_persona_fisica` int(11) NOT NULL,
   `id_cargo` int(11) NOT NULL,
   PRIMARY KEY (`id_empleado`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `empleado` */
+
+insert  into `empleado`(`id_empleado`,`id_persona_fisica`,`id_cargo`) values (1,43,4),(2,0,3),(3,44,1),(4,45,1),(5,46,2),(6,47,1),(7,51,1),(8,52,2),(9,53,5),(10,0,1),(11,0,0),(12,0,0),(13,0,0),(14,0,0),(15,0,0),(16,0,0),(17,0,0),(18,0,1),(19,54,2),(20,0,2),(21,56,2),(22,57,1),(23,58,1);
 
 /*Table structure for table `envase` */
 
 DROP TABLE IF EXISTS `envase`;
 
 CREATE TABLE `envase` (
-  `id_envase` int(11) NOT NULL,
+  `id_envase` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(50) NOT NULL,
   PRIMARY KEY (`id_envase`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `envase` */
+
+insert  into `envase`(`id_envase`,`nombre`) values (1,'Vaso'),(2,'Botella'),(3,'Lata'),(18,'Arreglar123');
 
 /*Table structure for table `localidad` */
 
@@ -122,25 +160,25 @@ CREATE TABLE `localidad` (
   `nombre` varchar(100) NOT NULL,
   `id_provincia` int(11) NOT NULL,
   PRIMARY KEY (`id_localidad`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `localidad` */
 
-insert  into `localidad`(`id_localidad`,`nombre`,`id_provincia`) values (1,'Formosa',2),(2,'Formosa',2),(3,'Formosa',2),(4,'Formosa',2),(5,'Formosa',2);
+insert  into `localidad`(`id_localidad`,`nombre`,`id_provincia`) values (1,'Formosa',1),(2,'Herradura',1),(3,'Laishi',1),(4,'Azul',2),(5,'La Plata',2),(6,'Resistencia',4),(7,'Olavarria',2),(8,'Tandil',2);
 
 /*Table structure for table `marca` */
 
 DROP TABLE IF EXISTS `marca`;
 
 CREATE TABLE `marca` (
-  `id_marca` int(11) NOT NULL,
-  `nombre` varchar(100) NOT NULL,
+  `id_marca` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(50) NOT NULL,
   PRIMARY KEY (`id_marca`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `marca` */
 
-insert  into `marca`(`id_marca`,`nombre`) values (1,'2');
+insert  into `marca`(`id_marca`,`nombre`) values (2,'Brahma Lima'),(3,'Quilmes'),(4,'Miller'),(5,'King Night'),(6,'Speed'),(7,'Coca Cola'),(8,'Sprite'),(9,'Fanta'),(10,'Absolut'),(11,'Smirnoff'),(12,'Sky'),(13,'Tres Plumas'),(14,'Cusenier'),(20,'ValidacionOK');
 
 /*Table structure for table `modulo` */
 
@@ -149,10 +187,13 @@ DROP TABLE IF EXISTS `modulo`;
 CREATE TABLE `modulo` (
   `id_modulo` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(50) NOT NULL,
+  `directorio` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id_modulo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `modulo` */
+
+insert  into `modulo`(`id_modulo`,`nombre`,`directorio`) values (1,'Empleado','empleado'),(2,'Usuario','usuario'),(3,'Proveedor','proveedor'),(4,'Pais','pais'),(5,'Provincia','provincia'),(6,'Localidad','localidad'),(7,'Perfil','perfil'),(8,'Modulo','modulo'),(9,'Categoria','categoria'),(10,'Marca','marca'),(12,'Producto','producto'),(13,'Envase','envase'),(14,'Trago','trago'),(15,'Cargo','cargo'),(16,'Venta','venta');
 
 /*Table structure for table `pais` */
 
@@ -160,13 +201,13 @@ DROP TABLE IF EXISTS `pais`;
 
 CREATE TABLE `pais` (
   `id_pais` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(30) NOT NULL,
+  `nombre` varchar(50) NOT NULL,
   PRIMARY KEY (`id_pais`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `pais` */
 
-insert  into `pais`(`id_pais`,`nombre`) values (1,'Argentina');
+insert  into `pais`(`id_pais`,`nombre`) values (1,'Argentina'),(2,'Paraguay'),(3,'Brasil'),(4,'Uruguay');
 
 /*Table structure for table `perfil` */
 
@@ -176,21 +217,26 @@ CREATE TABLE `perfil` (
   `id_perfil` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(50) NOT NULL,
   PRIMARY KEY (`id_perfil`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `perfil` */
+
+insert  into `perfil`(`id_perfil`,`nombre`) values (1,'Administrador'),(2,'Usuario'),(6,'Dieguito Maradona'),(7,'ValidacionOK');
 
 /*Table structure for table `perfil_modulo` */
 
 DROP TABLE IF EXISTS `perfil_modulo`;
 
 CREATE TABLE `perfil_modulo` (
-  `id_perfil` int(11) NOT NULL,
-  `id_modulo` int(11) NOT NULL,
-  PRIMARY KEY (`id_perfil`,`id_modulo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `id_perfil_modulo` int(11) NOT NULL AUTO_INCREMENT,
+  `id_perfil` int(11) DEFAULT NULL,
+  `id_modulo` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id_perfil_modulo`)
+) ENGINE=InnoDB AUTO_INCREMENT=104 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `perfil_modulo` */
+
+insert  into `perfil_modulo`(`id_perfil_modulo`,`id_perfil`,`id_modulo`) values (42,2,1),(43,2,2),(44,2,3),(45,2,4),(46,2,5),(47,2,6),(48,2,7),(49,2,8),(50,2,9),(51,6,7),(52,6,8),(53,6,9),(54,6,10),(55,6,12),(56,6,13),(87,7,14),(88,7,15),(89,1,1),(90,1,2),(91,1,3),(92,1,4),(93,1,5),(94,1,6),(95,1,7),(96,1,8),(97,1,9),(98,1,10),(99,1,12),(100,1,13),(101,1,14),(102,1,15),(103,1,16);
 
 /*Table structure for table `persona` */
 
@@ -199,11 +245,11 @@ DROP TABLE IF EXISTS `persona`;
 CREATE TABLE `persona` (
   `id_persona` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id_persona`)
-) ENGINE=InnoDB AUTO_INCREMENT=72 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=125 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `persona` */
 
-insert  into `persona`(`id_persona`) values (8),(9),(10),(11),(12),(13),(14),(15),(16),(17),(18),(19),(20),(21),(22),(23),(24),(25),(26),(27),(28),(29),(30),(31),(32),(33),(34),(35),(36),(37),(38),(39),(40),(41),(42),(43),(44),(45),(46),(47),(48),(49),(50),(51),(52),(53),(54),(55),(56),(57),(58),(59),(60),(61),(62),(63),(64),(65),(66),(67),(68),(69),(70),(71);
+insert  into `persona`(`id_persona`) values (1),(87),(88),(89),(90),(91),(92),(93),(94),(95),(96),(97),(98),(99),(100),(101),(102),(103),(104),(105),(106),(107),(108),(109),(110),(111),(112),(113),(114),(115),(116),(117),(118),(119),(120),(121),(122),(123),(124);
 
 /*Table structure for table `persona_contacto` */
 
@@ -229,14 +275,14 @@ CREATE TABLE `personafisica` (
   `apellido` varchar(100) NOT NULL,
   `fecha_nacimiento` date NOT NULL,
   `sexo` int(11) DEFAULT NULL,
-  `dni` varchar(10) DEFAULT NULL,
+  `dni` int(10) DEFAULT NULL,
   `estado_persona` int(1) NOT NULL,
   PRIMARY KEY (`id_persona_fisica`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `personafisica` */
 
-insert  into `personafisica`(`id_persona_fisica`,`id_persona`,`nombre`,`apellido`,`fecha_nacimiento`,`sexo`,`dni`,`estado_persona`) values (1,13,'Nicolas','','0000-00-00',NULL,NULL,0),(2,15,'Nicolas','Colo','0000-00-00',NULL,NULL,0),(3,17,'Nicolass','Colos','0000-00-00',NULL,NULL,0),(4,18,'Nicolasss','Coloss','0000-00-00',NULL,NULL,0),(5,23,'Nicolassssasds','Colossss','0000-00-00',0,NULL,1),(6,24,'','','0000-00-00',0,NULL,0),(7,25,'','','0000-00-00',0,NULL,0),(8,26,'','','0000-00-00',0,NULL,0),(9,27,'','','0000-00-00',0,NULL,0),(10,28,'','','0000-00-00',0,NULL,0),(11,29,'','','0000-00-00',0,NULL,0),(12,30,'','','0000-00-00',0,NULL,0),(13,31,'','','0000-00-00',0,NULL,0),(14,32,'','','0000-00-00',0,NULL,0),(15,33,'','','0000-00-00',0,NULL,0),(16,34,'','','0000-00-00',0,NULL,0),(17,35,'','','0000-00-00',0,NULL,0),(18,36,'','','0000-00-00',0,NULL,0),(19,37,'','','0000-00-00',0,NULL,0),(20,38,'','','0000-00-00',0,NULL,0),(21,39,'','','0000-00-00',0,NULL,0),(22,40,'','','0000-00-00',0,NULL,0),(23,41,'','','0000-00-00',0,NULL,0),(24,42,'','','0000-00-00',0,NULL,0),(25,43,'','','0000-00-00',0,NULL,0),(26,44,'','','0000-00-00',0,NULL,0),(27,45,'','','0000-00-00',0,NULL,0),(28,46,'','','0000-00-00',0,NULL,0),(29,47,'','','0000-00-00',0,NULL,0),(30,48,'','','0000-00-00',0,NULL,0),(31,49,'','','0000-00-00',0,NULL,0);
+insert  into `personafisica`(`id_persona_fisica`,`id_persona`,`nombre`,`apellido`,`fecha_nacimiento`,`sexo`,`dni`,`estado_persona`) values (1,1,'Nicolas','Colo Busso','1997-05-22',1,40486444,1),(46,87,'asddasd','Colo','2002-09-01',2,12345678,1),(47,88,'Hector Mario','Colo','2020-07-06',1,5486444,1),(48,91,'','','0000-00-00',0,0,0),(49,92,'dasdqweqw','Bussosdasd','2020-07-06',1,5486444,0),(50,93,'dasdqweqw','Bussosdasd','0000-00-00',1,40486444,0),(51,94,'Hector Mario','Bussosdasd','0000-00-00',1,5486444,1),(52,95,'Franco Nicolas','Colo Busso','1997-05-22',1,40486444,1),(53,97,'Sabrina','Almiron','1995-08-03',2,5485845,1),(54,107,'Hector Mario','Bussosdasd','0000-00-00',1,40486444,1),(55,109,'asdasdas','asdasdasd','0000-00-00',1,40486444,0),(56,112,'Licor Melons','Almiron','1979-01-23',2,40486444,1),(57,114,'Hector Mario','Busso','1995-05-22',1,40486444,1),(58,115,'Hector Mario','Bussosdasd','0000-00-00',1,40486444,1),(59,116,'Franco Nicolas','Colo Busso','1997-05-22',1,40486444,0),(60,117,'Franco Nicolas','Colo Busso','1997-05-22',1,40486444,0),(61,118,'Franco Nicolas','Colo Busso','1997-05-11',1,40486444,0),(62,119,'Sabrina','Almiron','1997-05-22',2,25486444,1),(63,123,'Hector Mario','Colo','0000-00-00',1,5486444,1),(64,124,'Champagne','Almiron','1997-05-22',2,5486444,1);
 
 /*Table structure for table `producto` */
 
@@ -252,35 +298,42 @@ CREATE TABLE `producto` (
   `id_marca` int(11) NOT NULL,
   `id_envase` int(11) NOT NULL,
   PRIMARY KEY (`id_producto`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `producto` */
+
+insert  into `producto`(`id_producto`,`id_subcategoria`,`codigo_barra`,`contenido`,`precio_compra`,`id_producto_final`,`id_marca`,`id_envase`) values (3,1,'645845',1000,1000,0,2,1),(4,8,'645845',1000,1000,1,2,1),(5,14,'64584542',1000,1500,2,10,2),(6,13,'64584523',350,30,3,6,3),(7,8,'645845',1000,1000,4,5,2),(11,6,'213123',123123,213123,10,4,1);
 
 /*Table structure for table `producto_trago` */
 
 DROP TABLE IF EXISTS `producto_trago`;
 
 CREATE TABLE `producto_trago` (
+  `id_producto_trago` int(11) NOT NULL AUTO_INCREMENT,
   `id_producto` int(11) NOT NULL,
   `id_trago` int(11) NOT NULL,
   `cantidad` int(11) NOT NULL,
-  PRIMARY KEY (`id_producto`,`id_trago`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  PRIMARY KEY (`id_producto_trago`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `producto_trago` */
+
+insert  into `producto_trago`(`id_producto_trago`,`id_producto`,`id_trago`,`cantidad`) values (2,6,1,350),(3,5,6,150),(6,6,6,350),(7,7,1,150),(8,4,7,1234),(10,6,8,1500);
 
 /*Table structure for table `productofinal` */
 
 DROP TABLE IF EXISTS `productofinal`;
 
 CREATE TABLE `productofinal` (
-  `id_producto_final` int(11) NOT NULL,
+  `id_producto_final` int(11) NOT NULL AUTO_INCREMENT,
   `precio_venta` float NOT NULL,
   `descripcion` varchar(100) NOT NULL,
   PRIMARY KEY (`id_producto_final`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `productofinal` */
+
+insert  into `productofinal`(`id_producto_final`,`precio_venta`,`descripcion`) values (1,100,'Coca'),(2,4500,'Vodka Absolut'),(3,70,'Speed Energizante'),(4,1000,'Licor de Melon'),(6,80,'Speed'),(7,150,'Melon Con Speed'),(11,350,'Vodka Absolut con Speed'),(13,2131,'Smirnoff');
 
 /*Table structure for table `proveedor` */
 
@@ -288,15 +341,15 @@ DROP TABLE IF EXISTS `proveedor`;
 
 CREATE TABLE `proveedor` (
   `id_proveedor` int(11) NOT NULL AUTO_INCREMENT,
-  `cuit` varchar(20) DEFAULT NULL,
+  `cuit` bigint(11) NOT NULL,
   `razon_social` varchar(100) NOT NULL,
   `id_persona` int(11) NOT NULL,
   PRIMARY KEY (`id_proveedor`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `proveedor` */
 
-insert  into `proveedor`(`id_proveedor`,`cuit`,`razon_social`,`id_persona`) values (1,'','Barrica',60),(2,'','Barrica',61),(3,'','Barrica',62),(4,'','Barrica',63),(5,'','Barrica',64),(6,'','Barrica',65),(7,'','Barrica',66),(8,'','Barrica',67),(9,'','Barrica',68),(10,'','Barrica',69),(11,'','Barrica',70),(12,'','Barrica',71);
+insert  into `proveedor`(`id_proveedor`,`cuit`,`razon_social`,`id_persona`) values (1,0,'Barrica',60),(2,0,'Barrica',61),(3,0,'Barrica',62),(4,0,'Barrica',63),(5,0,'Barrica',64),(6,0,'Barrica',65),(7,0,'Barrica',66),(8,0,'Barrica',67),(9,0,'Barrica',68),(10,0,'Barrica',69),(11,0,'Barrica',70),(12,0,'Barrica',71),(13,12345678911,'Barrica',89),(14,2147483647,'Barrica',90),(15,2147483647,'asdasdsadsad',96),(16,2147483647,'Caceres',110),(17,2147483647,'asdasd',111),(18,12345678911,'Barricasss',113);
 
 /*Table structure for table `provincia` */
 
@@ -307,11 +360,11 @@ CREATE TABLE `provincia` (
   `nombre` varchar(100) NOT NULL,
   `id_pais` int(11) NOT NULL,
   PRIMARY KEY (`id_provincia`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `provincia` */
 
-insert  into `provincia`(`id_provincia`,`nombre`,`id_pais`) values (1,'Formosa',1),(2,'Formosa',1),(3,'Formosa',1),(4,'Formosa',1),(5,'Formosa',1),(6,'Formosa',1),(7,'Formosa',1),(8,'Formosa',1),(9,'Formosa',1),(10,'Formosa',1),(11,'Formosa',1);
+insert  into `provincia`(`id_provincia`,`nombre`,`id_pais`) values (1,'Formosa',1),(2,'Buenos Aires',1),(3,'Santa Fe',1),(4,'Corrientes',1),(5,'Chaco',1),(6,'Jujuy',1),(7,'Misiones',1),(8,'Entre Rios',1),(9,'Cordoba',1),(10,'Asuncion',2),(11,'Chubut',1),(12,'Montevideo',4);
 
 /*Table structure for table `stock` */
 
@@ -332,13 +385,15 @@ CREATE TABLE `stock` (
 DROP TABLE IF EXISTS `subcategoria`;
 
 CREATE TABLE `subcategoria` (
-  `id_subcategoria` int(11) NOT NULL,
-  `nombre` varchar(100) NOT NULL,
+  `id_subcategoria` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(50) NOT NULL,
   `id_categoria` int(11) NOT NULL,
   PRIMARY KEY (`id_subcategoria`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `subcategoria` */
+
+insert  into `subcategoria`(`id_subcategoria`,`nombre`,`id_categoria`) values (1,'Cerveza',1),(3,'Gaseosa',2),(6,'Champagne',1),(8,'Licor',1),(9,'Vodka',1),(10,'Agua',2),(11,'Soda',2),(12,'Trago',1),(13,'Energizante',2),(14,'Vodka',1),(15,'Granadina',2),(16,'ValidacionOK',1);
 
 /*Table structure for table `tipocontacto` */
 
@@ -369,12 +424,14 @@ CREATE TABLE `tipodocumento` (
 DROP TABLE IF EXISTS `trago`;
 
 CREATE TABLE `trago` (
-  `id_trago` int(11) NOT NULL,
+  `id_trago` int(11) NOT NULL AUTO_INCREMENT,
   `id_producto_final` int(11) NOT NULL,
   PRIMARY KEY (`id_trago`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `trago` */
+
+insert  into `trago`(`id_trago`,`id_producto_final`) values (1,7),(6,11),(7,12),(8,13);
 
 /*Table structure for table `usuario` */
 
@@ -386,10 +443,31 @@ CREATE TABLE `usuario` (
   `password` varchar(20) NOT NULL,
   `id_perfil` int(11) NOT NULL,
   `id_persona_fisica` int(11) NOT NULL,
+  `avatar` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id_usuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `usuario` */
+
+insert  into `usuario`(`id_usuario`,`username`,`password`,`id_perfil`,`id_persona_fisica`,`avatar`) values (1,'nicocbusso','123123',1,1,'08092020224012_image.jpg'),(10,'sabrialm','123123',1,62,'user.png'),(14,'hectorcolo','123123',1,63,'user.png'),(15,'nicocbussoasd','123123',1,64,'08092020230723_whatsapp-logo-1.png');
+
+/*Table structure for table `venta` */
+
+DROP TABLE IF EXISTS `venta`;
+
+CREATE TABLE `venta` (
+  `id_venta` int(11) NOT NULL AUTO_INCREMENT,
+  `id_usuario` int(11) NOT NULL,
+  `fecha_hora_emision` datetime DEFAULT NULL,
+  `fecha_hora_expiracion` datetime DEFAULT NULL,
+  `estado` int(11) DEFAULT NULL,
+  `total` float DEFAULT NULL,
+  PRIMARY KEY (`id_venta`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+
+/*Data for the table `venta` */
+
+insert  into `venta`(`id_venta`,`id_usuario`,`fecha_hora_emision`,`fecha_hora_expiracion`,`estado`,`total`) values (1,1,'2020-09-14 21:03:56','2020-09-15 04:04:06',1,500);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
