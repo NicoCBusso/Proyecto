@@ -58,6 +58,23 @@ class ProductoFinal{
 
         return $listado;
     }
+    public static function obtenerTodosJSON(){
+        $sql = "SELECT * FROM productofinal";
+        $mysql = new MySQL();
+        $datos = $mysql->consultar($sql);
+        $mysql->desconectar();
+
+        return $datos;
+    }
+
+    public static function buscarProductoFinal($descripcion){
+        $sql = "SELECT * FROM productofinal WHERE descripcion LIKE '%".$descripcion."%'";
+        $mysql = new MySQL();
+        $datos = $mysql->consultar($sql);
+        $mysql->desconectar();
+
+        return $datos;
+    }
 
     private function _generarListadoProductoFinal($datos){
         $listado = array();

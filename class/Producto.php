@@ -49,6 +49,16 @@ class Producto extends ProductoFinal{
 
         return $listado;
     }
+    public static function obtenerTodosJSON()
+    {
+        $sql="SELECT *  FROM producto INNER JOIN productofinal ON producto.id_producto_final = productofinal.id_producto_final";
+
+        $mysql = new MySQL();
+        $datos = $mysql->consultar($sql);
+        $mysql->desconectar();
+
+        return $datos;
+    }
 
 
     public function _generarListadoProducto($datos){

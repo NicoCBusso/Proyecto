@@ -16,7 +16,9 @@ class DetalleVenta{
 	public $venta;
 
 
-
+    public function __construct($idProductoFinal){
+        $this->_idProductoFinal = $idProductoFinal;
+    }
     /**
      * @return mixed
      */
@@ -40,7 +42,7 @@ class DetalleVenta{
     /**
      * @return mixed
      */
-    public function getIdVenta()
+    public function getIdVentaa()
     {
         return $this->_idVenta;
     }
@@ -110,9 +112,9 @@ class DetalleVenta{
      *
      * @return self
      */
-    public function setPrecio($_precio)
+    public function setPrecio()
     {
-        $this->_precio = $_precio;
+        $this->_precio = $this->productoFinal->getPrecioVenta();
 
         return $this;
     }
@@ -156,12 +158,19 @@ class DetalleVenta{
 
         return $this;
     }
+    public function guardar(){
+        $sql = "INSERT INTO detalleventa (id_detalle_venta,id_venta,id_producto_final,precio,estado) VALUES (NULL,$this->_idVenta,$this->_idProductoFinal,$this->_precio,$this->_estado);";
 
+        $mysql = new MySQL();
+        $idInsertado = $mysql->insertar($sql);
+
+        $this->_idDetalleVenta = $idInsertado;
+        var_dump($sql);
+    }
     public function _generarDetalleVenta ($registro){
-    	$detalleVenta = new DetalleVenta();
+    	$detalleVenta = new DetalleVenta($registro['id_producto_final']);
     	$detalleVenta->_idDetalleVenta = $registro['id_detalle_venta'];
     	$detalleVenta->_idVenta = $registro['id_venta'];
-    	$detalleVenta->_idProductoFinal = $registro['id_producto_final'];
     	$detalleVenta->_precio = $registro['precio'];
     	$detalleVenta->_estado = $registro['estado'];
     	$detalleVenta->setProductoFinal();
@@ -169,7 +178,7 @@ class DetalleVenta{
     	//highlight_string(var_export($detalleVenta,true));
     	return $detalleVenta;
     }
-
+    
     private function _generarListadoDetalleVenta($datos){
         $listado = array();
         while ($registro = $datos->fetch_assoc())

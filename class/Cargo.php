@@ -32,7 +32,7 @@ class Cargo{
     	return $cargo;
     }
 
-    public function _generarListadoPerfil($datos){
+    public function _generarListadoCargo($datos){
     	$listado = array();
     	while ($registro = $datos->fetch_assoc()) {
     		$cargo = self::_generarCargo($registro);
@@ -47,9 +47,18 @@ class Cargo{
         $datos = $mysql->consultar($sql);
         $mysql->desconectar();
 
-        $listado = self::_generarListadoPerfil($datos);
+        $listado = self::_generarListadoCargo($datos);
 
         return $listado;
+    }
+    public static function obtenerTodosJSON()
+    {
+        $sql= "SELECT id_cargo,nombre FROM cargo";
+        $mysql = new MySQL();
+        $datos = $mysql->consultar($sql);
+        $mysql->desconectar();
+
+        return $datos;
     }
     public static function obtenerPorId($id)
     {

@@ -86,7 +86,7 @@ $venta = Venta::obtenerPorId($idVenta);
               <tbody>
                   <td><?php echo $detalleVenta->getIdDetalleVenta();?></td>
                   <td><?php echo $detalleVenta->productoFinal->getNombre();?></td>
-                  <td>$<?php echo $detalleVenta->productoFinal->getPrecioVenta();?></td> 
+                  <td>$<?php echo $detalleVenta->getPrecio();?></td> 
                   <td><?php echo $detalleVenta->getEstado();?></td>
               </tbody>      
               <?php endforeach ?>

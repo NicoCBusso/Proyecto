@@ -10,6 +10,7 @@ class Venta {
 	private $_arrDetalleVenta;
 	private $_fechaHoraEmision;
 	private $_fechaHoraExpiracion;
+    private $_estado;
 	private $_total;
 
 	public $usuario;
@@ -68,11 +69,15 @@ class Venta {
      *
      * @return self
      */
+
     public function setArrDetalleVenta()
     {
         $this->_arrDetalleVenta = DetalleVenta::obtenerPorIdVenta($this->_idVenta);
 
         return $this;
+    }
+    public function addDetalleFactura($detalleFactura) {
+        $this->_arrDetalleVenta[] = $detalleFactura;
     }
 
     /**
@@ -136,6 +141,15 @@ class Venta {
 
         return $this;
     }
+    public function guardar(){
+        $sql = "INSERT INTO venta (id_venta,id_usuario,fecha_hora_emision,estado) VALUES (NULL,$this->_idUsuario,'$this->_fechaHoraEmision',$this->_estado);";
+
+        $mysql = new MySQL();
+        $idInsertado = $mysql->insertar($sql);
+
+        $this->_idVenta= $idInsertado;
+        var_dump($sql);        
+    }
 
     public function _generarVenta($registro){
     	$venta = new Venta();
@@ -144,7 +158,8 @@ class Venta {
     	$venta->setArrDetalleVenta();
     	$venta->_fechaHoraEmision = $registro['fecha_hora_emision'];
     	$venta->_fechaHoraExpiracion = $registro['fecha_hora_expiracion'];
-    	$venta->_total = $registro['total'];
+        $venta->_estado = $registro['estado'];
+        $venta->setTotal();    	
     	$venta->setUsuario();
 
     	return $venta;
@@ -183,7 +198,6 @@ class Venta {
         $venta = self::_generarVenta($registro);
         return $venta;
     }
-
     /**
      * @return mixed
      */
@@ -197,9 +211,33 @@ class Venta {
      *
      * @return self
      */
-    public function setTotal($_total)
+    public function setTotal()
     {
-        $this->_total = $_total;
+        $total = 0;
+        foreach ($this->_arrDetalleVenta as $detalleVenta) {
+            $total = $total+$detalleVenta->getPrecio();;
+        }
+        $this->_total = $total;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEstado()
+    {
+        return $this->_estado;
+    }
+
+    /**
+     * @param mixed $_estado
+     *
+     * @return self
+     */
+    public function setEstado($_estado)
+    {
+        $this->_estado = $_estado;
 
         return $this;
     }
