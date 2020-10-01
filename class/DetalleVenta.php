@@ -201,7 +201,15 @@ class DetalleVenta{
 
         return $detalleVenta;
     }
-    
+    private function consultarStock($id){
+        $sql = "SELECT SUM(unidad) FROM stock WHERE id_producto =". $id;
+
+        $mysql = new MySQL();
+        $datos = $mysql->consultar($sql);
+        $mysql->desconectar();
+
+        return $datos;
+    }
 }
 
 ?>

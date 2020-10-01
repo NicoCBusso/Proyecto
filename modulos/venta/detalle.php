@@ -76,20 +76,20 @@ $venta = Venta::obtenerPorId($idVenta);
                       <table id="datatable" class="table" style="width:100%">
                         <thead>
                           <tr>
-                <th>ID</th>
-                <th>Producto</th>
-                <th>Precio</th>
-                <th>Estado</th>
-              </tr>
-                        </thead>
-                        <?php foreach($venta->getArrDetalleVenta() as $detalleVenta) :?>
-              <tbody>
-                  <td><?php echo $detalleVenta->getIdDetalleVenta();?></td>
-                  <td><?php echo $detalleVenta->productoFinal->getNombre();?></td>
-                  <td>$<?php echo $detalleVenta->getPrecio();?></td> 
-                  <td><?php echo $detalleVenta->getEstado();?></td>
-              </tbody>      
-              <?php endforeach ?>
+                            <th>ID</th>
+                            <th>Producto</th>
+                            <th>Precio</th>
+                            <th>Estado</th>
+                          </tr>
+                            </thead>
+                            <?php foreach($venta->getArrDetalleVenta() as $detalleVenta) :?>
+                              <tbody>
+                                  <td><?php echo $detalleVenta->getIdDetalleVenta();?></td>
+                                  <td><?php echo $detalleVenta->productoFinal->getNombre();?></td>
+                                  <td>$<?php echo $detalleVenta->getPrecio();?></td> 
+                                  <td><?php echo $detalleVenta->getEstado();?></td>
+                              </tbody>      
+                            <?php endforeach ?>
                       </table>
                       
                     </div>

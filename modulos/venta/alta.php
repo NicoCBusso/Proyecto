@@ -12,6 +12,14 @@ $listadoProductoFinal = ProductoFinal::obtenerTodos();
 </head>
 <body class="nav-md">
   <?php require_once"../../menu.php"; ?>
+  <?php if (isset($_SESSION['mensaje_error'])) :?>
+		<h3><font color="red">
+			<?php
+				echo $_SESSION['mensaje_error']; 
+		        unset($_SESSION['mensaje_error']);
+		    ?>
+	    </font></h3>
+    <?php endif;?>
   <!-- page content -->
   <div class="right_col" role="main">
   	<div class="">
@@ -139,6 +147,7 @@ $listadoProductoFinal = ProductoFinal::obtenerTodos();
 
 	//document.getElementById('id_message_validacion').style.display = 'none'; 
 	//$('#id_message_validacion').hide();// se deshabilita el mensaje
+	var id_detalle = 0;
 	var total = 0.0;
 	var vuelto = 0.0;
 	var detalle_venta = []; // array
@@ -155,18 +164,53 @@ $listadoProductoFinal = ProductoFinal::obtenerTodos();
 		}
 	})
 	function setCantidadProducto(id, descripcion, precio_venta){
+		 
 		let cantidad = prompt('Ingrese la cantidad');
+		if (cantidad == null || cantidad.trim() == ""){
+			return false;
+		}
+		if(isNaN(cantidad)){
+			return false;
+		}
 		let subtotal = calcularSubtotal(cantidad,precio_venta);
 		let items = {}; //items del detalle
-
+		items['id'] = id_detalle;
 		items['id_producto_final'] = id;
 		items['cantidad'] = cantidad;
-
+		items['subtotal'] = subtotal 
 		detalle_venta.push(items); //armando detalle para el envio
+		$('#detalle_venta tr:last').after('<tr id=' + id_detalle + '><td >' + id + '</td><td>' + descripcion + '</td><td>' + cantidad + '</td><td>$' + subtotal + '</td> <td><a href="#" role="button" class="btn btn-danger" onclick="eliminarDetalle('+id_detalle+');">Eliminar</a></td></tr>')
+		id_detalle++;
+		console.log(detalle_venta);
+	}
+	//Funcion Borrar
+	function eliminarDetalle(buscarIndex){
+			let respuesta=[];
+			for (let index = 0; index < detalle_venta.length; index++){
+				if(detalle_venta[index].id !== buscarIndex){
+					respuesta.push(detalle_venta[index])
+					//console.log(respuesta[index]);
+				} else {
+					console.log('borra este id');
+					console.log(index);
+					$('#' + detalle_venta[index].id).remove();
+					restarSubTotal(detalle_venta[index].subtotal);
+					//respuesta.splice(index, 1);
+				}
 
-		$('#detalle_venta tr:last').after('<tr><td >' + id + '</td><td>' + descripcion + '</td><td>' + cantidad + '</td><td>$' + subtotal + '</td> <td><a href="#" role="button" class="btn btn-danger" onclick="eliminarDetalleVenta();">Eliminar</a></td></tr>')
-
-		//console.log(descripcion);
+			} 
+			//console.log(respuesta);
+			detalle_venta = respuesta;
+			console.log(detalle_venta);
+			return detalle_venta;
+			/*id_detalle = id_detalle-1;
+			let index = detalle_venta.id.indexOf();
+			//console.log(index);
+			$('#' + index).remove();
+			console.log(index);
+			restarSubTotal(detalle_venta[index].subtotal);
+			detalle_venta.splice(index, 1);*/
+			
 	}
 	function buscarProductos(){
 	    $.ajax({
@@ -177,7 +221,7 @@ $listadoProductoFinal = ProductoFinal::obtenerTodos();
 	        },
 	        success: function(data){
 	            var datos = JSON.parse(data);
-	            $('#id_tabla_productos').empty();
+	            $('#id_tabla_productos tbody tr').empty();
 	            for (var x=0; x < datos.length; x++){
 	                console.log(datos[x]);
 	                $('#id_tabla_productos').append('<tr onclick="setCantidadProducto(' + datos[x].id_producto_final + ",'"  + datos[x].descripcion  + "',"  + datos[x].precio_venta + ')"><td >' + datos[x].id_producto_final + '</td><td>' + datos[x].descripcion + '</td><td>' + datos[x].precio_venta + '</td></tr>')
@@ -190,10 +234,19 @@ $listadoProductoFinal = ProductoFinal::obtenerTodos();
 	/*-----------------
     funciones de calculo
 	-------------------*/
+	function restarSubTotal(precio){
+		//let resultado 
+	    //let resultado = parseFloat(cantidad) * parseFloat(precio);
+	    total -= precio; //resta cantidad
+	    $('#id_total').text('$' + total);
+	    //console.log(total);
+	    return total;
+	}
 	function calcularSubtotal(cantidad, precio){
 	    let resultado = parseFloat(cantidad) * parseFloat(precio);
 	    total += resultado; //acumula cantidad
 	    $('#id_total').text('$' + total);
+	    //console.log(total);
 	    return resultado;
 	}
 
@@ -226,8 +279,9 @@ $listadoProductoFinal = ProductoFinal::obtenerTodos();
 		} else {
 			alert('Error Bro');
 		}
+		location.reload();
 	}
-
+	
   </script>
   <?php require_once"../../footer.php"; ?>              
 </body>
