@@ -90,8 +90,7 @@ $venta = Venta::obtenerPorId($idVenta);
                                   <td><?php echo $detalleVenta->getEstado();?></td>
                               </tbody>      
                             <?php endforeach ?>
-                      </table>
-                      
+                      </table>                      
                     </div>
                     </div>
                 </div>

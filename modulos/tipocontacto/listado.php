@@ -1,7 +1,7 @@
 <?php
-require_once "../../class/Pais.php";
+require_once "../../class/TipoContacto.php";
 
-$listadoPais = Pais::obtenerTodos();
+$listadoTipoContacto = TipoContacto::obtenerTodos();
 //highlight_string(var_export($listadoPais,true));
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -16,7 +16,7 @@ $listadoPais = Pais::obtenerTodos();
               <div class="col-md-12 col-sm-12 ">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Lista de Paises <small>Users</small></h2>
+                    <h2>Lista de Tipo de Contacto <small>Users</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -46,12 +46,12 @@ $listadoPais = Pais::obtenerTodos();
                           <th>Opciones</th>
                         </tr>
                       </thead>
-                      <?php foreach ($listadoPais as $pais): ?>
+                      <?php foreach ($listadoTipoContacto as $tipoContacto): ?>
                         <tbody>              
                           <tr>
-                            <td> <?php echo $pais->getDescripcion(); ?> </td>
+                            <td> <?php echo $tipoContacto->getDescripcion(); ?> </td>
                             <td width="50%"> 
-                              <a href="actualizar.php?id=<?php echo $pais->getIdPais(); ?>" role="button" title="Editar">Actualizar</a>
+                              <a href="actualizar.php?id=<?php echo $tipoContacto->getIdTipoContacto(); ?>" role="button" title="Editar">Actualizar</a>
                             </td>
                           </tr>
                         </tbody>
@@ -61,11 +61,12 @@ $listadoPais = Pais::obtenerTodos();
                   </div>
               </div>
             </div>
-
-            </div>
           </div>
         </div>
       </div>
+    </div>
+
+    </div>
   </div>
 
   <?php require_once"../../footer.php"; ?>              
