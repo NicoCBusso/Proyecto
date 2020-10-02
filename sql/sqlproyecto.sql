@@ -99,11 +99,11 @@ CREATE TABLE `detalleventa` (
   `precio` float DEFAULT NULL,
   `estado` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_detalle_venta`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2476 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `detalleventa` */
 
-insert  into `detalleventa`(`id_detalle_venta`,`id_venta`,`id_producto_final`,`precio`,`estado`) values (1,1,11,350,1),(2,1,7,150,1);
+insert  into `detalleventa`(`id_detalle_venta`,`id_venta`,`id_producto_final`,`precio`,`estado`) values (2409,26,6,80,1),(2410,26,6,80,1),(2411,26,6,80,1),(2412,26,11,350,1),(2413,26,11,350,1),(2414,27,1,100,1),(2415,27,1,100,1),(2416,27,1,100,1),(2417,27,3,70,1),(2418,27,3,70,1),(2419,27,3,70,1),(2420,27,3,70,1),(2421,28,1,100,1),(2422,28,1,100,1),(2423,28,1,100,1),(2424,28,3,70,1),(2425,28,3,70,1),(2426,28,3,70,1),(2427,28,3,70,1),(2428,29,1,100,1),(2429,29,1,100,1),(2430,29,6,80,1),(2431,30,1,120,1),(2432,30,1,120,1),(2433,30,14,120,1),(2434,30,14,120,1),(2435,30,14,120,1),(2436,30,14,120,1),(2437,31,1,120,1),(2438,31,1,120,1),(2439,31,14,120,1),(2440,31,14,120,1),(2441,31,14,120,1),(2442,31,14,120,1),(2443,32,1,120,1),(2444,32,1,120,1),(2445,32,14,120,1),(2446,32,14,120,1),(2447,32,14,120,1),(2448,32,14,120,1),(2449,33,1,120,1),(2450,33,1,120,1),(2451,33,14,120,1),(2452,33,14,120,1),(2453,33,14,120,1),(2454,33,14,120,1),(2455,34,4,1000,1),(2456,34,4,1000,1),(2457,35,2,4500,1),(2458,35,2,4500,1),(2459,36,1,120,1),(2460,36,1,120,1),(2461,37,1,120,1),(2462,37,1,120,1),(2463,38,1,120,1),(2464,38,1,120,1),(2465,39,1,120,1),(2466,39,1,120,1),(2467,40,2,4500,1),(2468,40,1,120,1),(2469,41,1,120,1),(2470,41,1,120,1),(2471,41,6,80,1),(2472,41,6,80,1),(2473,42,4,1000,1),(2474,43,1,120,1),(2475,43,15,130,1);
 
 /*Table structure for table `direccion` */
 
@@ -189,11 +189,11 @@ CREATE TABLE `modulo` (
   `nombre` varchar(50) NOT NULL,
   `directorio` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id_modulo`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `modulo` */
 
-insert  into `modulo`(`id_modulo`,`nombre`,`directorio`) values (1,'Empleado','empleado'),(2,'Usuario','usuario'),(3,'Proveedor','proveedor'),(4,'Pais','pais'),(5,'Provincia','provincia'),(6,'Localidad','localidad'),(7,'Perfil','perfil'),(8,'Modulo','modulo'),(9,'Categoria','categoria'),(10,'Marca','marca'),(12,'Producto','producto'),(13,'Envase','envase'),(14,'Trago','trago'),(15,'Cargo','cargo'),(16,'Venta','venta');
+insert  into `modulo`(`id_modulo`,`nombre`,`directorio`) values (1,'Empleado','empleado'),(2,'Usuario','usuario'),(3,'Proveedor','proveedor'),(4,'Pais','pais'),(5,'Provincia','provincia'),(6,'Localidad','localidad'),(7,'Perfil','perfil'),(8,'Modulo','modulo'),(9,'Categoria','categoria'),(10,'Marca','marca'),(12,'Producto','producto'),(13,'Envase','envase'),(14,'Trago','trago'),(15,'Cargo','cargo'),(16,'Venta','venta'),(17,'TipoContacto','tipocontacto'),(18,'Contacto','contacto');
 
 /*Table structure for table `pais` */
 
@@ -232,11 +232,11 @@ CREATE TABLE `perfil_modulo` (
   `id_perfil` int(11) DEFAULT NULL,
   `id_modulo` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_perfil_modulo`)
-) ENGINE=InnoDB AUTO_INCREMENT=104 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=153 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `perfil_modulo` */
 
-insert  into `perfil_modulo`(`id_perfil_modulo`,`id_perfil`,`id_modulo`) values (42,2,1),(43,2,2),(44,2,3),(45,2,4),(46,2,5),(47,2,6),(48,2,7),(49,2,8),(50,2,9),(51,6,7),(52,6,8),(53,6,9),(54,6,10),(55,6,12),(56,6,13),(87,7,14),(88,7,15),(89,1,1),(90,1,2),(91,1,3),(92,1,4),(93,1,5),(94,1,6),(95,1,7),(96,1,8),(97,1,9),(98,1,10),(99,1,12),(100,1,13),(101,1,14),(102,1,15),(103,1,16);
+insert  into `perfil_modulo`(`id_perfil_modulo`,`id_perfil`,`id_modulo`) values (42,2,1),(43,2,2),(44,2,3),(45,2,4),(46,2,5),(47,2,6),(48,2,7),(49,2,8),(50,2,9),(51,6,7),(52,6,8),(53,6,9),(54,6,10),(55,6,12),(56,6,13),(87,7,14),(88,7,15),(137,1,1),(138,1,2),(139,1,3),(140,1,4),(141,1,5),(142,1,6),(143,1,7),(144,1,8),(145,1,9),(146,1,10),(147,1,12),(148,1,13),(149,1,14),(150,1,15),(151,1,16),(152,1,17);
 
 /*Table structure for table `persona` */
 
@@ -256,10 +256,11 @@ insert  into `persona`(`id_persona`) values (1),(87),(88),(89),(90),(91),(92),(9
 DROP TABLE IF EXISTS `persona_contacto`;
 
 CREATE TABLE `persona_contacto` (
-  `id_persona` int(11) NOT NULL,
-  `id_tipo_persona` int(11) NOT NULL,
-  `valor` varchar(100) NOT NULL,
-  PRIMARY KEY (`id_persona`,`id_tipo_persona`)
+  `id_contacto` int(11) NOT NULL AUTO_INCREMENT,
+  `id_persona` int(11) DEFAULT NULL,
+  `id_tipo_contacto` int(11) DEFAULT NULL,
+  `valor` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id_contacto`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `persona_contacto` */
@@ -298,11 +299,11 @@ CREATE TABLE `producto` (
   `id_marca` int(11) NOT NULL,
   `id_envase` int(11) NOT NULL,
   PRIMARY KEY (`id_producto`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `producto` */
 
-insert  into `producto`(`id_producto`,`id_subcategoria`,`codigo_barra`,`contenido`,`precio_compra`,`id_producto_final`,`id_marca`,`id_envase`) values (3,1,'645845',1000,1000,0,2,1),(4,8,'645845',1000,1000,1,2,1),(5,14,'64584542',1000,1500,2,10,2),(6,13,'64584523',350,30,3,6,3),(7,8,'645845',1000,1000,4,5,2),(11,6,'213123',123123,213123,10,4,1);
+insert  into `producto`(`id_producto`,`id_subcategoria`,`codigo_barra`,`contenido`,`precio_compra`,`id_producto_final`,`id_marca`,`id_envase`) values (3,1,'645845',1000,1000,0,2,1),(4,8,'645845',1000,1000,1,2,1),(5,14,'64584542',1000,1500,2,10,2),(6,13,'64584523',350,30,3,6,3),(7,8,'645845',1000,1000,4,5,2),(11,6,'213123',123123,213123,10,4,1),(12,1,'1111111111',473,50,14,2,3),(13,1,'1111111111',473,50,15,4,3);
 
 /*Table structure for table `producto_trago` */
 
@@ -329,11 +330,11 @@ CREATE TABLE `productofinal` (
   `precio_venta` float NOT NULL,
   `descripcion` varchar(100) NOT NULL,
   PRIMARY KEY (`id_producto_final`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `productofinal` */
 
-insert  into `productofinal`(`id_producto_final`,`precio_venta`,`descripcion`) values (1,100,'Coca'),(2,4500,'Vodka Absolut'),(3,70,'Speed Energizante'),(4,1000,'Licor de Melon'),(6,80,'Speed'),(7,150,'Melon Con Speed'),(11,350,'Vodka Absolut con Speed'),(13,2131,'Smirnoff');
+insert  into `productofinal`(`id_producto_final`,`precio_venta`,`descripcion`) values (1,120,'Coca'),(2,4500,'Vodka Absolut'),(3,70,'Speed Energizante'),(4,1000,'Licor de Melon'),(6,80,'Speed'),(7,150,'Melon Con Speed'),(11,350,'Vodka Absolut con Speed'),(13,2131,'Smirnoff'),(14,120,'Brahma Lata'),(15,130,'Miller');
 
 /*Table structure for table `proveedor` */
 
@@ -360,11 +361,11 @@ CREATE TABLE `provincia` (
   `nombre` varchar(100) NOT NULL,
   `id_pais` int(11) NOT NULL,
   PRIMARY KEY (`id_provincia`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `provincia` */
 
-insert  into `provincia`(`id_provincia`,`nombre`,`id_pais`) values (1,'Formosa',1),(2,'Buenos Aires',1),(3,'Santa Fe',1),(4,'Corrientes',1),(5,'Chaco',1),(6,'Jujuy',1),(7,'Misiones',1),(8,'Entre Rios',1),(9,'Cordoba',1),(10,'Asuncion',2),(11,'Chubut',1),(12,'Montevideo',4);
+insert  into `provincia`(`id_provincia`,`nombre`,`id_pais`) values (1,'Formosa',1),(2,'Buenos Aires',1),(3,'Santa Fe',1),(4,'Corrientes',1),(5,'Chaco',1),(6,'Jujuy',1),(7,'Misiones',1),(8,'Entre Rios',1),(9,'Cordoba',1),(10,'Asuncion',2),(11,'Chubut',1),(12,'Montevideo',4),(13,'Tierra del Fuego',1);
 
 /*Table structure for table `stock` */
 
@@ -372,13 +373,16 @@ DROP TABLE IF EXISTS `stock`;
 
 CREATE TABLE `stock` (
   `id_stock` int(11) NOT NULL AUTO_INCREMENT,
-  `unidad` int(11) NOT NULL,
   `id_producto` int(11) NOT NULL,
+  `stock_actual` int(11) NOT NULL,
   `lugar` int(11) NOT NULL,
+  `stock_minimo` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_stock`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `stock` */
+
+insert  into `stock`(`id_stock`,`id_producto`,`stock_actual`,`lugar`,`stock_minimo`) values (1,12,50,2,NULL),(2,13,20,3,NULL),(3,13,20,1,NULL),(4,12,10,4,NULL);
 
 /*Table structure for table `subcategoria` */
 
@@ -403,9 +407,11 @@ CREATE TABLE `tipocontacto` (
   `id_tipo_contacto` int(11) NOT NULL AUTO_INCREMENT,
   `descripcion` varchar(100) NOT NULL,
   PRIMARY KEY (`id_tipo_contacto`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `tipocontacto` */
+
+insert  into `tipocontacto`(`id_tipo_contacto`,`descripcion`) values (1,'Email');
 
 /*Table structure for table `tipodocumento` */
 
@@ -461,13 +467,12 @@ CREATE TABLE `venta` (
   `fecha_hora_emision` datetime DEFAULT NULL,
   `fecha_hora_expiracion` datetime DEFAULT NULL,
   `estado` int(11) DEFAULT NULL,
-  `total` float DEFAULT NULL,
   PRIMARY KEY (`id_venta`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `venta` */
 
-insert  into `venta`(`id_venta`,`id_usuario`,`fecha_hora_emision`,`fecha_hora_expiracion`,`estado`,`total`) values (1,1,'2020-09-14 21:03:56','2020-09-15 04:04:06',1,500);
+insert  into `venta`(`id_venta`,`id_usuario`,`fecha_hora_emision`,`fecha_hora_expiracion`,`estado`) values (1,1,'2020-09-14 21:03:56','2020-09-15 04:04:06',1),(26,1,'2020-09-28 04:15:03',NULL,1),(27,1,'2020-09-28 19:05:42',NULL,1),(28,1,'2020-09-28 19:05:47',NULL,1),(29,1,'2020-09-28 19:07:15',NULL,1),(30,1,'2020-09-29 20:48:15',NULL,1),(31,1,'2020-09-29 20:48:19',NULL,1),(32,1,'2020-09-29 20:49:05',NULL,1),(33,1,'2020-09-29 20:53:42',NULL,1),(34,1,'2020-09-29 20:53:50',NULL,1),(35,1,'2020-09-29 20:54:39',NULL,1),(36,1,'2020-09-29 20:55:26',NULL,1),(37,1,'2020-09-29 20:55:54',NULL,1),(38,1,'2020-09-29 20:56:29',NULL,1),(39,1,'2020-09-29 21:10:53',NULL,1),(40,1,'2020-09-29 23:17:16',NULL,1),(41,1,'2020-09-29 23:19:01',NULL,1),(42,1,'2020-10-01 21:01:01',NULL,1),(43,1,'2020-10-01 23:40:11',NULL,1);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
