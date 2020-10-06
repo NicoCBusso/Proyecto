@@ -65,15 +65,13 @@ class Proveedor extends Persona{
         $proveedor->_idPersona = $registro['id_persona'];
         $proveedor->_cuit = $registro['cuit'];
         $proveedor->setDireccion();
+        $proveedor->setArrContacto();
         return $proveedor;  
     }
     public function _generarListadoProveedor($datos){
         $listado = array();
         while ($registro = $datos->fetch_assoc()) {
-            $proveedor = new Proveedor($registro['razon_social']);
-            $proveedor->_idProveedor = $registro['id_proveedor'];
-            $proveedor->_idPersona = $registro['id_persona'];
-            $proveedor->_cuit = $registro['cuit'];
+            $proveedor = self::_generarProveedor($registro);
             $listado[] = $proveedor;
             }
         return $listado; 

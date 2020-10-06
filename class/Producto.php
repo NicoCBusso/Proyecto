@@ -6,13 +6,13 @@ require_once 'SubCategoria.php';
 require_once 'ProductoFinal.php';
 
 class Producto extends ProductoFinal{
-    private $_idProducto;
-    private $_codigoBarra;
-    private $_contenido;
-    private $_precioCompra;
-    private $_idSubCategoria;
-    private $_idEnvase;
-    private $_idMarca;
+    public $_idProducto;
+    public $_codigoBarra;
+    public $_contenido;
+    public $_precioCompra;
+    public $_idSubCategoria;
+    public $_idEnvase;
+    public $_idMarca;
 
     public $marca;
     public $envase;
@@ -49,17 +49,17 @@ class Producto extends ProductoFinal{
 
         return $listado;
     }
-    public static function obtenerTodosJSON()
-    {
-        $sql="SELECT *  FROM producto INNER JOIN productofinal ON producto.id_producto_final = productofinal.id_producto_final";
 
+    public static function buscarPorDescripcion($descripcion){
+        $sql = "SELECT * FROM producto INNER JOIN productofinal ON producto.id_producto_final = productofinal.id_producto_final WHERE descripcion LIKE '%".$descripcion."%'";
         $mysql = new MySQL();
         $datos = $mysql->consultar($sql);
         $mysql->desconectar();
 
-        return $datos;
-    }
+        $listado = self::_generarListadoProductoFinal($datos);
 
+        return $listado;
+    }    
 
     public function _generarListadoProducto($datos){
     	$listado = array();

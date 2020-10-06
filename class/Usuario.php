@@ -93,6 +93,7 @@ class Usuario extends PersonaFisica {
         $usuario->_estaLogueado = true;
         $usuario->perfil = Perfil::obtenerPorId($usuario->_idPerfil);        
         $usuario->setDireccion();
+        $usuario->setArrContacto();
         $usuario->_avatar = $registro['avatar'];
 
         return $usuario;

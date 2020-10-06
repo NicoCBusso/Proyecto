@@ -64,29 +64,34 @@ DROP TABLE IF EXISTS `compra`;
 
 CREATE TABLE `compra` (
   `id_compra` int(11) NOT NULL AUTO_INCREMENT,
-  `nro_compra` varchar(10) NOT NULL,
   `fecha` date NOT NULL,
   `id_proveedor` int(11) NOT NULL,
   `id_usuario` int(11) NOT NULL,
+  `id_tipo_comprobante` int(11) DEFAULT NULL,
+  `estado` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_compra`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `compra` */
+
+insert  into `compra`(`id_compra`,`fecha`,`id_proveedor`,`id_usuario`,`id_tipo_comprobante`,`estado`) values (1,'2020-10-26',0,1,3,1),(2,'2020-11-04',0,1,1,1),(3,'2020-10-06',13,1,1,1),(4,'2020-10-06',13,1,1,1),(5,'2020-10-06',13,1,1,1),(6,'2020-10-22',13,1,1,1),(7,'2020-10-22',13,1,1,1),(8,'2020-10-22',13,1,1,1),(9,'2020-10-22',13,1,1,1),(10,'2020-10-22',13,1,1,1),(11,'2020-10-22',13,1,1,1),(12,'2020-10-22',13,1,1,1),(13,'2020-10-22',13,1,1,1),(14,'2020-10-22',13,1,1,1),(15,'2020-10-22',13,1,1,1);
 
 /*Table structure for table `detallecompra` */
 
 DROP TABLE IF EXISTS `detallecompra`;
 
 CREATE TABLE `detallecompra` (
-  `id_detalle_compra` int(11) NOT NULL,
+  `id_detalle_compra` int(11) NOT NULL AUTO_INCREMENT,
   `id_compra` int(11) NOT NULL,
   `id_producto` int(11) NOT NULL,
   `cantidad` int(11) NOT NULL,
   `precio` float NOT NULL,
   PRIMARY KEY (`id_detalle_compra`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `detallecompra` */
+
+insert  into `detallecompra`(`id_detalle_compra`,`id_compra`,`id_producto`,`cantidad`,`precio`) values (1,10,6,3,30),(2,10,6,3,30),(3,10,13,4,50),(4,11,6,3,30),(5,12,6,3,30),(6,12,6,3,30),(7,12,13,4,50),(8,13,6,3,30),(9,13,6,3,30),(10,13,13,4,50),(11,14,6,3,30),(12,14,6,3,30),(13,14,13,4,50),(14,15,6,10,30);
 
 /*Table structure for table `detalleventa` */
 
@@ -120,7 +125,7 @@ CREATE TABLE `direccion` (
 
 /*Data for the table `direccion` */
 
-insert  into `direccion`(`id_direccion`,`id_persona`,`id_localidad`,`calle`,`numero`) values (19,1,2,'Mitre ',523),(20,1,2,'Mitre ',523),(21,1,2,'Mitre ',523),(22,87,1,'Mitreasd',55521312),(23,89,4,'Mitre',555),(24,89,4,'Mitre',555),(25,92,1,'Mitre',555),(26,88,1,'Mitre',555),(27,95,7,'Pellegrini',2859),(28,96,1,'asdasd3321',123123),(29,93,1,'Mitre',555),(30,97,2,'Mitreasd',52332213);
+insert  into `direccion`(`id_direccion`,`id_persona`,`id_localidad`,`calle`,`numero`) values (19,1,2,'Mitre ',523),(20,1,2,'Mitre ',523),(21,1,2,'Mitre ',523),(22,87,1,'Mitre',2855),(23,89,4,'Mitre',555),(24,89,4,'Mitre',555),(25,92,1,'Mitre',555),(26,88,1,'Mitre',555),(27,95,7,'Pellegrini',2859),(28,96,1,'asdasd3321',123123),(29,93,1,'Mitre',555),(30,97,2,'Mitreasd',52332213);
 
 /*Table structure for table `empleado` */
 
@@ -189,11 +194,11 @@ CREATE TABLE `modulo` (
   `nombre` varchar(50) NOT NULL,
   `directorio` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id_modulo`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `modulo` */
 
-insert  into `modulo`(`id_modulo`,`nombre`,`directorio`) values (1,'Empleado','empleado'),(2,'Usuario','usuario'),(3,'Proveedor','proveedor'),(4,'Pais','pais'),(5,'Provincia','provincia'),(6,'Localidad','localidad'),(7,'Perfil','perfil'),(8,'Modulo','modulo'),(9,'Categoria','categoria'),(10,'Marca','marca'),(12,'Producto','producto'),(13,'Envase','envase'),(14,'Trago','trago'),(15,'Cargo','cargo'),(16,'Venta','venta'),(17,'TipoContacto','tipocontacto'),(18,'Contacto','contacto');
+insert  into `modulo`(`id_modulo`,`nombre`,`directorio`) values (1,'Empleado','empleado'),(2,'Usuario','usuario'),(3,'Proveedor','proveedor'),(4,'Pais','pais'),(5,'Provincia','provincia'),(6,'Localidad','localidad'),(7,'Perfil','perfil'),(8,'Modulo','modulo'),(9,'Categoria','categoria'),(10,'Marca','marca'),(12,'Producto','producto'),(13,'Envase','envase'),(14,'Trago','trago'),(15,'Cargo','cargo'),(16,'Venta','venta'),(17,'TipoContacto','tipocontacto'),(18,'Contacto','contacto'),(19,'Compra','compra');
 
 /*Table structure for table `pais` */
 
@@ -232,11 +237,11 @@ CREATE TABLE `perfil_modulo` (
   `id_perfil` int(11) DEFAULT NULL,
   `id_modulo` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_perfil_modulo`)
-) ENGINE=InnoDB AUTO_INCREMENT=153 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=170 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `perfil_modulo` */
 
-insert  into `perfil_modulo`(`id_perfil_modulo`,`id_perfil`,`id_modulo`) values (42,2,1),(43,2,2),(44,2,3),(45,2,4),(46,2,5),(47,2,6),(48,2,7),(49,2,8),(50,2,9),(51,6,7),(52,6,8),(53,6,9),(54,6,10),(55,6,12),(56,6,13),(87,7,14),(88,7,15),(137,1,1),(138,1,2),(139,1,3),(140,1,4),(141,1,5),(142,1,6),(143,1,7),(144,1,8),(145,1,9),(146,1,10),(147,1,12),(148,1,13),(149,1,14),(150,1,15),(151,1,16),(152,1,17);
+insert  into `perfil_modulo`(`id_perfil_modulo`,`id_perfil`,`id_modulo`) values (42,2,1),(43,2,2),(44,2,3),(45,2,4),(46,2,5),(47,2,6),(48,2,7),(49,2,8),(50,2,9),(51,6,7),(52,6,8),(53,6,9),(54,6,10),(55,6,12),(56,6,13),(87,7,14),(88,7,15),(153,1,1),(154,1,2),(155,1,3),(156,1,4),(157,1,5),(158,1,6),(159,1,7),(160,1,8),(161,1,9),(162,1,10),(163,1,12),(164,1,13),(165,1,14),(166,1,15),(167,1,16),(168,1,17),(169,1,19);
 
 /*Table structure for table `persona` */
 
@@ -261,9 +266,11 @@ CREATE TABLE `persona_contacto` (
   `id_tipo_contacto` int(11) DEFAULT NULL,
   `valor` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id_contacto`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=95 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `persona_contacto` */
+
+insert  into `persona_contacto`(`id_contacto`,`id_persona`,`id_tipo_contacto`,`valor`) values (1,87,1,'nicocolo_22@hotmail.com'),(88,87,2,'3704-841152'),(92,1,1,'nicocolo_22@hotmail.com'),(93,1,2,'3704-841152'),(94,89,1,'nicocolo_22@hotmail.com');
 
 /*Table structure for table `personafisica` */
 
@@ -378,11 +385,11 @@ CREATE TABLE `stock` (
   `lugar` int(11) NOT NULL,
   `stock_minimo` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_stock`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `stock` */
 
-insert  into `stock`(`id_stock`,`id_producto`,`stock_actual`,`lugar`,`stock_minimo`) values (1,12,50,2,NULL),(2,13,20,3,NULL),(3,13,20,1,NULL),(4,12,10,4,NULL);
+insert  into `stock`(`id_stock`,`id_producto`,`stock_actual`,`lugar`,`stock_minimo`) values (1,12,50,2,NULL),(2,13,20,3,NULL),(3,13,28,4,NULL),(4,12,10,4,NULL),(5,6,24,4,NULL);
 
 /*Table structure for table `subcategoria` */
 
@@ -399,6 +406,20 @@ CREATE TABLE `subcategoria` (
 
 insert  into `subcategoria`(`id_subcategoria`,`nombre`,`id_categoria`) values (1,'Cerveza',1),(3,'Gaseosa',2),(6,'Champagne',1),(8,'Licor',1),(9,'Vodka',1),(10,'Agua',2),(11,'Soda',2),(12,'Trago',1),(13,'Energizante',2),(14,'Vodka',1),(15,'Granadina',2),(16,'ValidacionOK',1);
 
+/*Table structure for table `tipocomprobante` */
+
+DROP TABLE IF EXISTS `tipocomprobante`;
+
+CREATE TABLE `tipocomprobante` (
+  `id_tipo_comprobante` int(11) NOT NULL AUTO_INCREMENT,
+  `descripcion` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id_tipo_comprobante`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+
+/*Data for the table `tipocomprobante` */
+
+insert  into `tipocomprobante`(`id_tipo_comprobante`,`descripcion`) values (1,'Factura A'),(2,'Factura B'),(3,'Factura C'),(4,'Consumidor Final');
+
 /*Table structure for table `tipocontacto` */
 
 DROP TABLE IF EXISTS `tipocontacto`;
@@ -407,11 +428,11 @@ CREATE TABLE `tipocontacto` (
   `id_tipo_contacto` int(11) NOT NULL AUTO_INCREMENT,
   `descripcion` varchar(100) NOT NULL,
   PRIMARY KEY (`id_tipo_contacto`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `tipocontacto` */
 
-insert  into `tipocontacto`(`id_tipo_contacto`,`descripcion`) values (1,'Email');
+insert  into `tipocontacto`(`id_tipo_contacto`,`descripcion`) values (1,'Email'),(2,'Celular');
 
 /*Table structure for table `tipodocumento` */
 

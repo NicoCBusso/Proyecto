@@ -1,13 +1,17 @@
 <?php 
-require_once '../../class/DetalleVenta.php';
-$listadoProductoFinal = ProductoFinal::obtenerTodos();
+require_once '../../class/DetalleCompra.php';
+require_once '../../class/TipoComprobante.php';
+require_once '../../class/Proveedor.php';
+$listadoProducto = Producto::obtenerTodos();
+$listadoTipoComprobante = TipoComprobante::obtenerTodos();
+$listadoProveedor = Proveedor::obtenerTodos();
 ?>
 <!DOCTYPE html>
 <html>
 <head>
 	<script type="text/javascript" src="../../js/jquery-3.5.1.min.js"></script>
-	<script type="text/javascript" src="../../js/functions/productoFinal/functions.js"></script>
-	<script type="text/javascript" src="../../utils/venta/buscarProductoFinal.php"></script>
+	<script type="text/javascript" src="../../js/functions/producto/functions.js"></script>
+	<script type="text/javascript" src="../../utils/compra/buscarProducto.php"></script>
 	<title>Glou Glou!</title>
 </head>
 <body class="nav-md">
@@ -37,16 +41,15 @@ $listadoProductoFinal = ProductoFinal::obtenerTodos();
 	                    <div class="clearfix"></div>
 	                    <div class="x_content">
 	                    	<div class="row">
-	                    		<div class="col-sm-12">
+	                    		<div class="col-md-3 mb-3">
 	                    			<div class="card-box table-responsive">
 	                    				<div id="datos_venta">
 	                    					<div id="datos">
 		                    					<br>
 		                    					<div>
-		                    						<p><label>Cajero/a : <?php echo $usuarioLogueado->getUsername();?></label></p>		                    						
+		                    						<h5><p><label>Cajero/a : <?php echo $usuarioLogueado->getUsername();?></label></p></h5>	                    						
 		                    					</div>
 		                    					<div>
-		                    						<label>Acciones</label>
 		                    						<div id="acciones_venta">
 		                    							<a href="#" role="button" class="btn btn-primary" id="agregarConsumicion" onclick="abrirListaProductos();">Agregar</a>
 		                    						</div>
@@ -55,11 +58,81 @@ $listadoProductoFinal = ProductoFinal::obtenerTodos();
 	                    				</div>	                      									
 	                    			</div>
 	                    		</div>
-	                    	</div>
+	                    		<div class="col-md-2 mb-3">
+	                    			<div class="card-box table-responsive">
+	                    				<div id="datos_venta">
+	                    					<div id="datos">
+		                    					<br>
+		                    					<div>
+		                    						<h5><p><label>Proveedor</label></p></h5>	                    						
+		                    					</div>
+		                    					<div class="item form-group">													
+													</label>
+													<div class="col-md-10 mb-3 ">
+														<select name="cboProveedor" id="cboProveedor" class="form-control">
+															<option value="0">Seleccionar</option>
+															<?php foreach ($listadoProveedor as $proveedor): ?>
+																<option value="<?php echo $proveedor->getIdProveedor();?>"><?php echo $proveedor->getRazonSocial()?></option>
+															<?php endforeach ?>		
+														</select>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>	
+								<div class="col-md-2 mb-3">
+	                    			<div class="card-box table-responsive">
+	                    				<div id="datos_venta">
+	                    					<div id="datos">
+		                    					<br>
+		                    					<div>
+		                    						<h5><p><label>Tipo de Comprobante</label></p></h5>	                    						
+		                    					</div>				
+												<div class="item form-group">													
+													</label>
+													<div class="col-md-10 mb-3 ">
+														<select name="cboTipoComprobante" id="cboTipoComprobante" class="form-control">
+															<option value="0">Seleccionar</option>
+															<?php foreach ($listadoTipoComprobante as $tipoComprobante): ?>
+																<option value="<?php echo $tipoComprobante->getIdTipoComprobante();?>"><?php echo $tipoComprobante->getDescripcion()?></option>
+															<?php endforeach ?>		
+														</select>
+													</div>
+												</div>
+		                    				</div>
+	                    				</div>	                      									
+	                    			</div>
+	                    		</div>
+	                    		<div class="col-md-4 mb-3">
+	                    			<div class="card-box table-responsive">
+	                    				<div id="datos_venta">
+	                    					<div id="datos">
+		                    					<br>
+		                    					<div>
+		                    						<h5><p><label>Fecha de Compra</label></p></h5>	                    						
+		                    					</div>
+					                    		<div class="item form-group">
+													<div class="col-md-6 col-sm-6 ">
+														<input id="txtFecha" class="date-picker form-control" placeholder="dd-mm-yyyy" type="text" required="required" type="text" onfocus="this.type='date'" onmouseover="this.type='date'" onclick="this.type='date'" onblur="this.type='text'" onmouseout="timeFunctionLong(this)" name="txtFecha">
+														<script>
+															function timeFunctionLong(input) {
+																setTimeout(function() {
+																	input.type = 'text';
+																}, 60000);
+															}
+														</script>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>			
+		                    	</div>
+	                    </div>
                 			<div class="row">
 	                          	<div class="col-sm-12">
 	                            	<div class="card-box table-responsive">
-		                    			<table id="detalle_venta" class="table" style="width:100%">
+		                    			<table id="detalle_compra" class="table" style="width:100%">
 					                      <thead>
 					                        <tr>
 					                        	<th>Codigo</th>
@@ -81,15 +154,7 @@ $listadoProductoFinal = ProductoFinal::obtenerTodos();
 		                                    <tr>
 			                                    <th class="w-50">Total:</th>
 			                                    <td id="id_total">$0.0</td>
-		                                    </tr>
-		                                    <tr>
-			                                    <th>Pago</th>
-			                                    <td><input id="id_pago" type="number" class="form-control"></td>
-		                                    </tr>
-		                                    <tr>
-			                                    <th>Vuelto:</th>
-			                                    <td id="id_vuelto">$0.0</td>
-		                                    </tr>
+		                                    </tr>		                                    
 		                                </tbody>
 					                    </table>
 					                </div>
@@ -120,10 +185,9 @@ $listadoProductoFinal = ProductoFinal::obtenerTodos();
                 <table class="table table-striped table-sm" id="id_tabla_productos">
                     <thead>
                         <tr>
-	                        <th>Código</th>
-	                        <th>Producto</th>
-	                        <th>Precio</th>
-	                        <th>Cantidad</th>
+                        <th>Código</th>
+                        <th>Producto</th>
+                        <th>Precio compra</th>
                         </tr>
                     </thead>
                     <tbody id="id_busqueda">
@@ -151,43 +215,37 @@ $listadoProductoFinal = ProductoFinal::obtenerTodos();
 	var id_detalle = 0;
 	var total = 0.0;
 	var vuelto = 0.0;
-	var detalle_venta = []; // array
+	var detalle_compra = []; // array
   	$.ajax({
 		type: 'GET',
-		url: '../../utils/venta/buscarProductoFinal.php',
+		url: '../../utils/compra/buscarProducto.php',
 		data: {},
 		success: function(data){
 			var datos = JSON.parse(data);
 			for (var x=0; x < datos.length; x++){
 				console.log(datos[x]);
 				row = generarFila(
-					datos[x]._idProductoFinal,
+					datos[x]._idProducto,
 					datos[x]._nombre,
-					datos[x]._precioVenta,
-					datos[x].stock._stockActual
+					datos[x]._precioCompra
 					);
 				$('#id_tabla_productos tr:last').after(row)		
 			}
 		}
 	})
-  	function generarFila(id,nombre,precio_venta,cantidadTotal) {
-  		if(cantidadTotal == null){
-  			return;
-  		}
+  	function generarFila(id,nombre,precio_compra) {
   		var row = '<tr onclick="setCantidadProducto(';
   		row += id + ",'";
   		row += nombre + "',";
-  		row += precio_venta + ",";
-  		row += cantidadTotal + ')"><td>';
+  		row += precio_compra + ')"><td>';
   		row += id + '</td><td>';
   		row += nombre + '</td><td>';
-  		row += '$' + precio_venta + '</td><td>';
-  		row += cantidadTotal + '</td></tr>'; 
+  		row += '$' + precio_compra + '</td></trim>';; 
   		return row;
   	}
-	function setCantidadProducto(id, descripcion, precio_venta,cantidadTotal)
+	function setCantidadProducto(id, descripcion, precio_compra)
 	{
-		
+		 
 		let cantidad = prompt('Ingrese la cantidad');
 		if (cantidad == null || cantidad.trim() == ""){
 			return false;
@@ -195,70 +253,57 @@ $listadoProductoFinal = ProductoFinal::obtenerTodos();
 		if(isNaN(cantidad)){
 			return false;
 		}
-		if(cantidad > cantidadTotal){
-			alert("No hay stock suficiente");
-			return;
-		}
-		let subtotal = calcularSubtotal(cantidad,precio_venta);
+		let subtotal = calcularSubtotal(cantidad,precio_compra);
 		let items = {}; //items del detalle
 		items['id'] = id_detalle;
-		items['id_producto_final'] = id;
+		items['id_producto'] = id;
 		items['cantidad'] = cantidad;
 		items['subtotal'] = subtotal 
-		detalle_venta.push(items); //armando detalle para el envio
-		$('#detalle_venta tr:last').after('<tr id=' + id_detalle + '><td >' + id + '</td><td>' + descripcion + '</td><td>' + cantidad + '</td><td>$' + subtotal + '</td> <td><a href="#" role="button" class="btn btn-danger" onclick="eliminarDetalle('+id_detalle+');">Eliminar</a></td></tr>')
+		detalle_compra.push(items); //armando detalle para el envio
+		$('#detalle_compra tr:last').after('<tr id=' + id_detalle + '><td >' + id + '</td><td>' + descripcion + '</td><td>' + cantidad + '</td><td>$' + subtotal + '</td> <td><a href="#" role="button" class="btn btn-danger" onclick="eliminarDetalle('+id_detalle+');">Eliminar</a></td></tr>')
 		id_detalle++;
-		console.log(detalle_venta);
+		console.log(detalle_compra);
 	}
 
 	//Funcion Borrar
 	function eliminarDetalle(buscarIndex){
 			let respuesta=[];
-			for (let index = 0; index < detalle_venta.length; index++){
-				if(detalle_venta[index].id !== buscarIndex){
-					respuesta.push(detalle_venta[index])
+			for (let index = 0; index < detalle_compra.length; index++){
+				if(detalle_compra[index].id !== buscarIndex){
+					respuesta.push(detalle_compra[index])
 					//console.log(respuesta[index]);
 				} else {
 					console.log('borra este id');
 					console.log(index);
-					$('#' + detalle_venta[index].id).remove();
-					restarSubTotal(detalle_venta[index].subtotal);
+					$('#' + detalle_compra[index].id).remove();
+					restarSubTotal(detalle_compra[index].subtotal);
 					//respuesta.splice(index, 1);
 				}
 
 			} 
-			//console.log(respuesta);
-			detalle_venta = respuesta;
-			console.log(detalle_venta);
-			return detalle_venta;
-			/*id_detalle = id_detalle-1;
-			let index = detalle_venta.id.indexOf();
-			//console.log(index);
-			$('#' + index).remove();
-			console.log(index);
-			restarSubTotal(detalle_venta[index].subtotal);
-			detalle_venta.splice(index, 1);*/
-			
+			detalle_compra = respuesta;
+			console.log(detalle_compra);
+			return detalle_compra;			
 	}
 
 	function buscarProductos()
 	{
+		alert($('#id_txt_buscar').val());
 	    $.ajax({
 	        type: 'GET',
-	        url : '../../utils/venta/buscarProductoFinal.php',
+	        url : '../../utils/compra/buscarProducto.php',
 	        data: {
 	            'text_buscar': $('#id_txt_buscar').val()
 	        },
 	        success: function(data){
 	            var datos = JSON.parse(data);
-	            console.log(datos);
 	            $('#id_tabla_productos tbody tr').empty();
 	            for (var x=0; x < datos.length; x++){
 	                console.log(datos[x]);
 	                row = generarFila(
-					datos[x]._idProductoFinal,
+					datos[x]._idProducto,
 					datos[x]._nombre,
-					datos[x]._precioVenta
+					datos[x]._precioCompra
 					);
 	                $('#id_tabla_productos').append(row)
 	            }
@@ -301,12 +346,18 @@ $listadoProductoFinal = ProductoFinal::obtenerTodos();
     funciones de guardar
 	-------------------*/
 	function guardarFormularioVentas(){
-		if(detalle_venta.length >0){
+		let proveedor = $('#cboProveedor').val();
+		let fecha = $('#txtFecha').val();
+		let tipoComprobante = $('#cboTipoComprobante').val();
+		if(detalle_compra.length >0){
 			$.ajax({
 				type: 'POST',
 				url: 'procesar/insert.php',
 				data: {
-					'items': detalle_venta
+					'items': detalle_compra,
+					'proveedor': proveedor,
+					'tipoComprobante': tipoComprobante,
+					'fecha': fecha
 				},
 				success: function(data){
 					console.log(data)
@@ -315,7 +366,7 @@ $listadoProductoFinal = ProductoFinal::obtenerTodos();
 		} else {
 			alert('Error Bro');
 		}
-		location.reload();
+		//location.reload();
 	}
 	
   </script>

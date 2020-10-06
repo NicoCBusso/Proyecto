@@ -60,8 +60,8 @@ $direccion->setIdLocalidad($localidad);
 $direccion->setCalle($calle);
 $direccion->setNumero($numero);
 $direccion->setIdPersona($idPersona);
-highlight_string(var_export($direccion,true));
+//highlight_string(var_export($direccion,true));
 $direccion->actualizar();
 
 // redireccionar
-//header("location: /programacion3/Proyecto/modulos/$modulo/detalle.php?id=$idLlamada");
+header("location: /programacion3/Proyecto/modulos/$modulo/detalle.php?id=$idLlamada");

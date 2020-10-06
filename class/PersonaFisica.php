@@ -134,12 +134,6 @@ class PersonaFisica extends Persona{
 
         $registro = $datos->fetch_assoc();
 
-        /*$personafisica = new PersonaFisica($registro['nombre'], $registro['apellido']);
-        $personafisica->_idPersonaFisica = $registro['id_persona_fisica'];
-        $personafisica->_dni = $registro['dni'];
-        $personafisica->_fechaNacimiento = $registro['fecha_nacimiento'];
-        $personafisica->_sexo = $registro['sexo'];*/
-
         $personafisica = self::_generarPersonaFisica($registro);
         return $personafisica;
 
@@ -154,17 +148,14 @@ class PersonaFisica extends Persona{
         $personafisica->_estadoPersona = $registro['estado_persona'];
         $personafisica->_idPersona = $registro['id_persona'];
         $personafisica->setDireccion();
+        $personafisica->setArrContacto();
         return $personafisica;
     }
 
     public function _generarListadoPersonaFisica($datos){
         $listado = array();
         while ($registro = $datos->fetch_assoc()) {
-            $personafisica = new PersonaFisica($registro['nombre'], $registro['apellido']);
-            $personafisica->_idPersonaFisica = $registro['id_persona_fisica'];
-            $personafisica->_dni = $registro['dni'];
-            $personafisica->_fechaNacimiento = $registro['fecha_nacimiento'];
-            $personafisica->_sexo = $registro['sexo'];
+            $personafisica = self::_generarPersonaFisica($registro);
             $listado[] = $personafisica;
             }
         return $listado; 

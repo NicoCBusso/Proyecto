@@ -1,5 +1,6 @@
     <?php
 require_once 'Direccion.php';
+require_once 'Contacto.php';
 require_once 'MySQL.php';
 
 class Persona{
@@ -56,9 +57,9 @@ class Persona{
      *
      * @return self
      */
-    public function setArrContacto($_arrContacto)
+    public function setArrContacto()
     {
-        $this->_arrContacto = $_arrContacto;
+        $this->_arrContacto = Contacto::obtenerTodosPorIdPersona($this->_idPersona);
 
         return $this;
     }

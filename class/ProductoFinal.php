@@ -1,12 +1,14 @@
 <?php
 require_once 'MySQL.php';
-
+require_once 'Stock.php';
 
 class ProductoFinal{
-	protected $_idProductoFinal;
-	protected $_nombre;
-	protected $_precioVenta;
+	public $_idProductoFinal;
+	public $_nombre;
+	public $_precioVenta;
     
+    public $stock;
+
 	public function __construct($nombre){
 		$this->_nombre = $nombre;
 	}
@@ -15,6 +17,7 @@ class ProductoFinal{
     	$productoFinal = new ProductoFinal($registro['descripcion']);
     	$productoFinal->_idProductoFinal = $registro['id_producto_final'];
     	$productoFinal->_precioVenta = $registro['precio_venta'];
+        $productoFinal->setStock();
     	return $productoFinal;
     }
 
@@ -58,30 +61,23 @@ class ProductoFinal{
 
         return $listado;
     }
-    public static function obtenerTodosJSON(){
-        $sql = "SELECT * FROM productofinal";
-        $mysql = new MySQL();
-        $datos = $mysql->consultar($sql);
-        $mysql->desconectar();
 
-        return $datos;
-    }
-
-    public static function buscarProductoFinal($descripcion){
+    public static function buscarPorDescripcion($descripcion){
         $sql = "SELECT * FROM productofinal WHERE descripcion LIKE '%".$descripcion."%'";
         $mysql = new MySQL();
         $datos = $mysql->consultar($sql);
         $mysql->desconectar();
 
-        return $datos;
+        $listado = self::_generarListadoProductoFinal($datos);
+
+        return $listado;
     }
+
 
     private function _generarListadoProductoFinal($datos){
         $listado = array();
         while ($registro = $datos->fetch_assoc()) {
-            $productoFinal = new ProductoFinal($registro['descripcion']);
-            $productoFinal->_idProductoFinal = $registro['id_producto_final'];
-            $productoFinal->_precioVenta = $registro['precio_venta'];
+            $productoFinal = self::_generarProductoFinal($registro);
             $listado[] = $productoFinal;
         }
         return $listado;
@@ -142,6 +138,26 @@ class ProductoFinal{
     public function setPrecioVenta($_precioVenta)
     {
         $this->_precioVenta = $_precioVenta;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStock()
+    {
+        return $this->stock;
+    }
+
+    /**
+     * @param mixed $stock
+     *
+     * @return self
+     */
+    public function setStock()
+    {
+        $this->stock = Stock::obtenerPorIdProductoFinal($this->_idProductoFinal);
 
         return $this;
     }

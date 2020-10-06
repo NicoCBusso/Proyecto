@@ -5,8 +5,8 @@ require_once '../../class/Empleado.php';
 $id = $_GET['id'];
 
 $empleado = Empleado::obtenerPorId($id);
-//highlight_string(var_export($usuario,true));
-    
+//highlight_string(var_export($empleado,true));
+//exit;
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -20,7 +20,100 @@ $empleado = Empleado::obtenerPorId($id);
     <div class="">
 
       <div class="row">
-              <div class="col-md-12 col-sm-12 ">
+            <div class="col-md-12 col-sm-12  ">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2><i class="fa fa-bars"></i>  Detalle del Empleado</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                            <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                            </li>
+                            <li><a class="close-link"><i class="fa fa-close"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <ul class="nav nav-tabs bar_tabs" id="myTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Perfil</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Direccion</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="true">Contacto</a>
+                            </li>                            
+                        </ul>
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade active show" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                <h5>                                
+                                   <span class="badge bg-green">ID:</span> <?php echo $empleado->getEmpleado();?>                            
+                                <br>
+                                    <span class="badge bg-green">Nombre:</span> <?php echo $empleado->getNombre(); ?>
+                                <br>
+                                    <span class="badge bg-green">Apellido:</span> <?php echo $empleado->getApellido();?>
+                                <br>
+                                    <span class="badge bg-green">Nro. Documento:</span> <?php echo $empleado->getDni()?>
+                                <br>
+                                    <span class="badge bg-green">Fecha de Nacimiento:</span> <?php echo $empleado->getFechaNacimiento()?>
+                                <br>
+                                    <span class="badge bg-green">Sexo:</span> <?php echo $empleado->getSexo()?>
+                                <br>                                
+                                    <span class="badge bg-green">Cargo:</span> <?php echo $empleado->cargo->getNombre();?>
+                                <br>                                
+                                    <span class="badge bg-green">Estado:</span> <?php echo $empleado->getEstadoPersona()?>
+                                <br>
+                                </h5>
+                            </div>
+                            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                <?php if(is_null($empleado->direccion)): ?>
+                                    <a href="/programacion3/Proyecto/modulos/direccion/alta.php?id_persona=<?php echo $empleado->getIdPersona(); ?>&idLlamada=<?php echo $empleado->getEmpleado(); ?>&modulo=empleado" class="btn btn-primary"  >
+                                    Agregar Domicilio
+                                    </a>
+
+                                <?php else:?>                          
+                                    <h5>
+                                    
+                                        <span class="badge bg-green">Pais:</span> <?php echo $empleado->direccion->localidad->provincia->pais->getDescripcion();?>
+                                        <br>
+                                        <span class="badge bg-green">Provincia:</span> <?php echo $empleado->direccion->localidad->provincia->getDescripcion();?>
+                                        <br>
+                                        <span class="badge bg-green">Localidad:</span> <?php echo $empleado->direccion->localidad->getDescripcion();?>
+                                    <br>
+                                        <span class="badge bg-green">Direccion:</span> <?php echo $empleado->direccion;?>
+                                    <br><br>
+                                        <a href="/programacion3/Proyecto/modulos/direccion/actualizar.php?id_direccion=<?php echo $empleado->direccion->getIdDireccion();?>&id_persona=<?php echo $empleado->getIdPersona(); ?>&idLlamada=<?php echo $empleado->getEmpleado(); ?>&modulo=empleado" class="btn btn-primary">
+                                            Modificar Domicilio
+                                        </a>
+                                    <br>
+                                    </h5>
+                                <?php endif ?>
+                            </div>
+                            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                                
+                                    <a href="/programacion3/Proyecto/modulos/contacto/alta.php?id_persona=<?php echo $empleado->getIdPersona(); ?>&idLlamada=<?php echo $empleado->getEmpleado(); ?>&modulo=empleado" class="btn btn-success">
+                                    Agregar Contacto
+                                    </a>
+                                
+                                <?php foreach ($empleado->getArrContacto() as $contacto) : ?>
+                                    <h5><span class="badge bg-green"><?php echo $contacto->tipoContacto->getDescripcion();?>:</span>  <span><?php echo $contacto; ?></h5>                                   
+                                    <a href="/programacion3/Proyecto/modulos/contacto/actualizar.php?id_contacto=<?php echo $contacto->getIdContacto();?>&id_persona=<?php echo $empleado->getIdPersona(); ?>&idLlamada=<?php echo $empleado->getEmpleado(); ?>&modulo=empleado" class="btn btn-primary">
+                                        Modificar Contacto
+                                    </a>
+                                    <a href="/programacion3/Proyecto/modulos/contacto/procesar/delete.php?id_contacto=<?php echo $contacto->getIdContacto();?>&id_persona=<?php echo $empleado->getIdPersona(); ?>&idLlamada=<?php echo $empleado->getEmpleado(); ?>&modulo=empleado" role="button" title="Editar" class="btn btn-danger">Eliminar</a>
+                                
+                                <?php endforeach ?>
+                            </div>
+                        </div>                                
+                            
+                            </div>                            
+                        </div>
+            </div>
+            <div class="col-md-12 col-sm-12 ">
+
                 <div class="x_panel">
                   <div class="x_title">
                     <h2>Detalle Empleado <small></small></h2>
@@ -86,6 +179,8 @@ $empleado = Empleado::obtenerPorId($id);
 
     </div>
   </div>
+</div>
+</div>
 
   <?php require_once"../../footer.php"; ?>              
 </body>

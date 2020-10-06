@@ -64,6 +64,7 @@ class Empleado extends PersonaFisica{
         $empleado->_sexo = $registro['sexo'];
         $empleado->setCargo();
         $empleado->setDireccion();
+        $empleado->setArrContacto();
         return $empleado;
     }
 

@@ -1,20 +1,25 @@
 <?php
-
-require_once '../../class/TipoContacto.php';
-
-$listadoTipoContacto = TipoContacto::obtenerTodos();
-
+require_once '../../class/Proveedor.php';
+require_once '../../class/Usuario.php';
+require_once '../../class/Empleado.php';
+require_once '../../class/Contacto.php';
+$id = $_GET ['id_contacto'];
 $idPersona = $_GET['id_persona'];
 $idLlamada = $_GET['idLlamada'];
 $moduloLlamada = $_GET['modulo'];
-
+$contacto = Contacto::obtenerPorId($id);
+$listadoTipoContacto = TipoContacto::obtenerTodos();
+//highlight_string(var_export($contacto,true));
+//exit;
+//$listadoLocalidad = Localidad::obtenerTodos();
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
-	<script src="../../js/validaciones/validarContacto.js"></script>
-	<title>Alta Categoria</title>
+	<script type="text/javascript" src="../../js/jquery-3.5.1.min.js"></script>
+	<script src="../../js/validaciones/validarContacto.js"></script>	
+<title>Actualizar Contacto</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 </head>
 <body class="nav-md">
 	<?php require_once "../../menu.php"; ?>
@@ -29,11 +34,12 @@ $moduloLlamada = $_GET['modulo'];
 	<div class="right_col" role="main">
 				<div class="">
 					<div class="clearfix"></div>
+					
 					<div class="row">
 						<div class="col-md-12 col-sm-12 ">
 							<div class="x_panel">
 								<div class="x_title">
-									<h2>Agregar Contacto</h2>
+									<h2>Agregar Contacto <small></small></h2>
 									<ul class="nav navbar-right panel_toolbox">
 										<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 										</li>
@@ -47,7 +53,8 @@ $moduloLlamada = $_GET['modulo'];
 								</div>
 								<div class="x_content">
 									<br />
-									<form  data-parsley-validate class="form-horizontal form-label-left" name="frmDatos" id="frmDatos" method="POST" action="procesar/insert.php">
+									<form  data-parsley-validate class="form-horizontal form-label-left" name="frmDatos" id="frmDatos" method="POST" action="procesar/update.php">
+										<input type="hidden" name="txtIdContacto" value='<?php echo $id ?>'>
 										<input type="hidden" name="txtIdPersona" value='<?php echo $idPersona ?>'>
 									    <input type="hidden" name="txtIdLlamada" value='<?php echo $idLlamada ?>'>
 									    <input type="hidden" name="txtModulo" value='<?php echo $moduloLlamada ?>'>
@@ -55,7 +62,7 @@ $moduloLlamada = $_GET['modulo'];
 											<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Descripcion <span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input type="text" id="txtNombre" required="required" class="form-control" name="txtNombre" >
+												<input type="text" id="txtNombre" required="required" class="form-control" name="txtNombre" value="<?php echo $contacto->getValor(); ?>">
 											</div>
 										</div>
 										<div class="item form-group">
@@ -88,4 +95,3 @@ $moduloLlamada = $_GET['modulo'];
 			</div>
 	<?php require_once"../../footer.php"; ?> 
 </body>
-</html>
