@@ -2,7 +2,8 @@
 
 require_once "Usuario.php";
 require_once "DetalleCompra.php";
-
+require_once "Proveedor.php";
+require_once "TipoComprobante.php";
 class Compra {
 
 	private $_idCompra;
@@ -14,6 +15,7 @@ class Compra {
     private $_estado;
 	private $_total;
 
+    public $tipoComprobante;
 	public $usuario;
     public $proveedor;
 
@@ -142,12 +144,14 @@ class Compra {
     	$compra->_idCompra = $registro['id_compra'];
     	$compra->_idUsuario = $registro['id_usuario'];
         $compra->_idProveedor = $registro['id_proveedor'];
+        $compra->_idTipoComprobante = $registro['id_tipo_comprobante'];
     	$compra->setArrDetalleCompra();
     	$compra->_fechaHoraEmision = $registro['fecha'];
         $compra->_estado = $registro['estado'];
         $compra->setTotal();    	
     	$compra->setUsuario();
         $compra->setProveedor();
+        $compra->setTipoComprobante();
 
     	return $compra;
     }
@@ -202,7 +206,8 @@ class Compra {
     {
         $total = 0;
         foreach ($this->_arrDetalleCompra as $detalleCompra) {
-            $total = $total+$detalleCompra->getPrecio();;
+            $subtotal = $detalleCompra->getPrecio() * $detalleCompra->getCantidad();
+            $total = $total+$subtotal;
         }
         $this->_total = $total;
 
@@ -284,7 +289,27 @@ class Compra {
      */
     public function setProveedor()
     {
-        $this->proveedor = Proveedor::obtenerPorId($this->_idProveedor);
+        $this->proveedor = Proveedor::obtenerPorIdCompra($this->_idProveedor);
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTipoComprobante()
+    {
+        return $this->tipoComprobante;
+    }
+
+    /**
+     * @param mixed $tipoComprobante
+     *
+     * @return self
+     */
+    public function setTipoComprobante()
+    {
+        $this->tipoComprobante = TipoComprobante::obtenerPorId($this->_idTipoComprobante);
 
         return $this;
     }

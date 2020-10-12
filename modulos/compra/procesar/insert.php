@@ -1,7 +1,7 @@
 <?php
 require_once "../../../class/Compra.php";
 session_start();
-$lugar = 4;
+$puesto = 4;
 $proveedor = $_POST['proveedor'];
 $usuarioLogueado = $_SESSION['usuario'];
 $tipoComprobante = $_POST['tipoComprobante'];
@@ -18,18 +18,25 @@ $compra->guardar();
 foreach($_POST['items'] as $item){
     highlight_string(var_export($item,true));
 	$detalleCompra = new DetalleCompra($item['id_producto']);
-    //$cantidad = DetalleCompra::consultarStock($item['id_producto_final']);
-    /*if ($cantidad < $item['cantidad']){
-        $_SESSION['mensaje_error'] = "Cantidad excedida al stock del producto de codigo =".$item['id_producto_final'];
-        exit;
-    }*/
 	$detalleCompra->setIdCompra($compra->getIdCompra());
 	$detalleCompra->setProducto();
 	$detalleCompra->setPrecio();
     $detalleCompra->setCantidad($item['cantidad']);
 	$detalleCompra->guardar();
-    $stock = new Stock();
-    $stock->actualizar($lugar,$item['id_producto'],$item['cantidad']);
+    $stock = Stock::obtenerPorIdProducto($item['id_producto'],$puesto);
+    var_dump($stock);
+    if ($stock == NULL){
+        $stock = new Stock();
+        $stock->setIdProducto($item['id_producto']);
+        $stock->setStockActual($item['cantidad']);
+        $stock->setIdPuesto($puesto);        
+        $stock->guardar();
+        var_dump($stock);
+    } else{
+
+        $stock->actualizar($item['cantidad']);
+        
+    }
 }
 
 

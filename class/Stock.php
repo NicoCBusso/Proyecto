@@ -1,44 +1,71 @@
 <?php
 
+require_once "Puesto.php";
+
 class Stock{
 
 	public $_idStock;
 	public $_idProducto;
+    public $_idPuesto;
 	public $_stockActual;
 	public $_stockMinimo;
-	public $_lugar;
+
+    public $puesto;
 
 	public static function obtenerPorIdProductoFinal($idProductoFinal){
-		$sql = "SELECT stock.id_producto,id_stock, stock_actual, stock_minimo, lugar ,SUM(stock_actual) as total_producto FROM stock "
+		$sql = "SELECT stock.id_producto,id_stock, stock_actual, stock_minimo, id_puesto ,SUM(stock_actual) as total_producto FROM stock "
 			 . "INNER JOIN producto ON producto.id_producto = stock.id_producto"
 			 . " WHERE producto.id_producto_final= ". $idProductoFinal;
 		//var_dump($sql);
 		$mysql = new MySQL();
         $datos = $mysql->consultar($sql);
         $mysql->desconectar();
-
+        
         $registro = $datos->fetch_assoc();
 
         $stock = self::_generarStock($registro);
 
         return $stock;
 	}
-    public function actualizar($lugar,$idProducto,$cantidad){
-        $sql = "UPDATE stock SET stock_actual = stock_actual+$cantidad "
-            ." WHERE id_producto = $idProducto AND lugar = $lugar";
+    public function guardar(){
+        $sql = "INSERT INTO stock (id_stock,id_producto,stock_actual,id_puesto) VALUES (NULL,$this->_idProducto,$this->_stockActual,$this->_idPuesto)";
+        $mysql = new MySQL();
+        $idInsertado = $mysql->insertar($sql);
+
+        $this->_idStock= $idInsertado;
+    }
+    public function actualizar($cantidad){
+        $cantidad = $this->_stockActual + $cantidad;
+        $sql = "UPDATE stock SET stock_actual =" . $cantidad ." WHERE id_producto = $this->_idProducto AND id_puesto = $this->_idPuesto";
         $mysql = new MySQL();
         $mysql->actualizar($sql);
         var_dump($sql);
 
     }
 
+    public static function obtenerPorIdProducto($idProducto,$idPuesto){
+        $sql = "SELECT * FROM stock WHERE id_producto = " . $idProducto . " AND id_puesto = ". $idPuesto;
+        $mysql = new MySQL();
+        $datos = $mysql->consultar($sql);
+        $mysql->desconectar();
+        var_dump($sql);
+        $registro = $datos->fetch_assoc();
+        if ($datos->num_rows > 0){
+            $stock = self::_generarStock($registro);
+            return $stock;
+        } else {
+            return;   
+        }        
+    }
+
 	private function _generarStock($registro){
 		$stock = new Stock();
 		$stock->_idStock = $registro['id_stock'];
 		$stock->_idProducto = $registro['id_producto'];
-		$stock->_stockActual = $registro['total_producto'];
+		$stock->_stockActual = $registro['stock_actual'];
 		$stock->_stockMinimo = $registro['stock_minimo'];
-		$stock->_lugar = $registro['lugar'];
+        $stock->_idPuesto = $registro['id_puesto'];
+        $stock->setPuesto();
 		return $stock;
 	}
     /**
@@ -124,19 +151,46 @@ class Stock{
     /**
      * @return mixed
      */
-    public function getLugar()
+
+    /**
+     * @return mixed
+     */
+    public function getIdPuesto()
     {
-        return $this->_lugar;
+        return $this->_idPuesto;
     }
 
     /**
-     * @param mixed $_lugar
+     * @param mixed $_idPuesto
      *
      * @return self
      */
-    public function setLugar($_lugar)
+    public function setIdPuesto($_idPuesto)
     {
-        $this->_lugar = $_lugar;
+        $this->_idPuesto = $_idPuesto;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPuesto()
+    {
+        return $this->puesto;
+    }
+
+    /**
+     * @param mixed $puesto
+     *
+     * @return self
+     */
+    public function setPuesto()
+    {
+        if (is_null($this->_idPuesto)) {
+            return;
+        }
+        $this->puesto = Puesto::obtenerPorId($this->_idPuesto);
 
         return $this;
     }

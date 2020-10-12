@@ -96,8 +96,7 @@ class Categoria{
     private function _generarListadoCategorias($datos){
         $listado = array();
             while ($registro = $datos->fetch_assoc()){
-                $categoria = new Categoria($registro['nombre']);
-                $categoria->_idCategoria = $registro['id_categoria'];
+                $categoria = self::_generarCategoria($registro);
                 $listado[] = $categoria;
             }
             return $listado;

@@ -58,6 +58,18 @@ class Proveedor extends Persona{
         return $proveedor;
     }
 
+    public static function obtenerPorIdCompra($id){
+        $sql = "SELECT * FROM proveedor INNER JOIN compra ON proveedor.id_proveedor = compra.id_proveedor WHERE compra.id_proveedor =". $id;
+        $mysql = new MySQL();
+        $datos = $mysql->consultar($sql);
+        $mysql->desconectar();
+
+        $registro = $datos->fetch_assoc();
+
+        $proveedor = self::_generarProveedor($registro);
+        return $proveedor;
+    }
+
     public function _generarProveedor($registro)
     {
         $proveedor = new Proveedor($registro['razon_social']);

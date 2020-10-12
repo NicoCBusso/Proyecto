@@ -3,6 +3,7 @@ require_once "../../class/Compra.php";
 
 $listadoCompras = Compra::obtenerTodos();
 //highlight_string(var_export($listadoCompras,true));
+//exit;
 ?>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -47,27 +48,27 @@ $listadoCompras = Compra::obtenerTodos();
             <tr>
               <th>Nro</th>
               <th>Cajero/a</th>
-              <th>Fecha Hora Emision</th>
+              <th>Fecha</th>
               <th>Tipo de Comprobante</th>              
               <th>Total</th>
               <th>Acciones</th>
             </tr>
             </thead>
             <?php foreach ($listadoCompras as $compra): ?>
-            <tbody>
-              <tr>
-                <td> <?php echo $compra->getIdCompra(); ?> </td>
-                <td> <?php echo $compra->usuario->getNombre(); ?> </td>
-                <td><?php echo $compra->getFechaHoraEmision();?></td> 
-                <td><?php echo $compra->getIdTipoComprobante();?><td>             
-                <td>$<?php echo $compra->getTotal();?></td>
-                <td width="50%"> 
+              <tbody>
+                <tr>
+                  <td> <?php echo $compra->getIdCompra(); ?></td>
+                  <td> <?php echo $compra->usuario->getNombre(); ?></td>
+                  <td><?php echo $compra->getFechaHoraEmision();?></td> 
+                  <td><?php echo $compra->tipoComprobante->getDescripcion();?><td>             
+                  <td>$<?php echo $compra->getTotal();?></td>
+                  <td width="50%"> 
 
-                <a href="detalle.php?id=<?php echo $compra->getIdCompra(); ?>" role="button" title="Editar">Detalle</a>
+                  <a href="detalle.php?id=<?php echo $compra->getIdCompra(); ?>" role="button" title="Editar">Detalle</a>
 
-                </td>
-              </tr>
-            </tbody>
+                  </td>
+                </tr>
+              </tbody>
             <?php endforeach ?>
           </table>
         </div>
