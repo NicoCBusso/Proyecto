@@ -18,6 +18,7 @@ if ($accion == 3){
             $stockDeposito->descontar($detalleSolicitud->getCantidad());
             $stockPuesto = Stock::obtenerPorIdProducto($detalleSolicitud->getIdProducto(),$solicitud->getIdPuesto());
             if ($stockPuesto == NULL){
+                $stockPuesto = new Stock();
                 $stockPuesto->setIdProducto($detalleSolicitud->getIdProducto());
                 $stockPuesto->setStockActual($detalleSolicitud->getCantidad());
                 $stockPuesto->setIdPuesto($solicitud->getIdPuesto());        

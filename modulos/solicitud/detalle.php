@@ -103,6 +103,10 @@ $solicitud = Solicitud::obtenerPorId($idSolicitud);
           </div>
         </div>
   </div>
+</div>
+</div>
+</div>
+</div>
   <script>
     function actualizarSolicitud($accion){
       let accion = $accion;

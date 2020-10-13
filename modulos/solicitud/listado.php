@@ -57,7 +57,10 @@ $listadoSolicitud = Solicitud::obtenerTodos();
                             <td><?php echo $solicitud->getIdSolicitud(); ?></td>
                             <td><?php echo $solicitud->usuario->getNombre(); ?></td>
                             <td><?php echo $solicitud->getFechaHoraPedido();?></td> 
-                            <td><?php echo $solicitud->getFechaHoraEntrega();?></td>           
+                            <td><?php if($solicitud->getFechaHoraEntrega() != '0000-00-00 00:00:00'){
+                                        echo $solicitud->getFechaHoraEntrega();
+                                      }
+                                ?></td>           
                             <td><?php echo $solicitud->estado->getDescripcion();?></td>
                             <td width="50%"> 
 

@@ -30,7 +30,6 @@ foreach($_POST['items'] as $item){
         $stock->setIdPuesto($puesto);        
         $stock->guardar();
     } else{
-        $stock->
         $stock->actualizar($item['cantidad']);
     }
 }

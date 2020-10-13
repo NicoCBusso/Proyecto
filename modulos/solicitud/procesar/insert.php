@@ -7,7 +7,7 @@ $puesto = $_POST['puesto'];
     $solicitud = new Solicitud(); // guardamos la cabecera
     $solicitud->setIdUsuario(1);
     $solicitud->setFechaHoraPedido($fechaHora);
-    $solicitud->setEstado(1);
+    $solicitud->setIdEstado(1);
     $solicitud->setIdPuesto($puesto);
     var_dump($solicitud);
     $solicitud->guardar();
