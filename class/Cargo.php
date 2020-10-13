@@ -68,8 +68,7 @@ class Cargo{
         $mysql->desconectar();
 
         $registro = $datos->fetch_assoc();
-        $cargo = new Cargo($registro['nombre']);
-        $cargo->_idCargo = $registro['id_cargo'];
+        $cargo = self::_generarCargo($registro);
         return $cargo;
     }
 

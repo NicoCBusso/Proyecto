@@ -61,7 +61,9 @@ $listadoCargo = Cargo::obtenerTodos();
                   </div>
               </div>
             </div>
-
+</div>
+</div>
+</div>
     </div>
   </div>
 

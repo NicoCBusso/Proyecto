@@ -65,14 +65,6 @@ class Producto extends ProductoFinal{
     	$listado = array();
     	while ($registro =$datos->fetch_assoc()) {
             $producto = self::_generarProducto($registro);
-    		/*$producto = new Producto($registro['descripcion']);
-	    	$producto->_idProducto = $registro['id_producto'];
-	    	$producto->_idProductoFinal = $registro['id_producto_final'];
-	    	$producto->_codigoBarra = $registro['codigo_barra'];
-	    	$producto->_contenido = $registro['contenido'];
-	    	$producto->_idSubCategoria = $registro['id_subcategoria'];
-	    	$producto->_idEnvase = $registro['id_envase'];
-	    	$producto->_idMarca = $registro['id_marca'];*/
 	    	$listado[] = $producto;
     	}
     	return $listado;
@@ -104,6 +96,7 @@ class Producto extends ProductoFinal{
         $producto->setEnvase();
     	$producto->_idMarca = $registro['id_marca'];
         $producto->setMarca();
+        $producto->stock = Stock::obtenerParaSolicitud($producto->_idProducto);
 
     	return $producto;
     }

@@ -134,8 +134,7 @@ class Modulo {
     private function _generarListadoModulos($datos) {
     	$listado = array();
 		while ($registro = $datos->fetch_assoc()) {
-			$modulo = new Modulo($registro['nombre'], $registro['directorio']);
-			$modulo->_idModulo = $registro['id_modulo'];
+			$modulo = self::_generarModulo($registro);
 			$listado[] = $modulo;
 		}
 		return $listado;

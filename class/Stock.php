@@ -9,11 +9,31 @@ class Stock{
     public $_idPuesto;
 	public $_stockActual;
 	public $_stockMinimo;
+    public $_totalStock;
 
     public $puesto;
 
+    public static function obtenerParaSolicitud($idProducto){
+        $sql = "SELECT stock.id_producto,id_stock,stock_actual,stock_minimo, id_puesto FROM stock "
+             . "INNER JOIN producto ON producto.id_producto = stock.id_producto"
+             . " WHERE producto.id_producto= ". $idProducto. " AND id_puesto = 4";
+        //var_dump($sql);
+        $mysql = new MySQL();
+        $datos = $mysql->consultar($sql);
+        $mysql->desconectar();
+        
+        $registro = $datos->fetch_assoc();
+
+        if ($datos->num_rows > 0){
+            $stock = self::_generarStock($registro);
+            return $stock;
+        } else {
+            return;   
+        } 
+    }
+
 	public static function obtenerPorIdProductoFinal($idProductoFinal){
-		$sql = "SELECT stock.id_producto,id_stock, stock_actual, stock_minimo, id_puesto ,SUM(stock_actual) as total_producto FROM stock "
+		$sql = "SELECT stock.id_producto,id_stock,stock_minimo, id_puesto, SUM(stock_actual) as stock_actual  FROM stock "
 			 . "INNER JOIN producto ON producto.id_producto = stock.id_producto"
 			 . " WHERE producto.id_producto_final= ". $idProductoFinal;
 		//var_dump($sql);
@@ -43,6 +63,15 @@ class Stock{
 
     }
 
+    public function descontar($cantidad){
+        $cantidad = $this->_stockActual - $cantidad;
+        $sql = "UPDATE stock SET stock_actual =" . $cantidad ." WHERE id_producto = $this->_idProducto AND id_puesto = $this->_idPuesto";
+        $mysql = new MySQL();
+        $mysql->actualizar($sql);
+        var_dump($sql);
+
+    }
+
     public static function obtenerPorIdProducto($idProducto,$idPuesto){
         $sql = "SELECT * FROM stock WHERE id_producto = " . $idProducto . " AND id_puesto = ". $idPuesto;
         $mysql = new MySQL();
@@ -58,6 +87,15 @@ class Stock{
         }        
     }
 
+    private function _generarListadoStock($datos){
+        $listado = array();
+        while ($registro = $datos->fetch_assoc()) {
+            $stock = self::_generarStock($registro);
+            $listado[] = $stock;
+        }
+        return $listado;
+    }
+
 	private function _generarStock($registro){
 		$stock = new Stock();
 		$stock->_idStock = $registro['id_stock'];
@@ -65,6 +103,7 @@ class Stock{
 		$stock->_stockActual = $registro['stock_actual'];
 		$stock->_stockMinimo = $registro['stock_minimo'];
         $stock->_idPuesto = $registro['id_puesto'];
+        //$stock->_totalStock = $registro['total_producto'];
         $stock->setPuesto();
 		return $stock;
 	}

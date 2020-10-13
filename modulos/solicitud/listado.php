@@ -1,11 +1,10 @@
 <?php
-require_once "../../class/Compra.php";
+require_once "../../class/Solicitud.php";
 
-$listadoCompras = Compra::obtenerTodos();
-//highlight_string(var_export($listadoCompras,true));
+$listadoSolicitud = Solicitud::obtenerTodos();
+//highlight_string(var_export($listadoSolicitud,true));
 //exit;
 ?>
-
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 
@@ -18,7 +17,7 @@ $listadoCompras = Compra::obtenerTodos();
               <div class="col-md-12 col-sm-12 ">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Lista de Compras <small>Users</small></h2>
+                    <h2>Lista de Solicitudes <small>Users</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -45,24 +44,24 @@ $listadoCompras = Compra::obtenerTodos();
                       <thead>
                       <tr>
                         <th>Nro</th>
-                        <th>Cajero/a</th>
-                        <th>Fecha</th>
-                        <th>Tipo de Comprobante</th>              
-                        <th>Total</th>
+                        <th>Jefe de Barman/a</th>
+                        <th>Fecha y Hora Pedido</th>
+                        <th>Fecha y Hora Entrega</th>              
+                        <th>Estado</th>
                         <th>Acciones</th>
                       </tr>
                       </thead>
-                      <?php foreach ($listadoCompras as $compra): ?>
+                      <?php foreach ($listadoSolicitud as $solicitud): ?>
                         <tbody>
                           <tr>
-                            <td> <?php echo $compra->getIdCompra(); ?></td>
-                            <td> <?php echo $compra->usuario->getNombre(); ?></td>
-                            <td><?php echo $compra->getFechaHoraEmision();?></td> 
-                            <td><?php echo $compra->tipoComprobante->getDescripcion();?><td>             
-                            <td>$<?php echo $compra->getTotal();?></td>
+                            <td><?php echo $solicitud->getIdSolicitud(); ?></td>
+                            <td><?php echo $solicitud->usuario->getNombre(); ?></td>
+                            <td><?php echo $solicitud->getFechaHoraPedido();?></td> 
+                            <td><?php echo $solicitud->getFechaHoraEntrega();?></td>           
+                            <td><?php echo $solicitud->estado->getDescripcion();?></td>
                             <td width="50%"> 
 
-                            <a href="detalle.php?id=<?php echo $compra->getIdCompra(); ?>" role="button" title="Editar">Detalle</a>
+                            <a href="detalle.php?id=<?php echo $solicitud->getIdSolicitud(); ?>" role="button" title="Editar">Detalle</a>
 
                             </td>
                           </tr>
