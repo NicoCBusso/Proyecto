@@ -59,7 +59,20 @@ class Producto extends ProductoFinal{
         $listado = self::_generarListadoProductoFinal($datos);
 
         return $listado;
-    }    
+    }
+
+    public static function obtenerPorCodigoBarra($descripcion){
+        $sql = "SELECT * FROM producto INNER JOIN productofinal ON producto.id_producto_final = productofinal.id_producto_final WHERE codigo_barra =". $descripcion;
+        $mysql = new MySQL();
+        $datos = $mysql->consultar($sql);
+        $mysql->desconectar();
+
+        $registro = $datos->fetch_assoc();
+
+        $producto = self::_generarProducto($registro);
+
+        return $producto;
+    }      
 
     public function _generarListadoProducto($datos){
     	$listado = array();

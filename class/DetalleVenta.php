@@ -174,8 +174,6 @@ class DetalleVenta{
     	$detalleVenta->_precio = $registro['precio'];
     	$detalleVenta->_estado = $registro['estado'];
     	$detalleVenta->setProductoFinal();
-    	//$detalleVenta->setVenta();
-    	//highlight_string(var_export($detalleVenta,true));
     	return $detalleVenta;
     }
     
@@ -187,6 +185,22 @@ class DetalleVenta{
             $listado[] = $detalleVenta;
             }
         return $listado;
+    }
+
+    public static function obtenerPorId($id){
+        $sql = "SELECT * FROM detalleventa WHERE id_detalle_venta = ".$id;
+        //var_dump($sql);
+
+        $mysql = new MySQL();
+        $datos = $mysql->consultar($sql);
+        $mysql->desconectar();
+
+        $registro = $datos->fetch_assoc();
+
+        $detalleVenta = self::_generarDetalleVenta($registro);
+
+        return $detalleVenta;
+
     }
 
     public static function obtenerPorIdVenta($id){

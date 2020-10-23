@@ -31,6 +31,21 @@ class Stock{
             return;   
         } 
     }
+    public static function obtenerPorIdProductoFinalNataliaNatalia($idProductoFinal,$idPuesto){
+        $sql = "SELECT stock.id_producto,id_stock,stock_actual,stock_minimo,id_puesto FROM productofinal INNER JOIN producto ON productofinal.id_producto_final = producto.id_producto_final"
+              ." INNER JOIN stock ON producto.id_producto = stock.id_producto"
+                ." WHERE productofinal.id_producto_final = ".$idProductoFinal." AND id_puesto = ".$idPuesto;
+        var_dump($sql);
+        $mysql = new MySQL();
+        $datos = $mysql->consultar($sql);
+        $mysql->desconectar();
+        
+        $registro = $datos->fetch_assoc();
+
+        $stock = self::_generarStock($registro);
+
+        return $stock;
+    }
 
 	public static function obtenerPorIdProductoFinal($idProductoFinal){
 		$sql = "SELECT stock.id_producto,id_stock,stock_minimo, id_puesto, SUM(stock_actual) as stock_actual  FROM stock "
@@ -71,7 +86,7 @@ class Stock{
         var_dump($sql);
 
     }
-
+    //Posiblemente se borre
     public static function obtenerPorIdProducto($idProducto,$idPuesto){
         $sql = "SELECT * FROM stock WHERE id_producto = " . $idProducto . " AND id_puesto = ". $idPuesto;
         $mysql = new MySQL();

@@ -33,6 +33,22 @@ class Trago extends ProductoFinal{
         return $listado;
 	}
 
+    public static function obtenerPorIdProductoFinal($idProductoFinal){
+        $sql = "SELECT * FROM productofinal INNER JOIN trago ON productofinal.id_producto_final = trago.id_producto_final WHERE productofinal.id_producto_final = ". $idProductoFinal;
+
+        $mysql = new MySQL();
+        $datos = $mysql->consultar($sql);
+        $mysql->desconectar();
+        //var_dump($sql);
+
+        $registro = $datos->fetch_assoc();
+        if ($datos->num_rows > 0){
+            $trago = self::_generarTrago($registro);
+            return $trago;
+        }
+        
+    }
+
 	public static function obtenerPorId($id){
 		$sql= "SELECT * FROM trago INNER JOIN productofinal ON trago.id_producto_final = productofinal.id_producto_final INNER JOIN producto_trago ON trago.id_trago = producto_trago.id_trago WHERE trago.id_trago =".$id;
 

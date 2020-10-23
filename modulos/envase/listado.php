@@ -36,29 +36,29 @@ $listadoEnvase = Envase::obtenerTodos();
                       <div class="row">
                           <div class="col-sm-12">
                             <div class="card-box table-responsive">
-                    <p class="text-muted font-13 m-b-30">
-                      <a href="alta.php" role="button" class="btn btn-primary">Agregar</a>
-                    </p>
-                    <table id="datatable" class="table" style="width:100%">
-                      <thead>
-                        <tr>
-                          <th>Nombre</th>
-                          <th>Opciones</th>
-                        </tr>
-                      </thead>
-                      <?php foreach ($listadoEnvase as $envase): ?>
-						<tbody>
-							<tr>
-								<td><?php echo $envase->getNombre(); ?></td>
-								<td>
-									<a href="actualizar.php?id=<?php echo $envase->getIdEnvase(); ?>" role="button" title="Editar">Actualizar</a>
-								</td>
-							</tr>
-						</tbody>
-					  <?php endforeach ?>
-                    </table>
-                  </div>
-                  </div>
+                              <p class="text-muted font-13 m-b-30">
+                                <a href="alta.php" role="button" class="btn btn-primary">Agregar</a>
+                              </p>
+                              <table id="datatable" class="table" style="width:100%">
+                                <thead>
+                                  <tr>
+                                    <th>Nombre</th>
+                                    <th>Opciones</th>
+                                  </tr>
+                                </thead>
+                                <?php foreach ($listadoEnvase as $envase): ?>
+                      						<tbody>
+                      							<tr>
+                      								<td><?php echo $envase->getNombre(); ?></td>
+                      								<td>
+                      									<a href="actualizar.php?id=<?php echo $envase->getIdEnvase(); ?>" role="button" title="Editar">Actualizar</a>
+                      								</td>
+                      							</tr>
+                      						</tbody>
+                      					  <?php endforeach ?>
+                              </table>
+                            </div>
+                            </div>
               </div>
             </div>
 
