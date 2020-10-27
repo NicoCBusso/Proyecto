@@ -4,13 +4,13 @@ require_once 'MySQL.php';
 require_once 'Perfil.php';
 
 class Usuario extends PersonaFisica {
-	protected $_idUsuario;
-	protected $_username;
-	protected $_password;
-	protected $_idPerfil;
-    protected $_fechaUltimoLogin;
-    protected $_estaLogueado;
-    protected $_avatar;
+	public $_idUsuario;
+	public $_username;
+	public $_password;
+	public $_idPerfil;
+    public $_fechaUltimoLogin;
+    public $_estaLogueado;
+    public $_avatar;
 
     public $perfil;
 

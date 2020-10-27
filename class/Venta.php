@@ -5,13 +5,13 @@ require_once "DetalleVenta.php";
 
 class Venta {
 
-	private $_idVenta;
-	private $_idUsuario;
-	private $_arrDetalleVenta;
-	private $_fechaHoraEmision;
-	private $_fechaHoraExpiracion;
-    private $_estado;
-	private $_total;
+	public $_idVenta;
+	public $_idUsuario;
+	public $_arrDetalleVenta;
+	public $_fechaHoraEmision;
+	public $_fechaHoraExpiracion;
+    public $_estado;
+	public $_total;
 
 	public $usuario;
 
@@ -174,6 +174,22 @@ class Venta {
             }
         return $listado;
     }
+    public function _informeVenta($datos){
+        $listado = array();
+        while ($registro = $datos->fetch_assoc())
+            {
+            $venta = new Venta();
+            $venta->_idVenta = $registro['id_venta'];
+            $venta->_idUsuario = $registro['id_usuario'];
+            $venta->_arrDetalleVenta = DetalleVenta::informeConsumicion($venta->_idVenta);
+            $venta->_fechaHoraEmision = $registro['fecha_hora_emision'];
+            $venta->_fechaHoraExpiracion = $registro['fecha_hora_expiracion'];
+            $venta->_estado = $registro['estado'];    
+            $venta->setUsuario();
+            $listado[] = $venta;
+            }
+        return $listado;
+    }
 
     public static function obtenerTodos(){
     	$sql = "SELECT * FROM venta";
@@ -215,7 +231,7 @@ class Venta {
     {
         $total = 0;
         foreach ($this->_arrDetalleVenta as $detalleVenta) {
-            $total = $total+$detalleVenta->getPrecio();;
+            $total = $total+$detalleVenta->getPrecio();
         }
         $this->_total = $total;
 

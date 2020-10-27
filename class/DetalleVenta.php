@@ -6,11 +6,11 @@ require_once "ProductoFinal.php";
 
 class DetalleVenta{
 
-	private $_idDetalleVenta;
-	private $_idVenta;
-	private $_idProductoFinal;
-	private $_estado;
-	private $_precio;
+	public $_idDetalleVenta;
+	public $_idVenta;
+	public $_idProductoFinal;
+	public $_estado;
+	public $_precio;
 
 	public $productoFinal;
 	public $venta;
@@ -177,7 +177,7 @@ class DetalleVenta{
     	return $detalleVenta;
     }
     
-    private function _generarListadoDetalleVenta($datos){
+    public function _generarListadoDetalleVenta($datos){
         $listado = array();
         while ($registro = $datos->fetch_assoc())
             {
@@ -212,6 +212,21 @@ class DetalleVenta{
         $mysql->desconectar();
 
         $detalleVenta = self::_generarListadoDetalleVenta($datos);
+
+        return $detalleVenta;
+    }
+
+    public static function informeConsumicion($id){
+        $sql = "SELECT * FROM detalleventa INNER JOIN venta ON detalleventa.id_venta = venta.id_venta WHERE venta.id_venta = ".$id;
+        //var_dump($sql);
+
+        $mysql = new MySQL();
+        $datos = $mysql->consultar($sql);
+        $mysql->desconectar();
+
+        $registro = $datos->fetch_assoc();
+
+        $detalleVenta = self::_generarDetalleVenta($registro);
 
         return $detalleVenta;
     }
