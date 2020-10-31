@@ -28,8 +28,10 @@ if (isset($fechaDesde) && isset($fechaHasta)) {
 	$mysql = new MySQL();
 	$datos = $mysql->consultar($sql);
 	$mysql->desconectar();
-	$listado = Venta::_generarListadoVenta($datos);
-	echo json_encode($listado);
+	echo $sql;
+	echo '<br>';
+	//$listado = Venta::_generarListadoVenta($datos);
+	//echo json_encode($listado);
 	exit;	
     }
 } 
@@ -46,8 +48,8 @@ if (isset($idProductoFinal)) {
 	$mysql->desconectar();
 	echo $sql;
 	echo '<br>';
-	$listado = Venta::_generarListadoVenta($datos);
-	echo json_encode($listado);
+	//$listado = Venta::_generarListadoVenta($datos);
+	//echo json_encode($listado);
 	exit;     
     }
 }
@@ -60,8 +62,8 @@ if (isset($idUsuario)) {
 	$mysql->desconectar();
 	echo $sql;
 	echo '<br>';
-	$listado = Venta::_generarListadoVenta($datos);
-	echo json_encode($listado);
+	//$listado = Venta::_generarListadoVenta($datos);
+	//echo json_encode($listado);
 	exit;
 }
 /*

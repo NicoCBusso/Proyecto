@@ -429,11 +429,11 @@ CREATE TABLE `salida` (
   `fecha_hora_entrega` datetime DEFAULT NULL,
   `id_puesto` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_salida`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `salida` */
 
-insert  into `salida`(`id_salida`,`id_detalle_venta`,`codigo_barra`,`fecha_hora_entrega`,`id_puesto`) values (1,2409,NULL,'2020-10-15 11:24:59',1),(2,2410,1,'2020-10-16 01:11:06',1),(3,2410,1,'2020-10-23 20:52:31',1),(4,2410,1,'2020-10-23 20:58:22',1),(5,2410,1,'2020-10-23 20:58:44',1),(6,2410,1,'2020-10-23 21:01:20',1),(7,NULL,1111111112,'2020-10-23 21:15:26',1),(8,NULL,1111111112,'2020-10-23 21:17:33',1),(9,NULL,645845,'2020-10-23 21:34:43',1),(10,2412,1,'2020-10-23 21:43:47',1),(11,2412,1,'2020-10-23 21:46:23',1),(12,2412,1,'2020-10-23 21:46:41',1);
+insert  into `salida`(`id_salida`,`id_detalle_venta`,`codigo_barra`,`fecha_hora_entrega`,`id_puesto`) values (1,2409,NULL,'2020-10-15 11:24:59',1),(2,2410,1,'2020-10-16 01:11:06',1),(3,2410,1,'2020-10-23 20:52:31',1),(4,2410,1,'2020-10-23 20:58:22',1),(5,2410,1,'2020-10-23 20:58:44',1),(6,2410,1,'2020-10-23 21:01:20',1),(7,NULL,1111111112,'2020-10-23 21:15:26',1),(8,NULL,1111111112,'2020-10-23 21:17:33',1),(9,NULL,645845,'2020-10-23 21:34:43',1),(10,2412,1,'2020-10-23 21:43:47',1),(11,2412,1,'2020-10-23 21:46:23',1),(12,2412,1,'2020-10-23 21:46:41',1),(13,2417,1,'2020-10-23 23:31:34',1),(14,2412,1,'2020-10-23 23:33:21',1),(15,NULL,1111111112,'2020-10-23 23:34:48',1),(16,NULL,1111111112,'2020-10-23 23:34:54',1);
 
 /*Table structure for table `solicitud` */
 
@@ -468,7 +468,7 @@ CREATE TABLE `stock` (
 
 /*Data for the table `stock` */
 
-insert  into `stock`(`id_stock`,`id_producto`,`stock_actual`,`id_puesto`,`stock_minimo`) values (2,13,152,1,NULL),(3,13,171,4,NULL),(4,12,171,4,NULL),(5,6,146,4,NULL),(6,4,146,4,NULL),(7,4,60,1,NULL),(20,4,8,2,NULL),(21,6,8,2,NULL),(22,7,50,4,NULL),(23,5,30,4,NULL),(24,5,40,3,NULL),(25,4,40,3,NULL),(26,6,40,3,NULL),(27,7,40,3,NULL),(28,12,40,3,NULL),(29,5,9,1,NULL),(30,6,7,1,NULL),(31,7,9,1,NULL),(32,12,99,1,NULL);
+insert  into `stock`(`id_stock`,`id_producto`,`stock_actual`,`id_puesto`,`stock_minimo`) values (2,13,150,1,NULL),(3,13,171,4,NULL),(4,12,171,4,NULL),(5,6,146,4,NULL),(6,4,146,4,NULL),(7,4,60,1,NULL),(20,4,8,2,NULL),(21,6,8,2,NULL),(22,7,50,4,NULL),(23,5,30,4,NULL),(24,5,40,3,NULL),(25,4,40,3,NULL),(26,6,40,3,NULL),(27,7,40,3,NULL),(28,12,40,3,NULL),(29,5,9,1,NULL),(30,6,5,1,NULL),(31,7,9,1,NULL),(32,12,99,1,NULL);
 
 /*Table structure for table `subcategoria` */
 
