@@ -1,9 +1,8 @@
 <?php 
-require_once '../../class/DetalleSolicitud.php';
-require_once '../../class/Producto.php';
-require_once '../../class/Puesto.php';
-$listadoProducto = Producto::obtenerTodos();
-$listadoPuesto = Puesto::obtenerTodos()
+
+require_once '../../class/Excepcion.php';
+
+$listadoTipoExcepcion = TipoExcepcion::obtenerTodos();
 ?>
 <!DOCTYPE html>
 <html>
@@ -30,7 +29,7 @@ $listadoPuesto = Puesto::obtenerTodos()
   			<div class="col-md-12 col-sm-12">
   				<div class="x_panel">
   					<div class="x_title">
-  						<h2>Solicitud<small></small></h2>
+  						<h2>Cambio de Consumicion</h2>
   						<ul class="nav navbar-right panel_toolbox">
 	                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 	                      </li>
@@ -46,59 +45,53 @@ $listadoPuesto = Puesto::obtenerTodos()
 	                    					<div id="datos">
 		                    					<br>
 		                    					<div>
-		                    						<h5><p><label>Cajero/a : <?php echo $usuarioLogueado->getUsername();?></label></p></h5>	                    						
+		                    						<input type="hidden" id="idUsuario" value="<?php echo $usuarioLogueado->getIdUsuario();?>" name="">
+		                    						<h5><p><label>Usuario: <?php echo $usuarioLogueado->getUsername();?></label></p></h5>	                    						
 		                    					</div>
-		                    					<div>
-		                    						<div id="acciones_venta">
-		                    							<a href="#" role="button" class="btn btn-primary" id="agregarConsumicion" onclick="abrirListaProductos();">Agregar</a>
-		                    						</div>
+		                    					<div>		                    						
 		                    					</div>
 		                    				</div>
 	                    				</div>	                      									
 	                    			</div>
 	                    		</div>
-	                    		<div class="col-md-2 mb-3">
+	                    		<div class="col-md-3 mb-3">
 	                    			<div class="card-box table-responsive">
 	                    				<div id="datos_venta">
 	                    					<div id="datos">
 		                    					<br>
 		                    					<div>
-		                    						<h5><p><label>Puesto</label></p></h5>	                    						
+		                    						<h5><p><label>Codigo Consumicion</label></p></h5>	                    						
 		                    					</div>
-		                    					<div class="item form-group">													
-													</label>
-													<div class="col-md-10 mb-3 ">
-														<select name="cboPuesto" id="cboPuesto" class="form-control">
-															<option value="0">Seleccionar</option>
-															<?php foreach ($listadoPuesto as $puesto): ?>
-																<option value="<?php echo $puesto->getIdPuesto();?>"><?php echo $puesto->getLugar()?></option>
-															<?php endforeach ?>		
-														</select>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
+		                    					<div>
+		                    						<div id="acciones_venta">
+		                    							<input type="number" name="idDetalleVenta" class="form-control" id="idDetalleVenta">
+		                    						</div>
+		                    					</div>
+		                    				</div>
+	                    				</div>	                      									
+	                    			</div>
+	                    		</div>								
 	                    </div>
                 			<div class="row">
 	                          	<div class="col-sm-12">
 	                            	<div class="card-box table-responsive">
-		                    			<table id="detalle_solicitud" class="table" style="width:100%">
+		                    			<table id="detalle_excepcion" class="table" style="width:100%">
 					                      <thead>
 					                        <tr>
-					                        	<th>Codigo</th>
-					                            <th>Producto</th>
-					                            <th>Cantidad</th>					                            
+					                            <th>Consumisicion a cambiar</th>
+					                            <th id="idConsumicionCambiada">Consumisicion cambiada</th>					                            
 					                            <th>Accion</th>							                          
+					                        </tr>
+					                        <tr =>
+					                        	
 					                        </tr>
 					                       </thead>
 					                    </table>
 					                </div>
 					            </div>
 					        </div>					        
-					        <button type="button" class="btn btn-success" onclick="guardarFormularioSolicitud();">Guardar</button>
-					          
+					        <button type="button" class="btn btn-success" onclick="guardarFormulario();">Guardar</button>
+
 					        <a href="listado.php" role="button" class="btn btn-primary">Atras</a>
 						</div>
 
@@ -154,22 +147,23 @@ $listadoPuesto = Puesto::obtenerTodos()
 	var id_detalle = 0;
 	var total = 0.0;
 	var vuelto = 0.0;
-	var detalle_solicitud = []; // array
+	var detalle_excepcion = [];
+	var items = {}; // array
   	$.ajax({
 		type: 'GET',
-		url: '../../utils/compra/buscarProducto.php',
+		url: '../../utils/venta/buscarProductoFinal.php',
 		data: {},
 		success: function(data){
 			var datos = JSON.parse(data);
 			for (var x=0; x < datos.length; x++){
-				if (datos[x].stock != null){
-					row = generarFila(
-					datos[x]._idProducto,
-					datos[x]._nombre,					
+				console.log(datos[x]);
+				row = generarFila(
+					datos[x]._idProductoFinal,
+					datos[x]._nombre,
+					datos[x]._precioVenta,
 					datos[x].stock._stockActual
 					);
-				$('#id_tabla_productos tr:last').after(row)	
-				}					
+				$('#id_tabla_productos tr:last').after(row)		
 			}
 		}
 	})
@@ -179,56 +173,46 @@ $listadoPuesto = Puesto::obtenerTodos()
   		}
   		var row = '<tr onclick="setCantidadProducto(';
   		row += id + ",'";
-  		row += nombre + "',";
-  		row += cantidad + ')"><td>';
+  		row += nombre + "'";
+  		row += ')"><td>';
   		row += id + '</td><td>';
   		row += nombre + '</td><td>';
   		row += cantidad + '</td></trim>';; 
   		return row;
   	}
 	function setCantidadProducto(id, descripcion)
-	{
-		 
-		let cantidad = prompt('Ingrese la cantidad');
-		if (cantidad == null || cantidad.trim() == ""){
-			return false;
-		}
-		if(isNaN(cantidad)){
-			return false;
-		}
+	{	
 		
-		let items = {}; //items del detalle
-		items['id'] = id_detalle;
-		items['id_producto'] = id;
-		items['cantidad'] = cantidad;		
-		detalle_solicitud.push(items); //armando detalle para el envio
-		$('#detalle_solicitud tr:last').after('<tr id=' + id_detalle + '><td >' + id + '</td><td>' + descripcion + '</td><td>' + cantidad + '</td><td><a href="#" role="button" class="btn btn-danger" onclick="eliminarDetalle('+id_detalle+');">Eliminar</a></td></tr>')
+		items['idConsumicionCambiada'] = id;
+		items['consumicionCambiada'] = descripcion;
+		console.log(items);
+		detalle_excepcion.push(items);
+		$('#detalle_excepcion tr:last').after('<tr id=' + id_detalle + '><td >' + items.consumicionACambiar + '</td><td>' + descripcion + '</td><td><a href="#" role="button" class="btn btn-danger" onclick="eliminarDetalle('+id_detalle+');">Eliminar</a></td></tr>')
+		console.log(detalle_excepcion);
 		id_detalle++;
-		console.log(detalle_solicitud);
 	}
 
 	//Funcion Borrar
 	function eliminarDetalle(buscarIndex){
 			let respuesta=[];
-			for (let index = 0; index < detalle_solicitud.length; index++){
-				if(detalle_solicitud[index].id !== buscarIndex){
-					respuesta.push(detalle_solicitud[index])
+			for (let index = 0; index < detalle_excepcion.length; index++){
+				if(detalle_excepcion[index].id !== buscarIndex){
+					respuesta.push(detalle_excepcion[index])
 					//console.log(respuesta[index]);
 				} else {
 					console.log('borra este id');
 					console.log(index);
-					$('#' + detalle_solicitud[index].id).remove();
-					restarSubTotal(detalle_solicitud[index].subtotal);
+					$('#' + detalle_excepcion[index].id).remove();
+					restarSubTotal(detalle_excepcion[index].subtotal);
 					//respuesta.splice(index, 1);
 				}
-
 			} 
-			detalle_solicitud = respuesta;
-			console.log(detalle_solicitud);
-			return detalle_solicitud;			
+			detalle_excepcion = respuesta;
+			console.log(detalle_excepcion);
+			return detalle_excepcion;			
 	}
 
-	function buscarProductos()
+	/*function buscarProductos()
 	{
 		alert($('#id_txt_buscar').val());
 	    $.ajax({
@@ -253,20 +237,44 @@ $listadoPuesto = Puesto::obtenerTodos()
 	            //$('#id_productos').html(data)
 	        }
 	    })
-	}
+	}*/
 
+	//Buscar por Id Detalle Venta
+	$('#idDetalleVenta').on('keypress',function(e) {	
+	    if(e.which == 13) {
+	    	let idDetalleVenta = $('#idDetalleVenta').val();
+	        $.ajax({
+	        type: 'POST',
+	            url : '../../utils/detalleventa/traerDetalleVenta.php',
+	            data: {
+	                'idDetalleVenta': idDetalleVenta,
+
+	            },
+	            success: function(data){
+	                let datos = JSON.parse(data);
+	                console.log(datos);
+	                items['id'] = id_detalle;
+					items['idDetalleVenta'] = datos._idDetalleVenta;
+					items['idConsumicionACambiar'] = datos._idProductoFinal;
+					items['consumicionACambiar'] = datos.productoFinal._nombre;
+					abrirListaProductos();	                	                
+	            }
+	        })
+	    }
+	});
 	/*-----------------
     funciones de guardar
 	-------------------*/
-	function guardarFormularioSolicitud(){
-		let puesto = $('#cboPuesto').val();		
-		if(detalle_solicitud.length >0){
+	function guardarFormulario(){
+	    let idPuesto = 5;
+		let tipoExcepcion = $('#cboTipoExcepcion').val();		
+		if(detalle_excepcion.length >0){
 			$.ajax({
 				type: 'POST',
-				url: 'procesar/insert.php',
+				url: 'procesar/insertCaja.php',
 				data: {
-					'items': detalle_solicitud,
-					'puesto': puesto
+					'items': detalle_excepcion,
+	                'idPuesto': idPuesto
 				},
 				success: function(data){
 					console.log(data)
@@ -275,7 +283,7 @@ $listadoPuesto = Puesto::obtenerTodos()
 		} else {
 			alert('Error Bro');
 		}
-		location.reload();
+		//location.reload();
 	}
 	
   </script>

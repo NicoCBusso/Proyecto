@@ -55,7 +55,8 @@ $listadoUsuario = Usuario::obtenerTodos();
                               <input type='date' name='txtFechaHasta' class="form-control" id="txtFechaHasta">
                           </div>
                       </div>
-                      <div class="col-md-6">
+
+                      <div class="col-md-4">
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="envase">Producto/Trago <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 ">
@@ -67,7 +68,8 @@ $listadoUsuario = Usuario::obtenerTodos();
                           </select>
                         </div>
                       </div>
-                      <div class="col-md-6">
+
+                      <div class="col-md-4">
                         <label class="col-form-label col-md-3 col-sm-3 label-align" >Usuario/a <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 ">
@@ -79,14 +81,29 @@ $listadoUsuario = Usuario::obtenerTodos();
                           </select>
                         </div>
                       </div>
-                      <button onclick="buscar()" class="btn btn-info">Buscar</button>
+
+                      <div class="col-md-4">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" >Estado <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                          <select name="cboEstado" id="cboEstado" class="form-control">
+                            <option value="1">Sin Consumir</option>
+                            <option value="2">Cancelado</option>
+                            <option value="3">Consumido</option>    
+                          </select>
+                        </div>
+                      </div>
+
+                      
                     </div>
+                    <p><button onclick="buscar()" class="btn btn-info">Buscar</button></p>
                     <table id="tablaInforme" class="table" style="width:100%">  
                       <thead>
                         <tr>
                           <th>Fecha Emision</th>
                           <th>Producto Final</th>
-                          <th>Precio</th>
+                          <th>Precio</th>                          
+                          <th>Estado</th>
                           <th>Cajero/a</th>
                         </tr>
                       </thead>
@@ -111,6 +128,7 @@ $listadoUsuario = Usuario::obtenerTodos();
     let fechaHasta = $('#txtFechaHasta').val();
     let idProductoFinal = $('#cboIdProductoFinal').val();
     let idUsuario = $('#cboIdUsuario').val();
+    let estado = $('#cboEstado').val();
     console.log(idProductoFinal);
     $.ajax({
         type: 'GET',
@@ -119,45 +137,48 @@ $listadoUsuario = Usuario::obtenerTodos();
             'fechaDesde': fechaDesde,
             'fechaHasta': fechaHasta,
             'idProductoFinal': idProductoFinal,
-            'idUsuario': idUsuario
+            'idUsuario': idUsuario,
+            'estado': estado
         },
         success: function(data){
             var datos = JSON.parse(data);
             console.log(datos);
             $('#tablaInforme tbody tr').empty();
             for (var x=0; x < datos.length; x++){
-              for (var y=0; y < datos[x]._arrDetalleVenta.length; y++){   
+              //console.log(datos[x]);
                 if (idProductoFinal != 0){        
-                  if (datos[x]._arrDetalleVenta[y]._idProductoFinal = idProductoFinal){
+                  if (datos[x].id_producto_final = idProductoFinal){
                     row = generarFila(
-                      datos[x]._fechaHoraEmision,
-                      datos[x]._arrDetalleVenta[y].productoFinal._nombre,
-                      datos[x].usuario._username,
-                      datos[x]._arrDetalleVenta[y]._precio,
-                      datos[x]._arrDetalleVenta[y]._idProductoFinal
+                      datos[x].fecha_hora_emision,
+                      datos[x].descripcion,
+                      datos[x].username,
+                      datos[x].precio,
+                      datos[x].estado,
+                      datos[x].id_producto_final
                     );
                   }                 
                 } else {
                   row = generarFila(
-                    datos[x]._fechaHoraEmision,
-                    datos[x]._arrDetalleVenta[y].productoFinal._nombre,
-                    datos[x].usuario._username,
-                    datos[x]._arrDetalleVenta[y]._precio,
-                    datos[x]._arrDetalleVenta[y]._idProductoFinal
+                    datos[x].fecha_hora_emision,
+                    datos[x].descripcion,
+                    datos[x].username,
+                    datos[x].precio,
+                    datos[x].estado,
+                    datos[x].id_producto_final
                   );
-                }
-              }
+                }              
             $('#tablaInforme tbody tr:last').after(row);
         }
       }
     })
   }
 
-  function generarFila(fecha,nombre,cajero,precio,idProductoFinal) {
+  function generarFila(fecha,nombre,cajero,precio,estado,idProductoFinal) {
     var row = '<tr><td>';
     row += fecha + '</td><td>';
     row += nombre + '</td><td>';
     row += precio + '</td><td>';
+    row += estado + '</td><td>';
     row += cajero + '</td></trim>';; 
     return row;
   }

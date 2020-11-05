@@ -18,7 +18,7 @@ $listadoCompras = Compra::obtenerTodos();
               <div class="col-md-12 col-sm-12 ">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Lista de Compras <small>Users</small></h2>
+                    <h2>Lista de Compras</h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -58,7 +58,7 @@ $listadoCompras = Compra::obtenerTodos();
                             <td> <?php echo $compra->getIdCompra(); ?></td>
                             <td> <?php echo $compra->usuario->getNombre(); ?></td>
                             <td><?php echo $compra->getFechaHoraEmision();?></td> 
-                            <td><?php echo $compra->tipoComprobante->getDescripcion();?><td>             
+                            <td><?php echo $compra->tipoComprobante->getDescripcion();?></td>             
                             <td>$<?php echo $compra->getTotal();?></td>
                             <td width="50%"> 
 

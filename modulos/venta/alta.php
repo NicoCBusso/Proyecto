@@ -27,7 +27,7 @@ $listadoProductoFinal = ProductoFinal::obtenerTodos();
   			<div class="col-md-12 col-sm-12">
   				<div class="x_panel">
   					<div class="x_title">
-  						<h2>Venta<small></small></h2>
+  						<h2>Generar venta<small></small></h2>
   						<ul class="nav navbar-right panel_toolbox">
 	                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 	                      </li>
@@ -43,7 +43,7 @@ $listadoProductoFinal = ProductoFinal::obtenerTodos();
 	                    					<div id="datos">
 		                    					<br>
 		                    					<div>
-		                    						<p><label>Cajero/a : <?php echo $usuarioLogueado->getUsername();?></label></p>		                    						
+		                    						<h6><p><label>Cajero/a : <?php echo $usuarioLogueado->getUsername();?></label></p></h6>		                    						
 		                    					</div>
 		                    					<div>
 		                    						<label>Acciones</label>
@@ -96,6 +96,8 @@ $listadoProductoFinal = ProductoFinal::obtenerTodos();
 					            </div>
 					        </div>
 					        <button type="button" class="btn btn-success" onclick="guardarFormularioVentas();">Guardar</button>
+
+					        <a href="listado.php" role="button" class="btn btn-primary">Atras</a>
 						</div>
 
 	                </div>

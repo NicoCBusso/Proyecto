@@ -47,7 +47,7 @@ $venta = Venta::obtenerPorId($idVenta);
                           <tr>
                             <td> <?php echo $venta->getIdVenta();?></td>
                             <td> <?php echo $venta->usuario->getNombre(); ?> </td>
-                            <td> $<?php echo $venta->getTotal(); ?>$ </td>                            
+                            <td> $<?php echo $venta->obtenerTotal(); ?>$ </td>                            
                           </tr>
                         </tbody>
                     </table>
@@ -96,7 +96,7 @@ $venta = Venta::obtenerPorId($idVenta);
                 </div>
       </div>
   </div>
-
+</div></div></div></div></div></div>
   <?php require_once"../../footer.php"; ?>              
 </body>
 </html>

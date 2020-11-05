@@ -1,11 +1,10 @@
 <?php
-require_once "../../class/Venta.php";
+require_once "../../class/Excepcion.php";
 
-$listadoVentas = Venta::obtenerTodos();
-//highlight_string(var_export($listadoVentas,true));
+$listadoExcepcion = Excepcion::obtenerTodos();
+//highlight_string(var_export($listadoExcepcion,true));
 //exit;
 ?>
-
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 
@@ -18,7 +17,7 @@ $listadoVentas = Venta::obtenerTodos();
               <div class="col-md-12 col-sm-12 ">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Lista de Ventas</h2>
+                    <h2>Lista de Excepcion</h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -39,46 +38,48 @@ $listadoVentas = Venta::obtenerTodos();
                           <div class="col-sm-12">
                             <div class="card-box table-responsive">
                     <p class="text-muted font-13 m-b-30">
-                      <a href="alta.php" role="button" class="btn btn-primary">Agregar</a>
+                      <a href="cambioCaja.php" role="button" class="btn btn-primary">Cambio Caja</a>
+                      <a href="rotura.php" role="button" class="btn btn-danger">Rotura</a>
+                      <a href="cambioBarra.php" role="button" class="btn btn-success">Cambio Barra</a>
                     </p>
                     <table id="datatable" class="table" style="width:100%">
                       <thead>
                       <tr>
-                        <th>Nro</th>
-                        <th>Cajero/a</th>
-                        <th>Fecha Hora Emision</th>
-                        <th>Fecha Hora Expiracion</th>
-                        <th>Total</th>
+                        <th>Tipo de Excepcion</th>
+                        <th>Consumicion a cambiar</th>
+                        <th>Consumicion cambiada</th>
+                        <th>Fecha y Hora generada</th>
+                        <th>Puesto</th>        
                         <th>Acciones</th>
                       </tr>
                       </thead>
-                      <?php foreach ($listadoVentas as $venta): ?>
-                      <tbody>
-                        <tr>
-                          <td> <?php echo $venta->getIdVenta(); ?> </td>
-                          <td> <?php echo $venta->usuario->getNombre(); ?> </td>
-                          <td><?php echo $venta->getFechaHoraEmision();?></td>
-                          <td><?php echo $venta->getFechaHoraExpiracion();?></td>
-                          <td>$<?php echo $venta->obtenerTotal();?></td>
-                          <td width="50%"> 
+                      <?php foreach ($listadoExcepcion as $excepcion): ?>
+                        <tbody>
+                          <tr>
+                            <td><?php echo $excepcion->tipoExcepcion->getDescripcion();?></td>                            
+                            <td><?php echo $excepcion->consumicionACambiar->getNombre(); ?></td>
+                            <td><?php echo $excepcion->consumicionCambiada->getNombre(); ?></td>
+                            <td><?php echo $excepcion->getFechaHora();?></td>
+                            <td><?php echo $excepcion->puesto->getLugar(); ?></td>          
+                            
+                            <td width="50%"> 
 
-                          <a href="detalle.php?id=<?php echo $venta->getIdVenta(); ?>" role="button" title="Editar">Detalle</a>
+                            <a href="detalle.php?id=<?php echo $excepcion->getIdExcepcion(); ?>" role="button" title="Editar">Detalle</a>
 
-                          </td>
-                        </tr>
-                      </tbody>
+                            </td>
+                          </tr>
+                        </tbody>
                       <?php endforeach ?>
                     </table>
                   </div>
                   </div>
               </div>
             </div>
-        </div>
-      </div>
+</div>
+</div>
+</div>
     </div>
   </div>
-</div>
-
   <?php require_once"../../footer.php"; ?>              
 </body>
 </html>

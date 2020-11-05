@@ -102,6 +102,20 @@ class Stock{
         }        
     }
 
+    public static function consultarStock($idProducto){
+        $sql = "SELECT * FROM stock WHERE id_producto = " . $idProducto;
+        $mysql = new MySQL();
+        $datos = $mysql->consultar($sql);
+        $mysql->desconectar();
+
+        if ($datos->num_rows > 0){
+            $stock = self::_generarListadoStock($datos);
+            return $stock;
+        } else {
+            return;   
+        }
+    }
+
     private function _generarListadoStock($datos){
         $listado = array();
         while ($registro = $datos->fetch_assoc()) {

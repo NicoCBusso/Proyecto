@@ -159,7 +159,7 @@ class Venta {
     	$venta->_fechaHoraEmision = $registro['fecha_hora_emision'];
     	$venta->_fechaHoraExpiracion = $registro['fecha_hora_expiracion'];
         $venta->_estado = $registro['estado'];
-        $venta->setTotal();    	
+        //$venta->obtenerTotal();    	
     	$venta->setUsuario();
 
     	return $venta;
@@ -174,7 +174,7 @@ class Venta {
             }
         return $listado;
     }
-    public function _informeVenta($datos){
+    /*public function _informeVenta($datos){
         $listado = array();
         while ($registro = $datos->fetch_assoc())
             {
@@ -189,7 +189,7 @@ class Venta {
             $listado[] = $venta;
             }
         return $listado;
-    }
+    }*/
 
     public static function obtenerTodos(){
     	$sql = "SELECT * FROM venta";
@@ -227,15 +227,17 @@ class Venta {
      *
      * @return self
      */
-    public function setTotal()
+    public function obtenerTotal()
     {
         $total = 0;
         foreach ($this->_arrDetalleVenta as $detalleVenta) {
-            $total = $total+$detalleVenta->getPrecio();
+            if($detalleVenta->getEstado() == 1){
+                $total = $total+$detalleVenta->getPrecio();
+            }
         }
         $this->_total = $total;
 
-        return $this;
+        return $total;
     }
 
     /**

@@ -3,8 +3,8 @@ require_once 'MySQL.php';
 
 class Puesto {
 
-	private $_idPuesto;
-	private $_lugar;
+	public $_idPuesto;
+	public $_lugar;
 
 
     public function guardar(){

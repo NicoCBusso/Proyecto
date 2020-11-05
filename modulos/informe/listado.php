@@ -34,37 +34,13 @@ require_once "../../class/MySQL.php";
                     <div class="col-sm-12">
                       <div class="card-box table-responsive">
                         <p class="text-muted font-13 m-b-30">
-                          <a href="venta.php" role="button" class="btn btn-primary">Venta</a>
+                          <a href="ventaFiltros.php" role="button" class="btn btn-primary">Detalles de ventas con estados</a>
+                          <a href="ventaCantidad.php" role="button" class="btn btn-primary">Ventas por Fechas</a>
                           <a href="compra.php" role="button" class="btn btn-danger">Compra</a>
                           <a href="excepcion.php" role="button" class="btn btn-success">Excepciones</a>
                         </p>
                       </div>
                     </div>
-                </div>
-                <div class="row" id="opcionesDinamica">
-                  <div class="col-sm-12">
-                    <div class="card-box table-responsive">
-                      <div class="col-md-6">
-                          <div class="form-group">
-                              <label>Fecha Desde</label>
-                              <input type='date' name='txtFechaDesde' class="form-control">
-                          </div>
-                      </div>
-                      <div class="col-md-6">
-                          <div class="form-group">
-                              <label>Fecha Hasta</label>  
-                              <input type='date' name='txtFechaHasta' class="form-control">
-                          </div>
-                      </div>
-                      <div class="col-md-6">
-                          <div class="form-group">
-                              <label>Producto Final</label>  
-                              <select></select>
-                          </div>
-                      </div>                  
-                    </div>
-                    </div>
-                  </div>
                 </div>
             </div>
 

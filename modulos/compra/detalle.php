@@ -19,7 +19,7 @@ $compra = Compra::obtenerPorId($idCompra);
               <div class="col-md-12 col-sm-12 ">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Compra <small></small></h2>
+                    <h2>Compra</h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -32,9 +32,7 @@ $compra = Compra::obtenerPorId($idCompra);
                       <div class="row">
                           <div class="col-sm-12">
                             <div class="card-box table-responsive">
-                            <p class="text-muted font-13 m-b-30">
-                          <a href="listado.php" role="button" class="btn btn-primary">Atras</a>
-                        </p>  
+                             
                     <table id="datatable" class="table" style="width:100%">
                       <thead>
                         <tr>
@@ -90,7 +88,8 @@ $compra = Compra::obtenerPorId($idCompra);
                                   <td><?php echo $detalleCompra->getCantidad();?></td>
                               </tbody>      
                             <?php endforeach ?>
-                      </table>                      
+                      </table>
+                      <a href="listado.php" role="button" class="btn btn-primary">Atras</a>                      
                     </div>
                 </div>
               </div>
@@ -98,7 +97,10 @@ $compra = Compra::obtenerPorId($idCompra);
           </div>
         </div>
   </div>
-
+</div>
+</div>
+</div>
+</div>
   <?php require_once"../../footer.php"; ?>              
 </body>
 </html>

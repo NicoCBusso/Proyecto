@@ -18,7 +18,7 @@ $listadoSalida = Salida::obtenerTodos();
               <div class="col-md-12 col-sm-12 ">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Lista de Salidas <small>Users</small></h2>
+                    <h2>Lista de Salidas</h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -42,6 +42,7 @@ $listadoSalida = Salida::obtenerTodos();
                         <tr>
                           <th>Producto</th>
                           <th>Puesto</th>
+                          <th>Fecha Hora de Salida</th>
                         </tr>
                       </thead>
                       <?php foreach ($listadoSalida as $salida): ?>
@@ -56,7 +57,8 @@ $listadoSalida = Salida::obtenerTodos();
                                 }
                               ?>
                             </td>
-                            <td><?php echo $salida->puesto->getLugar(); ?></td>            								
+                            <td><?php echo $salida->puesto->getLugar(); ?></td>
+                            <td><?php echo $salida->getFechaHoraEntrega(); ?></td>            								
             							</tr>
                         </tbody>
                       <?php endforeach ?>

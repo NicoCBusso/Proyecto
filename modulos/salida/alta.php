@@ -29,7 +29,7 @@ $listadoPuesto = Puesto::obtenerTodos()
   			<div class="col-md-12 col-sm-12">
   				<div class="x_panel">
   					<div class="x_title">
-  						<h2>Solicitud<small></small></h2>
+  						<h2>Salida de productos<small></small></h2>
   						<ul class="nav navbar-right panel_toolbox">
 	                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 	                      </li>
@@ -97,20 +97,7 @@ $listadoPuesto = Puesto::obtenerTodos()
 	                    			</div>
 	                    		</div>
 	                    </div>
-                			<div class="row">
-	                          	<div class="col-sm-12">
-	                            	<div class="card-box table-responsive">
-		                    			<table id="detalle_solicitud" class="table" style="width:100%">
-					                      <thead>
-					                        <tr>
-					                        	<th>Codigo</th>
-					                            <th>Producto</th>				                            					                          
-					                        </tr>
-					                       </thead>
-					                    </table>
-					                </div>
-					            </div>
-					        </div>					        
+                			<a href="listado.php" role="button" class="btn btn-primary">Atras</a>					        
 					        
 						</div>
 

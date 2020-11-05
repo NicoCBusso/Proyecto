@@ -167,6 +167,13 @@ class DetalleVenta{
         $this->_idDetalleVenta = $idInsertado;
         var_dump($sql);
     }
+
+    public function cancelar(){
+        $sql = "UPDATE detalleventa SET estado = $this->_estado WHERE id_detalle_venta = $this->_idDetalleVenta";
+        $mysql = new MySQL();
+        $mysql->actualizar($sql);
+        var_dump($sql);
+    }
     public function _generarDetalleVenta ($registro){
     	$detalleVenta = new DetalleVenta($registro['id_producto_final']);
     	$detalleVenta->_idDetalleVenta = $registro['id_detalle_venta'];
@@ -238,6 +245,14 @@ class DetalleVenta{
         $mysql->desconectar();
 
         return $datos;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIdVenta()
+    {
+        return $this->_idVenta;
     }
 }
 
