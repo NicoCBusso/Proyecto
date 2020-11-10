@@ -89,6 +89,28 @@ $listadoTipoExcepcion = TipoExcepcion::obtenerTodos();
 					                    </table>
 					                </div>
 					            </div>
+					        </div>
+					        <div class="row">
+	                          	<div class="col-sm-12">
+	                            	<div class="card-box table-responsive">
+		                    			<table class="table" style="width:100%">
+					                      <tbody>
+		                                    <tr>
+			                                    <th class="w-50">Total:</th>
+			                                    <td id="id_total">$0.0</td>
+		                                    </tr>
+		                                    <tr>
+			                                    <th>Pago</th>
+			                                    <td><input id="id_pago" type="number" class="form-control"></td>
+		                                    </tr>
+		                                    <tr>
+			                                    <th>Vuelto:</th>
+			                                    <td id="id_vuelto">$0.0</td>
+		                                    </tr>
+		                                </tbody>
+					                    </table>
+					                </div>
+					            </div>
 					        </div>					        
 					        <button type="button" class="btn btn-success" onclick="guardarFormulario();">Guardar</button>
 
@@ -112,6 +134,22 @@ $listadoTipoExcepcion = TipoExcepcion::obtenerTodos();
 		        </button>
 		      </div>
 		      <div class="modal-body">
+		      	<div>
+		      		<table class="table table-striped table-sm">
+		      			<thead>
+                        <tr>
+                        <th>Código</th>
+                        <th>Consumicion</th>
+                        <th>Precio</th>
+                        </tr>
+                    </thead>
+                    <tbody id="id_busqueda">
+                        <td id="idConsumicion"></td>
+                        <td id="nombreConsumicion"></td>
+                        <td id="precioConsumicion"></td>
+                    </tbody>
+		      		</table>
+		      	</div>
 		        <input id="id_txt_buscar" class="form-control" placeholder="Buscar producto" >
                 <button onclick="buscarProductos()" class="btn btn-info">Buscar</button>
                 <table class="table table-striped table-sm" id="id_tabla_productos">
@@ -119,7 +157,8 @@ $listadoTipoExcepcion = TipoExcepcion::obtenerTodos();
                         <tr>
                         <th>Código</th>
                         <th>Producto</th>
-                        <th>Cantidad existente</th>
+                        <th>Precio</th>
+                        <th>Cantidad Existente</th>
                         </tr>
                     </thead>
                     <tbody id="id_busqueda">
@@ -167,24 +206,26 @@ $listadoTipoExcepcion = TipoExcepcion::obtenerTodos();
 			}
 		}
 	})
-  	function generarFila(id,nombre,cantidad) {
-  		if(cantidad == 0){
+  	function generarFila(id,nombre,precioVenta,cantidad) {
+  		if(cantidad == null){
   			return;
   		}
   		var row = '<tr onclick="setCantidadProducto(';
   		row += id + ",'";
-  		row += nombre + "'";
-  		row += ')"><td>';
+  		row += nombre + "',";
+  		row += precioVenta + ')"><td>';
   		row += id + '</td><td>';
   		row += nombre + '</td><td>';
+  		row += '$' + precioVenta + '</td><td>';
   		row += cantidad + '</td></trim>';; 
   		return row;
   	}
-	function setCantidadProducto(id, descripcion)
+	function setCantidadProducto(id,descripcion,precioVenta)
 	{	
 		
 		items['idConsumicionCambiada'] = id;
 		items['consumicionCambiada'] = descripcion;
+		let subtotal = calcularSubtotal(precioVenta,items['precioConsumicionACambiar']);
 		console.log(items);
 		detalle_excepcion.push(items);
 		$('#detalle_excepcion tr:last').after('<tr id=' + id_detalle + '><td >' + items.consumicionACambiar + '</td><td>' + descripcion + '</td><td><a href="#" role="button" class="btn btn-danger" onclick="eliminarDetalle('+id_detalle+');">Eliminar</a></td></tr>')
@@ -258,11 +299,48 @@ $listadoTipoExcepcion = TipoExcepcion::obtenerTodos();
 					items['idDetalleVenta'] = datos._idDetalleVenta;
 					items['idConsumicionACambiar'] = datos._idProductoFinal;
 					items['consumicionACambiar'] = datos.productoFinal._nombre;
+					items['precioConsumicionACambiar'] = datos._precio;
+					//$('#idConsumicion').empty();
+					$('#idConsumicion').append(items['idConsumicionACambiar']);
+					//$('#nombreConsumicion').empty();
+					$('#nombreConsumicion').append(items['consumicionACambiar']);
+					//$('#precioConsumicion').empty();
+					$('#precioConsumicion').append('$'+ items['precioConsumicionACambiar']);
 					abrirListaProductos();	                	                
 	            }
 	        })
 	    }
 	});
+	/*-----------------
+    funciones de calculo
+	-------------------*/
+	function restarSubTotal(precio){
+		//let resultado 
+	    //let resultado = parseFloat(cantidad) * parseFloat(precio);
+	    total -= precio; //resta cantidad
+	    $('#id_total').text('$' + total);
+	    //console.log(total);
+	    return total;
+	}
+	function calcularSubtotal(precioNuevo,precioAnterior){
+	    let resultado = precioAnterior - precioNuevo;
+	    total += resultado; //acumula cantidad
+	    $('#id_total').text('$' + total);
+	    //console.log(total);
+	    return resultado;
+	}
+
+	$('#id_pago').on('keypress',function(e) {
+	    if(e.which == 13) {
+	        calcularVuelto();
+	    }
+	});
+
+	function calcularVuelto(){
+	    let valor_pago= $('#id_pago').val();
+	    let resultado =  valor_pago - total;
+	    $('#id_vuelto').text('$' + resultado);
+	}
 	/*-----------------
     funciones de guardar
 	-------------------*/

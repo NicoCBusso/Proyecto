@@ -73,7 +73,8 @@
                 <canvas id="myChartTotalVendido"></canvas>
               </div>
             </div>
-          </div>         
+          </div>
+                   
     </div>
     <script>
     var labelsVenta_db = [];
