@@ -253,6 +253,7 @@ $listadoTipoExcepcion = TipoExcepcion::obtenerTodos();
 	            success: function(data){
 	                let datos = JSON.parse(data);
 	                console.log(datos);
+	                items = {};
 	                items['id'] = id_detalle;
 					items['idDetalleVenta'] = datos._idDetalleVenta;
 					items['idConsumicionACambiar'] = datos._idProductoFinal;

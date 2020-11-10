@@ -19,7 +19,7 @@ foreach($_POST['items'] as $item){
 	$excepcion = new Excepcion();
 	$excepcion->setFechaHora($fechaHora);
 	$excepcion->setIdConsumicionACambiar($item['idConsumicionACambiar']);
-	$excepcion->setIdConsumicionCambiada($item['idConsumicionACambiar']);
+	$excepcion->setIdConsumicionCambiada($item['idConsumicionCambiada']);
 	$excepcion->setIdPuesto($puesto);
 	$excepcion->setIdUsuario($usuarioLogueado->getIdUsuario());
 	$excepcion->setIdTipoExcepcion(EXCEPCIONROTURA);

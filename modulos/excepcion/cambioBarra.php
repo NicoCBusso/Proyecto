@@ -30,7 +30,7 @@ $listadoPuesto = Puesto::obtenerTodos();
   			<div class="col-md-12 col-sm-12">
   				<div class="x_panel">
   					<div class="x_title">
-  						<h2>Venta<small></small></h2>
+  						<h2>Cambio barra<small></small></h2>
   						<ul class="nav navbar-right panel_toolbox">
 	                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 	                      </li>
@@ -46,6 +46,7 @@ $listadoPuesto = Puesto::obtenerTodos();
 	                    					<div id="datos">
 		                    					<br>
 		                    					<div>
+		                    						<input type="hidden" id="idUsuario" name="idUsuario" value="<?php echo $usuarioLogueado->getIdUsuario(); ?>">
 		                    						<h5><p><label>Jefe/a de Barra : <?php echo $usuarioLogueado->getUsername();?></label></p></h5>	                    						
 		                    					</div>
 		                    					<div>
@@ -117,7 +118,21 @@ $listadoPuesto = Puesto::obtenerTodos();
 		        </button>
 		      </div>
 		      <div class="modal-body">
-		        <input id="id_txt_buscar" class="form-control" placeholder="Buscar producto" >
+		      	<div class="item form-group">
+					<label class="col-form-label col-md-3 col-sm-3 label-align">Accion</label>
+					<div class="col-md-6 col-sm-6 ">
+						<div  class="btn-group" data-toggle="buttons">
+							<label class="btn btn-secondary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default" onclick="cambiarAccion(1)">
+								<input type="radio" name="cboAccion" id="cboAccion" value="1"  class="join-btn"> &nbsp; Roto &nbsp;
+							</label>
+							<label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default" onclick="cambiarAccion(2)">
+								<input type="radio" name="cboAccion" id="cboAccion" value="2"  class="join-btn"> A cambiar
+							</label>
+						</div>
+					</div>
+				</div>
+				<br>
+		        <input id="id_txt_buscar" class="form-control" placeholder="Buscar producto">
                 <button onclick="buscarProductos()" class="btn btn-info">Buscar</button>
                 <table class="table table-striped table-sm" id="id_tabla_productos">
                     <thead>
@@ -146,7 +161,8 @@ $listadoPuesto = Puesto::obtenerTodos();
   	/*------------------
 	variables globales
 	-------------------*/
-
+	var accion;
+	var items = {};
 	//document.getElementById('id_message_validacion').style.display = 'none'; 
 	//$('#id_message_validacion').hide();// se deshabilita el mensaje
 	var id_detalle = 0;
@@ -178,28 +194,45 @@ $listadoPuesto = Puesto::obtenerTodos();
   		row += '$' + precio_venta + '</td></trim>';; 
   		return row;
   	}
+  	//Cambiar Accion
+  	function cambiarAccion($accion){
+  		accion = $accion;
+  		console.log(accion);
+  	}
+
+  	//Consumicion Fallada
 	function setCantidadProducto(id, descripcion, precio_venta)
 	{
 		 
-		/*let cantidad = prompt('Ingrese la cantidad');
-		if (cantidad == null || cantidad.trim() == ""){
-			return false;
+		//console.log(accion);
+
+
+		if (accion == 1 ){
+			items['id'] = id_detalle;
+			items['idConsumicionACambiar'] = id;
+			items['consumicionACambiar'] = descripcion;
+			$('#detalle_cambio tr:last').after('<tr id=' + id_detalle + '><td >' + id + '</td><td>' + descripcion + '</td><td id="consumicionCambiada"></td><td><a href="#" role="button" class="btn btn-danger" onclick="eliminarDetalle('+id_detalle+');">Eliminar</a></td></tr>')
 		}
-		if(isNaN(cantidad)){
-			return false;
-		}*/
+		if(accion == 2 ){
+			items['idConsumicionCambiada'] = id;
+			items['consumicionCambiada'] = descripcion;
+			$('#consumicionCambiada').empty();
+			$('#consumicionCambiada').append(descripcion);
+			detalle_cambio.push(items);
+			items = {};
+		}
+		
+		//si opcion 1 items['consumicionACambiar'] = descripcion;
+		// opcion items['consumicionCambiada'] = descripcion;
 
-		let items = {}; //items del detalle
-		items['id'] = id_detalle;
-		items['idConsumicionACambiar'] = id
-		items['consumicionACambiar'] = descripcion;
 
-
-		detalle_cambio.push(items); //armando detalle para el envio
-		$('#detalle_cambio tr:last').after('<tr id=' + id_detalle + '><td >' + id + '</td><td>' + descripcion + '</td><td><a href="#" role="button" class="btn btn-danger" onclick="eliminarDetalle('+id_detalle+');">Eliminar</a></td></tr>')
+		//detalle_cambio.push(items); //armando detalle para el envio
+		/*$('#detalle_cambio tr:last').after('<tr id=' + id_detalle + '><td >' + id + '</td><td>' + descripcion + '</td><td id="consumicionCambiada"><a href="#" role="button" class="btn btn-success" onclick="productoACambiar('+id_detalle+');">Elegir</td><td><a href="#" role="button" class="btn btn-danger" onclick="eliminarDetalle('+id_detalle+');">Eliminar</a></td></tr>')
+		*/
 		id_detalle++;
 		console.log(detalle_cambio);
 	}
+
 
 	//Funcion Borrar
 	function eliminarDetalle(buscarIndex){
@@ -252,13 +285,16 @@ $listadoPuesto = Puesto::obtenerTodos();
 	-------------------*/
 	function guardarFormularioVentas(){
 		let idPuesto = $('#cboPuesto').val();
+		let idUsuario = $('#idUsuario').val();
+		
 		if(detalle_cambio.length >0){
 			$.ajax({
 				type: 'POST',
-				url: 'procesar/insertRotura.php',
+				url: 'procesar/insertBarra.php',
 				data: {
 					'items': detalle_cambio,
-					'idPuesto': idPuesto
+					'idPuesto': idPuesto,
+					'idUsuario': idUsuario
 				},
 				success: function(data){
 					console.log(data)
