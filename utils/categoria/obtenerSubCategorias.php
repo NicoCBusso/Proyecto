@@ -12,8 +12,5 @@ elseif ($idRecibido != 0) {
 	$options .= '<option value="'.$subcategoria->getIdSubCategoria().'">'.$subcategoria->getNombre().'</option>';
 	}
 }
-
-
-
 echo $options;
 ?>
