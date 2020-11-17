@@ -8,10 +8,16 @@
 
   <?php 
     require_once "../../utils/graficosEstadisticos/consultas.php";
-    $cantidadVentas = cantidadVendidas();
-    $cantidadCompras = cantidadCompradas();
+    $cantidadVentas = cantidadVendidasDelMes();
+    $cantidadCompras = cantidadCompradasDelMes();
     $totalVendidoPorMes = totalVendidoPorMes();
-    //var_dump($cantidadCompras);
+    $cantidadVendidoEnElAño = totalVentasDelAño();
+    $cantidadCompradoEnElAño = totalComprasDelAño();
+    $productoMasVendidoDelMes = productoMasVendido();
+    $tragoMasVendidoDelMes = tragoMasVendido();
+    $puestoConMasSalida = puestoConMasSalida();
+    $totalFacturadoAño = totalFacturadoDelAño();
+    //echo $productoMasVendidoDelMes;
     //exit;    
   ?>
 
@@ -19,11 +25,41 @@
 
 	<div class="right_col" role="main">
           <!-- top tiles -->
+    <div class="row" style="display: inline-block;" >
+
+            <div class="tile_count">
+              <div class="col-md-2 col-sm-4  tile_stats_count">
+                <span class="count_top"><i class="fa fa-user"></i> Total ventas del año</span>
+                <div class="count">
+                  <?php echo $cantidadVendidoEnElAño ?></div>
+              </div>
+              <div class="col-md-2 col-sm-4  tile_stats_count">
+                <span class="count_top"><i class="fa fa-clock-o"></i> Total compras del año</span>
+                <div class="count"><?php echo $cantidadCompradoEnElAño ?></div>
+              </div>
+              <div class="col-md-2 col-sm-4  tile_stats_count">
+                <span class="count_top"><i class="fa fa-user"></i> Producto con mas salida del mes</span>
+                <div class="count"><?php echo $productoMasVendidoDelMes ?></div>
+              </div>
+              <div class="col-md-2 col-sm-4  tile_stats_count">
+                <span class="count_top"><i class="fa fa-user"></i> Trago con mas salida del mes</span>
+                <div class="count"><h5><?php echo $tragoMasVendidoDelMes ?></h5></div>
+              </div>
+              <div class="col-md-2 col-sm-4  tile_stats_count">
+                <span class="count_top"><i class="fa fa-user"></i> Puesto con mas salidao</span>
+                <div class="count"><h4><?php echo $puestoConMasSalida ?></h4></div>
+              </div>
+              <div class="col-md-2 col-sm-4  tile_stats_count">
+                <span class="count_top"><i class="fa fa-user"></i> Facturado en el año</span>
+                <div class="count">$<?php echo $totalFacturadoAño ?></div>
+              </div>
+            </div>
+            <!-- /top tiles -->
 
           <div class="col-md-6 col-sm-6  ">
             <div class="x_panel">
               <div class="x_title">
-                <h2>Cantidad de ventas hasta el dia</h2>
+                <h2>Top 10 cantidad de ventas del mes</h2>
                 <ul class="nav navbar-right panel_toolbox">
                   <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                   </li>
@@ -41,7 +77,7 @@
           <div class="col-md-6 col-sm-6  ">
             <div class="x_panel">
               <div class="x_title">
-                <h2>Cantidad de compras hasta el dia</h2>
+                <h2>Top 10 cantidad de compras del mes</h2>
                 <ul class="nav navbar-right panel_toolbox">
                   <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                   </li>
@@ -75,8 +111,11 @@
             </div>
           </div>
                    
-    </div>
+  </div>
+
     <script>
+    //variables declaradas jiji
+
     var labelsVenta_db = [];
     var dataVenta_db = [];
 
@@ -86,21 +125,34 @@
     var labelsTotalVendidoPorMes_db = [];
     var dataTotalVendidoPorMes_db = [];
 
-    var colors = [];
+    var colores = [];
+
+
+    function generarNumero(numero){
+      return (Math.random()*numero).toFixed(0);
+    }
+
+    function colorRGB(){
+        var coolor = "("+generarNumero(255)+"," + generarNumero(255) + "," + generarNumero(255) +")";
+        return "rgb" + coolor;
+    }
 
     <?php foreach ($cantidadVentas as $cantidadVendidas): ?>
       labelsVenta_db.push('<?php echo $cantidadVendidas['descripcion']; ?>');
       dataVenta_db.push('<?php echo $cantidadVendidas['cantidad']; ?>');
+      colores.push(colorRGB());
     <?php endforeach; ?>
 
     <?php foreach ($cantidadCompras as $cantidadCompradas): ?>
       labelsCompra_db.push('<?php echo $cantidadCompradas['descripcion']; ?>');
       dataCompra_db.push('<?php echo $cantidadCompradas['cantidad']; ?>');
+      colores.push(colorRGB());
     <?php endforeach; ?>
 
     <?php foreach ($totalVendidoPorMes as $totalVendido): ?>
       labelsTotalVendidoPorMes_db.push('<?php echo $totalVendido['mes']; ?>');
       dataTotalVendidoPorMes_db.push('<?php echo $totalVendido['total']; ?>');
+      colores.push(colorRGB());
     <?php endforeach; ?>
 
     console.log(labelsVenta_db);
@@ -108,12 +160,15 @@
     console.log(labelsCompra_db);
     console.log(dataCompra_db);
     console.log(dataTotalVendidoPorMes_db);
+
+    
     var randomColorFactor = function() {
     return Math.round(Math.random() * 255);
     };
     var randomColor = function() {
     return 'rgba(' + randomColorFactor() + ',' + randomColorFactor() + ',' + randomColorFactor() + ',.7)';
     };
+
 
     var ctx = document.getElementById('myChartVenta').getContext('2d');
     var myBarChart = new Chart(ctx, {
@@ -123,37 +178,9 @@
           datasets: [{
               label:'',
               data: dataVenta_db,
-              backgroundColor: [
-                  'rgba(255,99,132,0.2)',
-                  'rgba(54, 162, 235, 0.2)',
-                  'rgba(255, 206, 86, 0.2)',
-                  'rgba(75, 192, 192, 0.2)',
-                  'rgba(153, 102, 255, 0.2)',
-                  'rgba(255, 159, 64, 0.2)',
-                  'rgba(255,99,132,0.2)',
-                  'rgba(54, 162, 235, 0.2)',
-                  'rgba(255, 206, 86, 0.2)',
-                  'rgba(75, 192, 192, 0.2)',
-                  'rgba(153, 102, 255, 0.2)',
-                  'rgba(255, 159, 64, 0.2)'
-              ],
-              borderColor: [
-                  'rgba(255,99,132,1)',
-                  'rgba(54, 162, 235, 1)',
-                  'rgba(255, 206, 86, 1)',
-                  'rgba(75, 192, 192, 1)',
-                  'rgba(153, 102, 255, 1)',
-                  'rgba(255, 159, 64, 1)',
-                  'rgba(255,99,132,1)',
-                  'rgba(54, 162, 235, 1)',
-                  'rgba(255, 206, 86, 1)',
-                  'rgba(75, 192, 192, 1)',
-                  'rgba(153, 102, 255, 1)',
-                  'rgba(255, 159, 64, 1)'
-              ],
-              borderWidth: 1,
-              hoverBackgroundColor: "rgba(255,99,132,0.4)",
-              hoverBorderColor: "rgba(255,99,132,1)"
+              backgroundColor: colores,
+              borderColor: colores,
+              borderWidth: 1
           }]
       },
       options: {
@@ -175,37 +202,9 @@
           datasets: [{
               label: '',
               data: dataCompra_db,
-              backgroundColor: [
-                  'rgba(255,99,132,0.2)',
-                  'rgba(54, 162, 235, 0.2)',
-                  'rgba(255, 206, 86, 0.2)',
-                  'rgba(75, 192, 192, 0.2)',
-                  'rgba(153, 102, 255, 0.2)',
-                  'rgba(255, 159, 64, 0.2)',
-                  'rgba(255,99,132,0.2)',
-                  'rgba(54, 162, 235, 0.2)',
-                  'rgba(255, 206, 86, 0.2)',
-                  'rgba(75, 192, 192, 0.2)',
-                  'rgba(153, 102, 255, 0.2)',
-                  'rgba(255, 159, 64, 0.2)'
-              ],
-              borderColor: [
-                  'rgba(255,99,132,1)',
-                  'rgba(54, 162, 235, 1)',
-                  'rgba(255, 206, 86, 1)',
-                  'rgba(75, 192, 192, 1)',
-                  'rgba(153, 102, 255, 1)',
-                  'rgba(255, 159, 64, 1)',
-                  'rgba(255,99,132,1)',
-                  'rgba(54, 162, 235, 1)',
-                  'rgba(255, 206, 86, 1)',
-                  'rgba(75, 192, 192, 1)',
-                  'rgba(153, 102, 255, 1)',
-                  'rgba(255, 159, 64, 1)'
-              ],
-              borderWidth: 1,
-              hoverBackgroundColor: "rgba(255,99,132,0.4)",
-              hoverBorderColor: "rgba(255,99,132,1)"
+              backgroundColor: colores,
+              borderColor: colores,
+              borderWidth: 1
           }]
       },
       options: {
@@ -220,43 +219,15 @@
     });
   var ctx = document.getElementById('myChartTotalVendido').getContext('2d');
   var myBarChart = new Chart(ctx, {
-    type: 'bar',
+    type: 'doughnut',
     data: {
         labels: labelsTotalVendidoPorMes_db,
         datasets: [{
             label: '',
             data: dataTotalVendidoPorMes_db,
-            backgroundColor: [
-                'rgba(255,99,132,0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)',
-                'rgba(255,99,132,0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255,99,132,1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)',
-                'rgba(255,99,132,1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1,
-            hoverBackgroundColor: "rgba(255,99,132,0.4)",
-            hoverBorderColor: "rgba(255,99,132,1)"
+            backgroundColor: colores,
+            borderColor: colores,
+            borderWidth: 1
         }]
     },
     options: {

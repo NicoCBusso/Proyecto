@@ -100,20 +100,28 @@ $listadoProducto = Producto::obtenerProductoQueSonTrago();
             'aumento': aumento
         },
         success: function(data){
-            console.log(data)
+        var datos = JSON.parse(data);
+          console.log(datos);
+          $('#tablaInforme tbody tr').empty();
+          for (var x=0; x < datos.length; x++){
+            //console.log(datos[x]);
+             row = generarFila(
+              datos[x].descripcion,
+              datos[x].precio_venta
+            );              
+            $('#tablaInforme tbody tr:last').after(row);
+          }
         }
     })
   }
 
-  function generarFila(fecha,nombre,cajero,precio,estado,idProductoFinal) {
+  function generarFila(nombre,precio) {
     var row = '<tr><td>';
-    row += fecha + '</td><td>';
-    row += nombre + '</td><td>';
-    row += precio + '</td><td>';
-    row += estado + '</td><td>';
-    row += cajero + '</td></trim>';; 
+    row += nombre + '</td><td>$ ';
+    row += precio + '</td></trim>';; 
     return row;
   }
+  
 </script>
 <?php require_once"../../footer.php"; ?>              
 </body>

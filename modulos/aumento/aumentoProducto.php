@@ -50,7 +50,7 @@ $listadoCategoria = Categoria::obtenerTodos();
                   <div class="col-sm-12">
                     <div class="card-box table-responsive">
                       <div class="item form-group">
-                      <label class="col-form-label col-md-3 col-sm-3 label-align" for="categoria">Proveedor <span class="required">*</span>
+                      <label class="col-form-label col-md-3 col-sm-3 label-align" for="categoria">Proveedor <span class="required"></span>
                       </label>
                       <div class="col-md-6 col-sm-6 ">
                         <select name="cboProveedor" id="cboProveedor" class="form-control">
@@ -62,7 +62,7 @@ $listadoCategoria = Categoria::obtenerTodos();
                       </div>
                     </div>                      
                       <div class="item form-group">
-                      <label class="col-form-label col-md-3 col-sm-3 label-align" for="marca">Marca <span class="required">*</span>
+                      <label class="col-form-label col-md-3 col-sm-3 label-align" for="marca">Marca <span class="required"></span>
                       </label>
                       <div class="col-md-6 col-sm-6 ">
                         <select name="cboMarca" id="cboMarca" class="form-control">
@@ -74,7 +74,7 @@ $listadoCategoria = Categoria::obtenerTodos();
                       </div>
                     </div>
                     <div class="item form-group">
-                      <label class="col-form-label col-md-3 col-sm-3 label-align" for="categoria">Categoria <span class="required">*</span>
+                      <label class="col-form-label col-md-3 col-sm-3 label-align" for="categoria">Categoria <span class="required"></span>
                       </label>
                       <div class="col-md-6 col-sm-6 ">
                         <select name="cboCategoria" id="cboCategoria" onchange="cargarSubCategoria();" class="form-control">
@@ -95,7 +95,7 @@ $listadoCategoria = Categoria::obtenerTodos();
                       </div>
                     </div>
                       <div class="item form-group">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Porcentaje de aumento<span class="required">*</span>
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Porcentaje de aumento<span class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-6 ">
                           <input type="numeric" id="txtPorcentaje" required="required" class="form-control" name="txtPorcentaje" >
@@ -144,18 +144,25 @@ $listadoCategoria = Categoria::obtenerTodos();
             'aumento': aumento
         },
         success: function(data){
-            console.log(data)
-        }
+          var datos = JSON.parse(data);
+          console.log(datos);
+          $('#tablaInforme tbody tr').empty();
+          for (var x=0; x < datos.length; x++){
+            //console.log(datos[x]);
+             row = generarFila(
+              datos[x].descripcion,
+              datos[x].precio_venta
+            );              
+            $('#tablaInforme tbody tr:last').after(row);
+          }
+      }
     })
   }
 
-  function generarFila(fecha,nombre,cajero,precio,estado,idProductoFinal) {
+  function generarFila(nombre,precio) {
     var row = '<tr><td>';
-    row += fecha + '</td><td>';
-    row += nombre + '</td><td>';
-    row += precio + '</td><td>';
-    row += estado + '</td><td>';
-    row += cajero + '</td></trim>';; 
+    row += nombre + '</td><td>$ ';
+    row += precio + '</td></trim>';; 
     return row;
   }
 </script>
