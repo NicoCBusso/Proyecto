@@ -14,7 +14,9 @@ class DetalleVenta{
 
 	public $productoFinal;
 	public $venta;
-
+    const SIN_CONSUMIR = 1;
+    const CONSUMIDO = 2;
+    const ANULADO = 3;
 
     public function __construct($idProductoFinal){
         $this->_idProductoFinal = $idProductoFinal;
@@ -192,6 +194,27 @@ class DetalleVenta{
             $listado[] = $detalleVenta;
             }
         return $listado;
+    }
+
+    public static function validarEstado($idDetalleVenta){
+        $sql = "SELECT COUNT(1) FROM detalleventa WHERE id_detalle_venta = ".$idDetalleVenta." AND estado = 2" ;
+
+        $mysql = new MySQL();
+        $datos = $mysql->consultar($sql);
+        $mysql->desconectar();
+
+        $registro = $datos->fetch_assoc();
+
+        if ($registro == 1 ) {
+            //$mensaje = "Consumicion ya utilizada";
+            //
+            //header('Location: ../alta.php');
+            return $registro;
+            exit;
+        } else {
+            return NULL;
+        }
+
     }
 
     public static function obtenerPorId($id){

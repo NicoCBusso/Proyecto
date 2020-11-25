@@ -4,10 +4,15 @@ session_start();
 $idSolicitud = $_POST['id'];
 $accion = $_POST['accion'];
 $solicitud = Solicitud::obtenerPorId($idSolicitud);
-if ($accion == 3){
+
+const EN_PROCESO = 2;
+const FINALIZADO = 3;
+const PUESTO_DEPOSITO = 4;
+
+if ($accion == FINALIZADO){
     
     $fechaHora = date("Y-m-d H:i:s");	
-    $deposito = 4;
+    $deposito = PUESTO_DEPOSITO;
     $solicitud->setFechaHoraEntrega($fechaHora);
     $solicitud->setIdEstado($accion);
     $solicitud->actualizar();
@@ -28,7 +33,7 @@ if ($accion == 3){
             }        
         	       
         }
-}elseif ($accion == 2) {
+}elseif ($accion == EN_PROCESO) {
     $solicitud->setIdEstado($accion);
     $solicitud->actualizar($accion);
 }

@@ -8,8 +8,16 @@ $codigoBarra = $_POST['codigoBarra'];
 $fechaHora = date("Y-m-d H:i:s"); 
 $puesto = $_POST['puesto'];
 
+
+
 if (!empty($idDetalleVenta)) {
 	$idDetalleVenta = $_POST['idDetalleVenta'];
+	$validacionEstadoDetalleVenta = DetalleVenta::validarEstado($idDetalleVenta);
+	if ($validacionEstadoDetalleVenta == 1){
+		$_SESSION['mensaje_error'] = "Consumicion ya utilizada";
+		echo "entro";
+		exit;
+	}
 	$detalleVenta = DetalleVenta::obtenerPorId($idDetalleVenta);
 	$salida = new Salida();
 	$salida->setIdDetalleVenta($detalleVenta->getIdDetalleVenta());
@@ -27,7 +35,7 @@ if (!empty($idDetalleVenta)) {
 		}
 	}else{
 		$stockPuesto = Stock::obtenerPorIdProductoFinalNataliaNatalia($salida->detalle->getIdProductoFinal(),$salida->getIdPuesto());
-		var_dump($stockPuesto);
+		//var_dump($stockPuesto);
 		$stockPuesto->descontar(1);
 	}		
 	$salida->guardar();	
