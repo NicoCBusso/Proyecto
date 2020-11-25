@@ -82,7 +82,7 @@ $trago = Trago::obtenerPorId($idTrago);
 	                      </thead>
 	                      <?php foreach($trago->getArrProductoTrago() as $ingredientes) :?>
 							<tbody>
-									<td><?php echo $ingredientes->getIdProductoTrago();?></td>
+									<td><?php echo $ingredientes->getIdProducto();?></td>
 									<td><?php echo $ingredientes->producto->getNombre();?></td>
 									<td><?php echo $ingredientes->getCantidad();?></td>	
 							</tbody>			

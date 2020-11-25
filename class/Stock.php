@@ -31,6 +31,7 @@ class Stock{
             return;   
         } 
     }
+
     public static function obtenerPorIdProductoFinalNataliaNatalia($idProductoFinal,$idPuesto){
         $sql = "SELECT stock.id_producto,id_stock,stock_actual,stock_minimo,id_puesto FROM productofinal INNER JOIN producto ON productofinal.id_producto_final = producto.id_producto_final"
               ." INNER JOIN stock ON producto.id_producto = stock.id_producto"
@@ -53,14 +54,13 @@ class Stock{
 			 . " WHERE producto.id_producto_final= ". $idProductoFinal;
 		//var_dump($sql);
 		$mysql = new MySQL();
-        $datos = $mysql->consultar($sql);
-        $mysql->desconectar();
-        
-        $registro = $datos->fetch_assoc();
-
-        $stock = self::_generarStock($registro);
-
-        return $stock;
+    $datos = $mysql->consultar($sql);
+    $mysql->desconectar();
+    
+    $registro = $datos->fetch_assoc();
+    $stock = self::_generarStock($registro);
+    return $stock;
+ 
 	}
     public function guardar(){
         $sql = "INSERT INTO stock (id_stock,id_producto,stock_actual,id_puesto) VALUES (NULL,$this->_idProducto,$this->_stockActual,$this->_idPuesto)";
@@ -136,6 +136,33 @@ class Stock{
         $stock->setPuesto();
 		return $stock;
 	}
+  public static function obtenerStockIngredientesTragos($idProductoFinal){
+
+      $sql= "SELECT stock.id_stock,trago.id_producto_final,"
+              ."stock.id_producto,"
+              ."stock_minimo,"
+              ."id_puesto,"
+              ."SUM(producto.contenido*stock_actual) DIV producto_trago.cantidad AS stock_actual"
+              ." FROM stock" 
+              ." INNER JOIN producto_trago ON stock.id_producto = producto_trago.id_producto"
+              ." INNER JOIN trago ON trago.id_trago = producto_trago.id_trago"
+              ." INNER JOIN producto ON producto.id_producto = producto_trago.id_producto"
+              ." WHERE trago.id_producto_final= ".$idProductoFinal." GROUP BY stock.id_producto"
+              ." ORDER BY stock_actual ASC LIMIT 1";
+      //var_dump($sql);
+      $mysql = new MySQL();
+      $datos = $mysql->consultar($sql);
+      $mysql->desconectar();
+
+      
+      if ($datos->num_rows > 0){
+          $registro = $datos->fetch_assoc();
+          $stock = self::_generarStock($registro);
+          return $stock;
+      } else {
+          return;   
+      }
+    }
     /**
      * @return mixed
      */

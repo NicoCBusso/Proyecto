@@ -159,6 +159,19 @@ class ProductoFinal{
     {
         $this->stock = Stock::obtenerPorIdProductoFinal($this->_idProductoFinal);
 
+        if (is_null($this->stock->_idStock))
+        {
+            $this->stock = Stock::obtenerStockIngredientesTragos($this->_idProductoFinal);
+        } else {
+            $this->stock = Stock::obtenerPorIdProductoFinal($this->_idProductoFinal);
+        }
+        /*
+                //$this->stock = Stock::obtenerPorIdProductoFinal($this->_idProductoFinal);
+        if (Stock::obtenerPorIdProductoFinal($this->_idProductoFinal) == NULL){
+            $this->stock = Stock::obtenerStockIngredientesTragos($this->_idProductoFinal);
+        } else {
+            $this->stock = Stock::obtenerPorIdProductoFinal($this->_idProductoFinal);
+        }*/
         return $this;
     }
 }

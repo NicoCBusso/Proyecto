@@ -51,7 +51,7 @@
               </div>
               <div class="col-md-2 col-sm-4  tile_stats_count">
                 <span class="count_top"><i class="fa fa-user"></i> Facturado en el año</span>
-                <div class="count">$<?php echo $totalFacturadoAño ?></div>
+                <div class="count">$<?php echo intval($totalFacturadoAño) ?></div>
               </div>
             </div>
             <!-- /top tiles -->

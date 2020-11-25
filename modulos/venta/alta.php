@@ -10,16 +10,7 @@ $listadoProductoFinal = ProductoFinal::obtenerTodos();
 	<script type="text/javascript" src="../../utils/venta/buscarProductoFinal.php"></script>
 	<title>Glou Glou!</title>
 </head>
-<body class="nav-md">
-  <?php require_once"../../menu.php"; ?>
-  <?php if (isset($_SESSION['mensaje_error'])) :?>
-		<h3><font color="red">
-			<?php
-				echo $_SESSION['mensaje_error']; 
-		        unset($_SESSION['mensaje_error']);
-		    ?>
-	    </font></h3>
-    <?php endif;?>
+<body class="nav-md">  
   <!-- page content -->
   <div class="right_col" role="main">
   	<div class="">
@@ -42,6 +33,16 @@ $listadoProductoFinal = ProductoFinal::obtenerTodos();
 	                    				<div id="datos_venta">
 	                    					<div id="datos">
 		                    					<br>
+		                    					<div><?php require_once"../../menu.php"; ?>
+												  <?php if (isset($_SESSION['mensaje_error'])) :?>
+														<h3><font color="red">
+															<?php
+																echo $_SESSION['mensaje_error']; 
+														        unset($_SESSION['mensaje_error']);
+														    ?>
+													    </font></h3>
+												    <?php endif;?>
+												</div>
 		                    					<div>
 		                    						<h6><p><label>Cajero/a : <?php echo $usuarioLogueado->getUsername();?></label></p></h6>		                    						
 		                    					</div>
@@ -162,19 +163,21 @@ $listadoProductoFinal = ProductoFinal::obtenerTodos();
 			var datos = JSON.parse(data);
 			for (var x=0; x < datos.length; x++){
 				console.log(datos[x]);
+				if(datos[x].stock !=null ){
 				row = generarFila(
 					datos[x]._idProductoFinal,
 					datos[x]._nombre,
 					datos[x]._precioVenta,
 					datos[x].stock._stockActual
 					);
-				$('#id_tabla_productos tr:last').after(row)		
+				$('#id_tabla_productos tr:last').after(row)	
+				}	
 			}
 		}
 	})
   	function generarFila(id,nombre,precio_venta,cantidadTotal) {
   		if(cantidadTotal == null){
-  			return;
+  			alert('nulo');
   		}
   		var row = '<tr onclick="setCantidadProducto(';
   		row += id + ",'";
