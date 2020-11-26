@@ -30,7 +30,7 @@ $listadoPuesto = Puesto::obtenerTodos();
   			<div class="col-md-12 col-sm-12">
   				<div class="x_panel">
   					<div class="x_title">
-  						<h2>Cambio barra<small></small></h2>
+  						<h2>Cambio barra<small></small></h2>  						
   						<ul class="nav navbar-right panel_toolbox">
 	                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 	                      </li>
@@ -55,7 +55,8 @@ $listadoPuesto = Puesto::obtenerTodos();
 		                    						</div>
 		                    					</div>
 		                    				</div>
-	                    				</div>	                      									
+	                    				</div>
+	                    				<span id="estado"></span>	                      									
 	                    			</div>
 	                    		</div>	                    		
 	                    		<div class="col-md-4 mb-3">
@@ -205,13 +206,13 @@ $listadoPuesto = Puesto::obtenerTodos();
 	{
 		 
 		//console.log(accion);
-
-
 		if (accion == 1 ){
+			
 			items['id'] = id_detalle;
 			items['idConsumicionACambiar'] = id;
 			items['consumicionACambiar'] = descripcion;
-			$('#detalle_cambio tr:last').after('<tr id=' + id_detalle + '><td >' + id + '</td><td>' + descripcion + '</td><td id="consumicionCambiada"></td><td><a href="#" role="button" class="btn btn-danger" onclick="eliminarDetalle('+id_detalle+');">Eliminar</a></td></tr>')
+			$('#detalle_cambio tr:last').after('<tr id=' + id_detalle + '><td >' + id + '</td><td>' + descripcion + '</td><td id="consumicionCambiada"></td><td><a href="#" role="button" class="btn btn-danger" onclick="eliminarDetalle('+id_detalle+');">Eliminar</a></td></tr>')			
+			
 		}
 		if(accion == 2 ){
 			items['idConsumicionCambiada'] = id;
@@ -286,24 +287,29 @@ $listadoPuesto = Puesto::obtenerTodos();
 	function guardarFormularioVentas(){
 		let idPuesto = $('#cboPuesto').val();
 		let idUsuario = $('#idUsuario').val();
-		
-		if(detalle_cambio.length >0){
-			$.ajax({
-				type: 'POST',
-				url: 'procesar/insertBarra.php',
-				data: {
-					'items': detalle_cambio,
-					'idPuesto': idPuesto,
-					'idUsuario': idUsuario
-				},
-				success: function(data){
-					console.log(data)
-				}
-			})
+		if(idPuesto != 0){
+			if(detalle_cambio.length >0){
+				$.ajax({
+					type: 'POST',
+					url: 'procesar/insertBarra.php',
+					data: {
+						'items': detalle_cambio,
+						'idPuesto': idPuesto,
+						'idUsuario': idUsuario
+					},
+					success: function(data){
+						console.log(data);
+						$("#estado").html(data)
+					}
+				})
+			location.reload();
+			location.href = "listado.php";
+			} else {
+				alert('No se registro ningun cambio');
+			}
 		} else {
-			alert('Error Bro');
+			alert('No se a elegido puesto');
 		}
-		//location.reload();
 	}
 	
   </script>

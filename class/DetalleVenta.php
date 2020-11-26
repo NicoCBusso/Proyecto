@@ -14,6 +14,7 @@ class DetalleVenta{
 
 	public $productoFinal;
 	public $venta;
+    
     const SIN_CONSUMIR = 1;
     const CONSUMIDO = 2;
     const ANULADO = 3;
@@ -167,7 +168,15 @@ class DetalleVenta{
         $idInsertado = $mysql->insertar($sql);
 
         $this->_idDetalleVenta = $idInsertado;
-        var_dump($sql);
+        //var_dump($sql);
+    }
+
+    public function cambiarEstadoConsumido(){
+        $sql = "UPDATE detalleventa SET estado = 2 WHERE id_detalle_venta = $this->_idDetalleVenta";
+
+        $mysql = new MySQL();
+        $mysql->actualizar($sql);
+        //var_dump($sql);
     }
 
     public function cancelar(){
@@ -197,22 +206,18 @@ class DetalleVenta{
     }
 
     public static function validarEstado($idDetalleVenta){
-        $sql = "SELECT COUNT(1) FROM detalleventa WHERE id_detalle_venta = ".$idDetalleVenta." AND estado = 2" ;
+        $sql = "SELECT estado FROM detalleventa WHERE id_detalle_venta = ".$idDetalleVenta." AND estado = 2" ;
 
         $mysql = new MySQL();
         $datos = $mysql->consultar($sql);
         $mysql->desconectar();
 
-        $registro = $datos->fetch_assoc();
-
-        if ($registro == 1 ) {
-            //$mensaje = "Consumicion ya utilizada";
-            //
+        if ($datos->num_rows > 0 ) {
+            $mensaje = "<span style='font-weight:bold;color:red;'>Consumicion ya utilizada</span>";
+            //  
             //header('Location: ../alta.php');
-            return $registro;
+            return $mensaje;
             exit;
-        } else {
-            return NULL;
         }
 
     }
@@ -225,12 +230,13 @@ class DetalleVenta{
         $datos = $mysql->consultar($sql);
         $mysql->desconectar();
 
-        $registro = $datos->fetch_assoc();
-
-        $detalleVenta = self::_generarDetalleVenta($registro);
-
-        return $detalleVenta;
-
+        if ($datos->num_rows > 0){
+            $registro = $datos->fetch_assoc();
+            $detalleVenta = self::_generarDetalleVenta($registro);
+            return $detalleVenta;
+        } else {
+            return;   
+        }
     }
 
     public static function obtenerPorIdVenta($id){

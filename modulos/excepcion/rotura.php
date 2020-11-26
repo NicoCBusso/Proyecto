@@ -8,6 +8,7 @@ $listadoPuesto = Puesto::obtenerTodos();
 <!DOCTYPE html>
 <html>
 <head>
+	<script src="../../js/validaciones/validarRotura.js"></script>
 	<script type="text/javascript" src="../../js/jquery-3.5.1.min.js"></script>
 	<script type="text/javascript" src="../../js/functions/producto/functions.js"></script>
 	<script type="text/javascript" src="../../utils/compra/buscarProducto.php"></script>
@@ -43,6 +44,7 @@ $listadoPuesto = Puesto::obtenerTodos();
 	                    		<div class="col-md-3 mb-3">
 	                    			<div class="card-box table-responsive">
 	                    				<div id="datos_venta">
+
 	                    					<div id="datos">
 		                    					<br>
 		                    					<div>
@@ -68,7 +70,7 @@ $listadoPuesto = Puesto::obtenerTodos();
 					                    		<div class="item form-group">													
 													</label>
 													<div class="col-md-10 mb-3 ">
-														<select name="cboPuesto" id="cboPuesto" class="form-control">
+														<select name="cboPuesto" id="cboPuesto" onchange = "cargarModal()" class="form-control" >
 															<option value="0">Seleccionar</option>
 															<?php foreach ($listadoPuesto as $puesto): ?>
 																<option value="<?php echo $puesto->getIdPuesto();?>"><?php echo $puesto->getLugar()?></option>
@@ -112,7 +114,7 @@ $listadoPuesto = Puesto::obtenerTodos();
 		  <div class="modal-dialog">
 		    <div class="modal-content">
 		      <div class="modal-header">
-		        <h5 class="modal-title" id="exampleModalLabel">Bebida</h5>
+		        <h5 class="modal-title" id="exampleModalLabel">Productos</h5>
 		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 		          <span aria-hidden="true">&times;</span>
 		        </button>
@@ -125,7 +127,7 @@ $listadoPuesto = Puesto::obtenerTodos();
                         <tr>
                         <th>Código</th>
                         <th>Producto</th>
-                        <th>Precio compra</th>
+                        <th>Cantidad existente</th>
                         </tr>
                     </thead>
                     <tbody id="id_busqueda">
@@ -154,34 +156,61 @@ $listadoPuesto = Puesto::obtenerTodos();
 	var total = 0.0;
 	var vuelto = 0.0;
 	var detalle_rotura = []; // array
-  	$.ajax({
-		type: 'GET',
-		url: '../../utils/compra/buscarProducto.php',
-		data: {},
-		success: function(data){
-			var datos = JSON.parse(data);
-			for (var x=0; x < datos.length; x++){
-				console.log(datos[x]);
-				row = generarFila(
-					datos[x]._idProductoFinal,
-					datos[x]._nombre,
-					datos[x]._precioCompra
-					);
-				$('#id_tabla_productos tr:last').after(row)		
+	//cargar con puesto
+	/*$.ajax({
+			type: 'GET',
+			url: '../../utils/compra/buscarProducto.php',
+			data: {},
+			success: function(data){
+				var datos = JSON.parse(data);
+				for (var x=0; x < datos.length; x++){
+					console.log(datos[x]);
+					row = generarFila(
+						datos[x]._idProductoFinal,
+						datos[x]._nombre,
+						datos[x]._precioCompra
+						);
+					$('#id_tabla_productos tr:last').after(row)		
+				}
 			}
-		}
-	})
-  	function generarFila(id,nombre,precio_compra) {
+		})*/
+	function cargarModal(){
+		let idPuesto = $('#cboPuesto').val();
+		console.log(idPuesto);
+		$.ajax({
+			type: 'GET',
+			url: '../../utils/stock/pruebaRotura.php',
+			data: {
+				'idPuesto': idPuesto
+			},
+			success: function(data){
+				var datos = JSON.parse(data);
+				console.log(datos);
+				$('#id_tabla_productos tbody tr').empty();
+				for (var x=0; x < datos.length; x++){
+					console.log(datos[x]);
+					row = generarFila(
+						datos[x].id_producto_final,
+						datos[x].descripcion,
+						datos[x].stock_actual
+						);
+					$('#id_tabla_productos tr:last').after(row)	
+				}
+			}
+		})
+	  	
+	}
+  	function generarFila(id,nombre,cantidad) {
   		var row = '<tr onclick="setCantidadProducto(';
   		row += id + ",'";
   		row += nombre + "',";
-  		row += precio_compra + ')"><td>';
+  		row += cantidad + ')"><td>';
   		row += id + '</td><td>';
   		row += nombre + '</td><td>';
-  		row += '$' + precio_compra + '</td></trim>';; 
+  		row += cantidad + '</td></trim>';; 
   		return row;
   	}
-	function setCantidadProducto(id, descripcion, precio_compra)
+	function setCantidadProducto(id, descripcion, cantidad)
 	{
 		 
 		/*let cantidad = prompt('Ingrese la cantidad');
@@ -267,10 +296,11 @@ $listadoPuesto = Puesto::obtenerTodos();
 					console.log(data)
 				}
 			})
+		location.href = "listado.php";
 		} else {
-			alert('Error Bro');
+			alert('No se selecciono ningun producto');
 		}
-		//location.reload();
+		
 	}
 	
   </script>

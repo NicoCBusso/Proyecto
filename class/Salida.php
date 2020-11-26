@@ -22,7 +22,7 @@ class Salida {
         $idInsertado = $mysql->insertar($sql);
 
         $this->_idSalida = $idInsertado;
-        var_dump($sql);
+        //var_dump($sql);
 	}
 	public function guardarPorCodigoBarra(){
 		$sql = "INSERT INTO salida (id_salida,codigo_barra,fecha_hora_entrega,id_puesto) VALUES (NULL,$this->_codigoBarra,'$this->_fechaHoraEntrega',$this->_idPuesto)";
@@ -31,7 +31,7 @@ class Salida {
         $idInsertado = $mysql->insertar($sql);
 
         $this->_idSalida = $idInsertado;
-        var_dump($sql);
+        //var_dump($sql);
 	}
 
 	private function _generarListado($datos){

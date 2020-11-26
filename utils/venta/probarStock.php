@@ -11,7 +11,7 @@ if (is_null($stock->_idStock)){
 	echo "entro en el else";
     $stock = Stock::obtenerPorIdProductoFinal($idProductoFinal);
 }
-var_dump($stock);
+//var_dump($stock);
 
 //echo json_encode($stock);
 ?>

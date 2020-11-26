@@ -29,7 +29,7 @@ class Excepcion {
     	$idInsertado = $mysql->insertar($sql);
 
     	$this->_idTipoExcepcion= $idInsertado;
-        echo $sql;
+        //echo $sql;
     }
 
 	public static function obtenerPorId($id)

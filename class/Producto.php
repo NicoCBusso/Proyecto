@@ -80,11 +80,13 @@ class Producto extends ProductoFinal{
         $datos = $mysql->consultar($sql);
         $mysql->desconectar();
 
-        $registro = $datos->fetch_assoc();
-
-        $producto = self::_generarProducto($registro);
-
-        return $producto;
+        if ($datos->num_rows > 0){
+          $registro = $datos->fetch_assoc();
+          $producto = self::_generarProducto($registro);
+          return $producto;
+        } else {
+            return;   
+        }
     }      
 
     public function _generarListadoProducto($datos){
@@ -109,20 +111,20 @@ class Producto extends ProductoFinal{
     }
 
     public function _generarProducto($registro){
-    	$producto = new Producto($registro['descripcion']);
-    	$producto->_idProductoFinal = $registro['id_producto_final'];
-        $producto->_idProducto = $registro['id_producto'];
-    	$producto->_codigoBarra = $registro['codigo_barra'];
-    	$producto->_contenido = $registro['contenido'];
-        $producto->_precioVenta = $registro['precio_venta'];
-        $producto->_precioCompra = $registro['precio_compra'];
-    	$producto->_idSubCategoria = $registro['id_subcategoria'];
-        $producto->setSubCategoria();
-    	$producto->_idEnvase = $registro['id_envase'];
-        $producto->setEnvase();
-    	$producto->_idMarca = $registro['id_marca'];
-        $producto->setMarca();
-        $producto->stock = Stock::obtenerParaSolicitud($producto->_idProducto);
+      $producto = new Producto($registro['descripcion']);
+      $producto->_idProductoFinal = $registro['id_producto_final'];
+      $producto->_idProducto = $registro['id_producto'];
+      $producto->_codigoBarra = $registro['codigo_barra'];
+      $producto->_contenido = $registro['contenido'];
+      $producto->_precioVenta = $registro['precio_venta'];
+      $producto->_precioCompra = $registro['precio_compra'];
+      $producto->_idSubCategoria = $registro['id_subcategoria'];
+      $producto->setSubCategoria();
+      $producto->_idEnvase = $registro['id_envase'];
+      $producto->setEnvase();
+      $producto->_idMarca = $registro['id_marca'];
+      $producto->setMarca();
+      $producto->stock = Stock::obtenerParaSolicitud($producto->_idProducto);
 
     	return $producto;
     }

@@ -10,6 +10,7 @@ $listadoProductoFinal = ProductoFinal::obtenerTodos();
 	<script type="text/javascript" src="../../utils/venta/buscarProductoFinal.php"></script>
 	<title>Glou Glou!</title>
 </head>
+<?php require_once"../../menu.php"; ?>
 <body class="nav-md">  
   <!-- page content -->
   <div class="right_col" role="main">
@@ -33,7 +34,7 @@ $listadoProductoFinal = ProductoFinal::obtenerTodos();
 	                    				<div id="datos_venta">
 	                    					<div id="datos">
 		                    					<br>
-		                    					<div><?php require_once"../../menu.php"; ?>
+		                    					<div>
 												  <?php if (isset($_SESSION['mensaje_error'])) :?>
 														<h3><font color="red">
 															<?php
@@ -44,11 +45,12 @@ $listadoProductoFinal = ProductoFinal::obtenerTodos();
 												    <?php endif;?>
 												</div>
 		                    					<div>
-		                    						<h6><p><label>Cajero/a : <?php echo $usuarioLogueado->getUsername();?></label></p></h6>		                    						
+		                    						<h6><p><label>Cajero/a : <?php echo $usuarioLogueado->getUsername();?></label></p></h6>		                    				
 		                    					</div>
 		                    					<div>
 		                    						<label>Acciones</label>
 		                    						<div id="acciones_venta">
+		                    							<input type="hidden" id="idUsuario" name="idUsuario" value="<?php echo $usuarioLogueado->getIdUsuario(); ?>">
 		                    							<a href="#" role="button" class="btn btn-primary" id="agregarConsumicion" onclick="abrirListaProductos();">Agregar</a>
 		                    						</div>
 		                    					</div>
@@ -306,12 +308,14 @@ $listadoProductoFinal = ProductoFinal::obtenerTodos();
     funciones de guardar
 	-------------------*/
 	function guardarFormularioVentas(){
+		let idUsuario = $('#idUsuario').val();
 		if(detalle_venta.length >0){
 			$.ajax({
 				type: 'POST',
 				url: 'procesar/insert.php',
 				data: {
-					'items': detalle_venta
+					'items': detalle_venta,
+					'idUsuario': idUsuario
 				},
 				success: function(data){
 					console.log(data)

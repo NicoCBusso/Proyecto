@@ -33,51 +33,60 @@ $listadoProducto = Producto::obtenerTodos();
                   </div>
                   <div class="x_content">
                       <div class="row">
-                          <div class="col-sm-12">
-                            <div class="card-box table-responsive">
-                              <p class="text-muted font-13 m-b-30">
-                                <a href="alta.php" role="button" class="btn btn-primary">Agregar</a>
-                              </p>
-                              <table id="datatable" class="table" style="width:100%">
-                                <thead>
-                                  <tr>
-                                    <th>Nombre</th>
-                                    <th>Codigo de Barra</th>
-                                    <th>Contenido</th>
-                                    <th>Precio Compra</th>
-                                    <th>Precio Venta</th>
-                                    <th>Categoria</th>
-                                    <th>Sub Categoria</th>
-                                    <th>Envase</th>
-                                    <th>Marca</th>
-                                    <th>Acciones</th>
-                                  </tr>
-                                </thead>
-                                <?php foreach ($listadoProducto as $producto): ?>
+                        <div class="col-md-12 col-sm-12  ">
+                        <div class="x_content">
+                          <p class="text-muted font-13 m-b-30">
+                            <a href="alta.php" role="button" class="btn btn-primary">Agregar</a>
+                          </p>
+                          <p>Productos registrados hasta el momento en el sistema</p>
 
-                                  <tbody>
-                                    <tr>
-                                      <td> <?php echo $producto->getNombre(); ?> </td>
-                                      <td> <?php echo $producto->getCodigoBarra(); ?> </td>
-                                      <td> <?php echo $producto->getContenido(); ?> ml </td>
-                                      <td> <?php echo $producto->getPrecioCompra(); ?>$ </td>
-                                      <td> <?php echo $producto->getPrecioVenta(); ?>$ </td>
-                                      <td> <?php echo $producto->subcategoria->categoria->getNombre(); ?> </td>
-                                      <td> <?php echo $producto->subcategoria->getNombre(); ?> </td>
-                                      <td> <?php echo $producto->envase->getNombre(); ?> </td>
-                                      <td> <?php echo $producto->marca->getNombre(); ?> </td>
-                                      <td width="50%"> 
-                                        <a href="actualizar.php?id=<?php echo $producto->getIdProducto(); ?>" role="button" class="btn btn-primary" title="Editar">Actualizar</a>
-                                        <a href="#" role="button" class="btn btn-success" id="agregarConsumicion" onclick="abrirListaStock(<?php echo $producto->getIdProducto() ?>);">Consultar Stock</a>
-                                      </td>
-                                    </tr>
-                                  </tbody>
+                          <div class="table-responsive">
+                            <table class="table table-striped jambo_table bulk_action">
+                              <thead>
+                                <tr class="headings">                            
+                                  <th class="column-title">Nombre </th>
+                                  <th class="column-title">Codigo de Barra </th>
+                                  <th class="column-title">Contenido </th>
+                                  <th class="column-title">Precio Compra </th>
+                                  <th class="column-title">Precio Venta </th>
+                                  <th class="column-title">Categoria </th>
+                                  <th class="column-title">Sub Categoria </th>
+                                  <th class="column-title">Envase </th>
+                                  <th class="column-title">Marca </th>
+                                  <th class="column-title">Acciones </th> 
+                                </tr>
+                              </thead>
+
+                              <tbody>
+                                <?php foreach ($listadoProducto as $producto): ?>
+                                <tr class="even pointer">
+                                  <td class=" "><?php echo $producto->getNombre(); ?></td>
+                                  <td class=" "><?php echo $producto->getCodigoBarra(); ?></td>
+                                  <td class=" "><?php echo $producto->getContenido(); ?> ml</td>
+                                  <td class=" "><?php echo $producto->getPrecioCompra(); ?>$ </td>
+                                  <td class=" "><?php echo $producto->getPrecioVenta(); ?>$ </td>
+                                  <td class=" "><?php echo $producto->subcategoria->categoria->getNombre(); ?></td>
+                                  <td class=" "><?php echo $producto->subcategoria->getNombre(); ?></td>
+                                  <td class=" "><?php echo $producto->envase->getNombre(); ?></td>
+                                  <td class=" "><?php echo $producto->marca->getNombre(); ?></td>
+                                  <td class=" last">
+                                    <a href="actualizar.php?id=<?php echo $producto->getIdProducto(); ?>" role="button" class="btn btn-primary" title="Editar">Actualizar</a>
+                                      <a href="#" role="button" class="btn btn-success" id="agregarConsumicion" onclick="abrirListaStock(<?php echo $producto->getIdProducto() ?>);">Consultar Stock</a></a>
+                                  </td>
+                                </tr>
                                 <?php endforeach ?>
-                              </table>
-                            </div>
+                                
+
+                              </tbody>
+                            </table>
+                          </div>
+              
+            
                   </div>
+                </div>
               </div>
             </div>
+          </div>
             <!-- Modal Lista Productos-->
             <div class="modal fade" id="id_lista_stock" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog">

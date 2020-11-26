@@ -10,22 +10,49 @@ $usuarioLogueado = $_SESSION['usuario'];
 //highlight_string(var_export($usuarioLogueado,true));
 $fechaHora = date("Y-m-d H:i:s");
 $idPuesto = $_POST['idPuesto'];
+
+if (empty(trim($idPuesto))) {
+
+	echo "<span style='font-weight:bold;color:red;'>No se selecciono puesto</span>";
+	exit;
+} elseif (!is_numeric($idPuesto)) {
+	echo "<span style='font-weight:bold;color:red;'>Puesto erroneo</span>";
+	exit;
+}
 foreach($_POST['items'] as $item){
-    //Se descuenta producto cambiado
     $trago = Trago::obtenerPorIdProductoFinal($item['idConsumicionCambiada']);
 	if ($trago != NULL){
 		foreach ($trago->getArrProductoTrago() as $productoTrago){
 			if($productoTrago->getCantidad() == $productoTrago->producto->getContenido()){
-				$stockPuesto = Stock::obtenerPorIdProducto($productoTrago->getIdProducto(),$salida->getIdPuesto());
-				$stockPuesto->descontar(CANTIDAD);
+				$stockPuesto = Stock::obtenerPorIdProducto($productoTrago->getIdProducto(),$idPuesto);
+				if(empty($stockPuesto)){							
+					echo "<span style='font-weight:bold;color:red;'>No hay ". $productoTrago->producto->getNombre() ." para el trago en barra</span>";
+					exit;
+				} else {
+					if($stockPuesto->_stockActual > 0){
+						$stockPuesto->descontar(CANTIDAD);
+					} else {
+						echo "<span style='font-weight:bold;color:red;'>No hay stock en barra de ".$productoTrago->producto->getNombre()."</span>";
+						exit;
+					}
+				}
 			}
 		}
 	}else{
 		$stockPuesto = Stock::obtenerPorIdProductoFinalNataliaNatalia($item['idConsumicionCambiada'],$idPuesto);
-		//var_dump($stockPuesto);
-		$stockPuesto->descontar(CANTIDAD);
+		if(empty($stockPuesto)){
+			echo "<span style='font-weight:bold;color:red;'>No hay ese producto en barra</span>";
+			exit;
+		} else {
+			//var_dump($stockPuesto);
+			if($stockPuesto->_stockActual > 0){
+				$stockPuesto->descontar(CANTIDAD);
+			} else {
+				echo "<span style='font-weight:bold;color:red;'>No hay stock en barra</span>";
+				exit;
+			}
+		}
 	}
-
 	$excepcion = new Excepcion();
 	$excepcion->setFechaHora($fechaHora);
 	$excepcion->setIdConsumicionACambiar($item['idConsumicionACambiar']);

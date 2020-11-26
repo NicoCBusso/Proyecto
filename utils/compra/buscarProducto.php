@@ -7,5 +7,7 @@ if (isset($_GET['text_buscar'])) {
 	$listaProductos = Producto::obtenerTodos();
 }
 
+
+
 echo json_encode($listaProductos);
 ?>

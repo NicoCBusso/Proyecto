@@ -2,8 +2,6 @@ function validar(){
 	var lugar = document.getElementById("txtLugar").value;
 	if(lugar.trim() == ""){
 		alert("El campo Nombre no debe estar vacio");
-		return;
-	}
 
 	if(!isNaN(lugar)){
 		alert("El nombre debe ser identificado sin numeros");

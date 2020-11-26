@@ -7,6 +7,7 @@ $listadoTipoExcepcion = TipoExcepcion::obtenerTodos();
 <!DOCTYPE html>
 <html>
 <head>
+	<script src="../../js/validaciones/validarCambioCaja.js"></script>
 	<script type="text/javascript" src="../../js/jquery-3.5.1.min.js"></script>
 	<script type="text/javascript" src="../../js/functions/producto/functions.js"></script>
 	<script type="text/javascript" src="../../utils/compra/buscarProducto.php"></script>
@@ -67,6 +68,7 @@ $listadoTipoExcepcion = TipoExcepcion::obtenerTodos();
 		                    							<input type="number" name="idDetalleVenta" class="form-control" id="idDetalleVenta">
 		                    						</div>
 		                    					</div>
+		                    					<span id="estado"></span>
 		                    				</div>
 	                    				</div>	                      									
 	                    			</div>
@@ -191,18 +193,21 @@ $listadoTipoExcepcion = TipoExcepcion::obtenerTodos();
   	$.ajax({
 		type: 'GET',
 		url: '../../utils/venta/buscarProductoFinal.php',
-		data: {},
+		data: {
+		},
 		success: function(data){
 			var datos = JSON.parse(data);
 			for (var x=0; x < datos.length; x++){
-				console.log(datos[x]);
-				row = generarFila(
-					datos[x]._idProductoFinal,
-					datos[x]._nombre,
-					datos[x]._precioVenta,
-					datos[x].stock._stockActual
-					);
-				$('#id_tabla_productos tr:last').after(row)		
+				if(datos[x].stock !=null ){
+					console.log(datos[x]);
+					row = generarFila(
+						datos[x]._idProductoFinal,
+						datos[x]._nombre,
+						datos[x]._precioVenta,
+						datos[x].stock._stockActual
+						);
+					$('#id_tabla_productos tr:last').after(row);
+				}		
 			}
 		}
 	})
@@ -284,31 +289,39 @@ $listadoTipoExcepcion = TipoExcepcion::obtenerTodos();
 	$('#idDetalleVenta').on('keypress',function(e) {	
 	    if(e.which == 13) {
 	    	let idDetalleVenta = $('#idDetalleVenta').val();
-	        $.ajax({
-	        type: 'POST',
-	            url : '../../utils/detalleventa/traerDetalleVenta.php',
-	            data: {
-	                'idDetalleVenta': idDetalleVenta,
-
-	            },
-	            success: function(data){
-	                let datos = JSON.parse(data);
-	                console.log(datos);
-	                items = {};
-	                items['id'] = id_detalle;
-					items['idDetalleVenta'] = datos._idDetalleVenta;
-					items['idConsumicionACambiar'] = datos._idProductoFinal;
-					items['consumicionACambiar'] = datos.productoFinal._nombre;
-					items['precioConsumicionACambiar'] = datos._precio;
-					//$('#idConsumicion').empty();
-					$('#idConsumicion').append(items['idConsumicionACambiar']);
-					//$('#nombreConsumicion').empty();
-					$('#nombreConsumicion').append(items['consumicionACambiar']);
-					//$('#precioConsumicion').empty();
-					$('#precioConsumicion').append('$'+ items['precioConsumicionACambiar']);
-					abrirListaProductos();	                	                
-	            }
-	        })
+	    	if (validar() != 1){
+		        $.ajax({
+		        type: 'POST',
+		            url : '../../utils/detalleventa/traerDetalleVenta.php',
+		            data: {
+		                'idDetalleVenta': idDetalleVenta,
+		            },
+		            success: function(data){
+		            	if (data == 2){
+		            		$("#estado").html("<span style='font-weight:bold;color:red;'>Ticket ya consumido</span>");         			            		
+		            	} else if(data == 3){
+		            		$("#estado").html("<span style='font-weight:bold;color:red;'>Ticket no existente</span>");	            		
+						} else {
+							$("#estado").html("");
+			                let datos = JSON.parse(data);
+			                console.log(datos);
+			                items = {};
+			                items['id'] = id_detalle;
+							items['idDetalleVenta'] = datos._idDetalleVenta;
+							items['idConsumicionACambiar'] = datos._idProductoFinal;
+							items['consumicionACambiar'] = datos.productoFinal._nombre;
+							items['precioConsumicionACambiar'] = datos._precio;
+							$('#idConsumicion').empty();
+							$('#idConsumicion').append(items['idConsumicionACambiar']);
+							$('#nombreConsumicion').empty();
+							$('#nombreConsumicion').append(items['consumicionACambiar']);
+							$('#precioConsumicion').empty();
+							$('#precioConsumicion').append('$'+ items['precioConsumicionACambiar']);
+							abrirListaProductos();  	
+						}	                	                
+		            }
+		        })
+		    }
 	    }
 	});
 	/*-----------------

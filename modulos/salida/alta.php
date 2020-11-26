@@ -7,21 +7,14 @@ $listadoPuesto = Puesto::obtenerTodos()
 <!DOCTYPE html>
 <html>
 <head>
+	<script src="../../js/validaciones/validarSalida.js"></script>
 	<script type="text/javascript" src="../../js/jquery-3.5.1.min.js"></script>
 	<script type="text/javascript" src="../../js/functions/producto/functions.js"></script>
 	<script type="text/javascript" src="../../utils/compra/buscarProducto.php"></script>
 	<title>Glou Glou!</title>
 </head>
 <body class="nav-md">
-  <?php require_once"../../menu.php"; ?>
-  <?php if (isset($_SESSION['mensaje_error'])) :?>
-		<h3><font color="red">
-			<?php
-				echo $_SESSION['mensaje_error']; 
-		        unset($_SESSION['mensaje_error']);
-		    ?>
-	    </font></h3>
-    <?php endif;?>
+  <?php require_once"../../menu.php"; ?>  
   <!-- page content -->
   <div class="right_col" role="main">
   	<div class="">
@@ -39,6 +32,15 @@ $listadoPuesto = Puesto::obtenerTodos()
 	                    <div class="clearfix"></div>
 	                    <div class="x_content">
 	                    	<div class="row">
+
+	                    		<?php if (isset($_SESSION['mensaje_error'])) :?>
+									<h3><font color="red">
+										<?php
+											echo $_SESSION['mensaje_error']; 
+									        unset($_SESSION['mensaje_error']);
+									    ?>
+								    </font></h3>
+							    <?php endif;?>
 	                    		<div class="col-md-3 mb-3">
 	                    			<div class="card-box table-responsive">
 	                    				<div id="datos_venta">
@@ -52,6 +54,9 @@ $listadoPuesto = Puesto::obtenerTodos()
 		                    							<input type="number" name="idDetalleVenta" class="form-control" id="idDetalleVenta">
 		                    						</div>
 		                    					</div>
+		                    				</div>
+		                    				<div>
+		                    					<span id="estado"></span>
 		                    				</div>
 	                    				</div>	                      									
 	                    			</div>
@@ -215,47 +220,43 @@ $listadoPuesto = Puesto::obtenerTodos()
 	}
 	//Buscar por Id Detalle Venta
 	$('#idDetalleVenta').on('keypress',function(e) {
-	    let puesto = $('#cboPuesto').val();	
+	    let puesto = $('#cboPuesto').val();
 	    if(e.which == 13) {
-	        $.ajax({
-	        type: 'POST',
-	            url : 'procesar/insert.php',
-	            data: {
-	                'idDetalleVenta': $('#idDetalleVenta').val(),
-	                'codigoBarra': $('#codigoBarra').val(),
-	                'puesto': puesto
-	            },
-	            success: function(data){
-	                let datos = JSON.parse(data);
-	                console.log(data);
-
-	                //detalle_ventas.push(items); // armando mi detalle para el envio
-
-	                //$('#id_detalle_venta tr:last').after('<tr><td >' + articulo.id + '</td><td>' + articulo.nombre + '</td><td>' + '1' + '</td><td>$' + subtotal + '</td> <td class="text-right"> <i class="mr-2" data-feather="trash"></i></td></tr>')
-	            }
-	        })
+	    	if(validar() != 1){
+		        $.ajax({
+		        type: 'POST',
+		            url : 'procesar/insert.php',
+		            data: {
+		                'idDetalleVenta': $('#idDetalleVenta').val(),
+		                'codigoBarra': $('#codigoBarra').val(),
+		                'puesto': puesto
+		            },
+		            success: function(data){
+		                console.log(data);
+		                $("#estado").html(data);
+		            }
+		        })
+		    }
 	    }
 	});
 	$('#codigoBarra').on('keypress',function(e) {
 	    let puesto = $('#cboPuesto').val();	
 	    if(e.which == 13) {
-	        $.ajax({
-	        type: 'POST',
-	            url : 'procesar/insert.php',
-	            data: {
-	            	'idDetalleVenta': $('#idDetalleVenta').val(),
-	                'codigoBarra': $('#codigoBarra').val(),
-	                'puesto': puesto
-	            },
-	            success: function(data){
-	                let datos = JSON.parse(data);
-	                console.log(data);
-
-	                //detalle_ventas.push(items); // armando mi detalle para el envio
-
-	                //$('#id_detalle_venta tr:last').after('<tr><td >' + articulo.id + '</td><td>' + articulo.nombre + '</td><td>' + '1' + '</td><td>$' + subtotal + '</td> <td class="text-right"> <i class="mr-2" data-feather="trash"></i></td></tr>')
-	            }
-	        })
+	    	if(validar() != 1){
+		        $.ajax({
+		        type: 'POST',
+		            url : 'procesar/insert.php',
+		            data: {
+		                'idDetalleVenta': $('#idDetalleVenta').val(),
+		                'codigoBarra': $('#codigoBarra').val(),
+		                'puesto': puesto
+		            },
+		            success: function(data){
+		                console.log(data);
+		                $("#estado").html(data)
+		            }
+		        })
+		    }
 	    }
 	});
 
