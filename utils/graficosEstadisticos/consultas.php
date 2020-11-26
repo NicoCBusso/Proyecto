@@ -107,7 +107,7 @@ function totalComprasDelAño(){
 
 function cantidadCompradasDelMes(){
 	$sql = "SELECT MONTHNAME(compra.fecha) AS Mes, productofinal.descripcion," 
-			."COUNT(detallecompra.id_producto) AS cantidad,"	
+			."SUM(detallecompra.cantidad) AS cantidad,"	
 			."SUM(detallecompra.precio) AS total"
 			." FROM compra INNER JOIN detallecompra ON compra.id_compra = detallecompra.id_compra"
 			." INNER JOIN producto ON producto.id_producto = detallecompra.id_producto"

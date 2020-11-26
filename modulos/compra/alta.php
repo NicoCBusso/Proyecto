@@ -373,7 +373,7 @@ $listadoProveedor = Proveedor::obtenerTodos();
 			} else {
 				alert('Error Bro');
 			}
-		//location.reload();
+		location.href = "listado.php";
 		}	
 	}
 	
