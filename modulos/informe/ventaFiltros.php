@@ -88,8 +88,8 @@ $listadoUsuario = Usuario::obtenerTodos();
                         <div class="col-md-6 col-sm-6 ">
                           <select name="cboEstado" id="cboEstado" class="form-control">
                             <option value="1">Sin Consumir</option>
-                            <option value="2">Cancelado</option>
-                            <option value="3">Consumido</option>    
+                            <option value="2">Consumido</option>
+                            <option value="3">Cancelado</option>    
                           </select>
                         </div>
                       </div>

@@ -40,6 +40,21 @@ class Empleado extends PersonaFisica{
         return $listado;
     }
 
+    public static function obtenerPorDNI($dni){
+        $sql = "";
+
+        $mysql = new MySQL();
+        $datos = $mysql->consultar($sql);
+        $mysql->desconectar();
+        if ($datos->num_rows > 0){
+            $registro = $datos->fetch_assoc();
+            $empleado = self::_generarEmpleado($registro);
+            return $empleado;
+        } else {
+            return;
+        }
+    }
+
     public static function obtenerPorId($id)
     {
         $sql = "SELECT * FROM empleado AS e INNER JOIN personafisica AS p ON e.id_persona_fisica = p.id_persona_fisica INNER JOIN persona ON p.id_persona = persona.id_persona WHERE id_empleado =" . $id;

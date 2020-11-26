@@ -59,7 +59,21 @@ class Pais {
 
         return $listado;
     }
+    public static function consultarDescripcion($descripcion){
+        $sql = "SELECT nombre FROM pais WHERE nombre = ". $descripcion;
 
+        $mysql = new MySQL();
+        $datos = $mysql->consultar($sql);
+        $mysql->desconectar();
+
+        if ($datos->num_rows > 0) {
+           $registro = $datos->fetch_assoc();
+           $pais = self::_generarPais($registro);
+           return $pais; 
+        } else {
+            return;
+        }
+    }
     public static function obtenerPorId($id)
     {
         $sql = "SELECT * FROM pais WHERE id_pais =" . $id;
@@ -69,8 +83,7 @@ class Pais {
 
         $registro = $datos->fetch_assoc();
 
-        $pais = new Pais($registro['nombre']);
-        $pais->_idPais = $registro['id_pais'];
+        $pais = self::_generarPais($registro);
 
         return $pais;
     }
@@ -84,8 +97,7 @@ class Pais {
         $listado = array();
         while ($registro = $datos->fetch_assoc())
             {
-            $pais = new Pais ($registro['nombre']);
-            $pais->_idPais = $registro['id_pais'];
+            $pais = self::_generarPais($registro);
             $listado[] = $pais;
             }
         return $listado;

@@ -8,6 +8,7 @@ $listadoProducto = Producto::obtenerProductoQueSonTrago();
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+  <script src="../../js/validaciones/validarAumento.js"></script>
   <script type="text/javascript" src="../../js/functions/producto/functions.js" ></script>
   <title>Glou Glou!</title>
 </head>
@@ -46,7 +47,7 @@ $listadoProducto = Producto::obtenerProductoQueSonTrago();
                       <div class="item form-group">
                       <label class="col-form-label col-md-3 col-sm-3 label-align" for="categoria">Trago que contenga de ingrediente <span class="required">*</span>
                       </label>
-                      <div class="col-md-6 col-sm-6 ">
+                      <div class="col-md-6 col-sm-6 ">                        
                         <select name="cboProducto" id="cboProducto" class="form-control">
                           <option value="0">Seleccionar</option>
                           <?php foreach ($listadoProducto as $producto): ?>
@@ -62,6 +63,7 @@ $listadoProducto = Producto::obtenerProductoQueSonTrago();
                         <div class="col-md-6 col-sm-6 ">
                           <input type="numeric" id="txtPorcentaje" required="required" class="form-control" name="txtPorcentaje" >
                         </div>
+                        <span id="estado"></span>                        
                       </div>
 
                     <p><button onclick="buscar()" class="btn btn-info">Aumentar</button></p>
@@ -92,27 +94,29 @@ $listadoProducto = Producto::obtenerProductoQueSonTrago();
     let idProducto = $('#cboProducto').val();
     let aumento = $('#txtPorcentaje').val();
     console.log (aumento);
-    $.ajax({
-        type: 'GET',
-        url : 'procesar/insertTrago.php',
-        data: {
-            'idProducto': idProducto,
-            'aumento': aumento
-        },
-        success: function(data){
-        var datos = JSON.parse(data);
-          console.log(datos);
-          $('#tablaInforme tbody tr').empty();
-          for (var x=0; x < datos.length; x++){
-            //console.log(datos[x]);
-             row = generarFila(
-              datos[x].descripcion,
-              datos[x].precio_venta
-            );              
-            $('#tablaInforme tbody tr:last').after(row);
+    if (validar() != 1){
+      $.ajax({
+          type: 'GET',
+          url : 'procesar/insertTrago.php',
+          data: {
+              'idProducto': idProducto,
+              'aumento': aumento
+          },
+          success: function(data){
+          var datos = JSON.parse(data);
+            console.log(datos);
+            $('#tablaInforme tbody tr').empty();
+            for (var x=0; x < datos.length; x++){
+              //console.log(datos[x]);
+               row = generarFila(
+                datos[x].descripcion,
+                datos[x].precio_venta
+              );              
+              $('#tablaInforme tbody tr:last').after(row);
+            }
           }
-        }
-    })
+      })
+    }
   }
 
   function generarFila(nombre,precio) {

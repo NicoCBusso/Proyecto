@@ -26,6 +26,10 @@
 			$_SESSION['mensaje_error'] = "El razonsocial debe ser identificado sin numeros";
 			header("location: ../alta.php");
 			exit;
+		} elseif (empty(Proveedor::consultarRazonSocial($razonsocial))){
+			$_SESSION['mensaje_error'] = "Razon Social ya utilizado";
+			header("location: ../alta.php");
+			exit;
 		}
 		//De CUIT
 		if (empty(trim($cuit))) {

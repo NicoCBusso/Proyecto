@@ -4,7 +4,6 @@ session_start();
 $nombre = $_POST['txtNombre'];
 
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
-	//De RAZON SOCIAL
 	if (empty(trim($nombre))) {
 		$_SESSION['mensaje_error'] = "El campo pais no debe estar vacio";
 		echo $_SESSION['mensaje_error'];
@@ -20,6 +19,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 		exit;
 	} elseif (is_numeric($nombre)) {
 		$_SESSION['mensaje_error'] = "El campo pais debe ser identificado sin numeros";
+		header("location: ../alta.php");
+		exit;
+	} elseif (empty(Pais::consultarDescripcion($nombre))){
+		$_SESSION['mensaje_error'] = "Existe ya ese pais";
 		header("location: ../alta.php");
 		exit;
 	}

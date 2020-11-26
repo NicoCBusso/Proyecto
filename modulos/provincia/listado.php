@@ -38,31 +38,32 @@ $listadoProvincia = Provincia::obtenerTodos();
                     <p class="text-muted font-13 m-b-30">
                       <a href="alta.php" role="button" class="btn btn-primary">Agregar</a>
                     </p>
-                    <table id="datatable" class="table" style="width:100%">
+                    <table class="table table-striped jambo_table bulk_action">
                       <thead>
-                        <tr>
-                          <th>Nombre</th>
-                          <th>Opciones</th>
+                        <tr class="headings">                            
+                          <th class="column-title">Nombre</th>
+                          <th class="column-title">Acciones</th>
                         </tr>
                       </thead>
-                      <?php foreach ($listadoProvincia as $provincia): ?>
-                        <tbody>                       
-                          <tr>
-                            <td> <?php echo $provincia->getDescripcion(); ?> </td>                            
-                            <td width="50%"> 
-                              <a href="actualizar.php?id=<?php echo $provincia->getIdProvincia(); ?>" role="button" title="Editar">Actualizar</a>
-                              -
-                              <a href="detalleProvincia.php?id=<?php echo $provincia->getIdProvincia(); ?>">Detalle</a> 
-                            </td>
-                          </tr> 
-                        </tbody>
+                      <tbody>
+                        <?php foreach ($listadoProvincia as $provincia): ?>
+                        <tr class="even pointer">
+                          <td class=" "><?php echo $provincia->getDescripcion(); ?></td>
+                          <td class=" last">
+                            <a href="actualizar.php?id=<?php echo $provincia->getIdProvincia(); ?>" role="button" class="btn btn-primary" title="Editar">Actualizar</a>
+                            <a href="actualizar.php?id=<?php echo $provincia->getIdProvincia(); ?>" role="button" class="btn btn-primary" title="Editar">Detalle</a>
+                          </td>
+                        </tr>
                         <?php endforeach ?>
+                      </tbody>
                     </table>
                   </div>
                   </div>
               </div>
             </div>
-
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 

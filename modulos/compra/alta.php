@@ -9,6 +9,7 @@ $listadoProveedor = Proveedor::obtenerTodos();
 <!DOCTYPE html>
 <html>
 <head>
+	<script src="../../js/validaciones/validarCompra.js"></script>
 	<script type="text/javascript" src="../../js/jquery-3.5.1.min.js"></script>
 	<script type="text/javascript" src="../../js/functions/producto/functions.js"></script>
 	<script type="text/javascript" src="../../utils/compra/buscarProducto.php"></script>
@@ -31,7 +32,7 @@ $listadoProveedor = Proveedor::obtenerTodos();
   			<div class="col-md-12 col-sm-12">
   				<div class="x_panel">
   					<div class="x_title">
-  						<h2>Venta<small></small></h2>
+  						<h2>Registrar Compra<small></small></h2>
   						<ul class="nav navbar-right panel_toolbox">
 	                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 	                      </li>
@@ -54,6 +55,7 @@ $listadoProveedor = Proveedor::obtenerTodos();
 		                    							<a href="#" role="button" class="btn btn-primary" id="agregarConsumicion" onclick="abrirListaProductos();">Agregar</a>
 		                    						</div>
 		                    					</div>
+		                    					<span id="estado"></span>
 		                    				</div>
 	                    				</div>	                      									
 	                    			</div>
@@ -351,24 +353,28 @@ $listadoProveedor = Proveedor::obtenerTodos();
 		let proveedor = $('#cboProveedor').val();
 		let fecha = $('#txtFecha').val();
 		let tipoComprobante = $('#cboTipoComprobante').val();
-		if(detalle_compra.length >0){
-			$.ajax({
-				type: 'POST',
-				url: 'procesar/insert.php',
-				data: {
-					'items': detalle_compra,
-					'proveedor': proveedor,
-					'tipoComprobante': tipoComprobante,
-					'fecha': fecha
-				},
-				success: function(data){
-					console.log(data)
-				}
-			})
-		} else {
-			alert('Error Bro');
-		}
-		location.reload();
+		//alert(fecha);
+		if(validar() != 1){
+			if(detalle_compra.length >0){
+				$.ajax({
+					type: 'POST',
+					url: 'procesar/insert.php',
+					data: {
+						'items': detalle_compra,
+						'proveedor': proveedor,
+						'tipoComprobante': tipoComprobante,
+						'fecha': fecha
+					},
+					success: function(data){
+						console.log(data)
+						$("#estado").html(data)
+					}
+				})
+			} else {
+				alert('Error Bro');
+			}
+		//location.reload();
+		}	
 	}
 	
   </script>

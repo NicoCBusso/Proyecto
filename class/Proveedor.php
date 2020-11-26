@@ -17,17 +17,11 @@ class Proveedor extends Persona{
     	$mysql = new MySQL();
     	$idInsertado = $mysql->insertar($sql);
         $this->_idProveedor= $idInsertado;
-        /*$sql = "INSERT INTO direccion (id_direccion,id_persona,id_localidad,descripcion) VALUES (NULL,$this->_idPersona,$this->_idLocalidad,'$this->_descripcion')";
-        $idInsertado = $mysql->insertar($sql);
-        $this->_idDireccion= $idInsertado;
-        */
-        echo "insertado";
+
     }
     public function actualizar() {
-        //parent::actualizar();
-
         $sql = "UPDATE proveedor SET cuit = $this->_cuit, razon_social = '$this->_razonSocial' WHERE id_proveedor = $this->_idProveedor";
-        //var_dump($sql);
+
         $mysql = new MySQL();
         $mysql->actualizar($sql);
 
@@ -52,10 +46,30 @@ class Proveedor extends Persona{
         $datos = $mysql->consultar($sql);
         $mysql->desconectar();
 
-        $registro = $datos->fetch_assoc();
+        if ($datos->num_rows > 0){
+          $registro = $datos->fetch_assoc();
+          $proveedor = self::_generarProveedor($registro);
+          return $proveedor;
+        } else {
+          return;   
+        }
+    }
 
-        $proveedor = self::_generarProveedor($registro);
-        return $proveedor;
+    public static function consultarRazonSocial($razonSocial){
+        $sql = "SELECT razon_social FROM proveedor WHERE razon_social = ". $razonSocial;
+
+        $mysql = new MySQL();
+        $datos = $mysql->consultar($sql);
+        $mysql->desconectar();
+
+        if ($datos->num_rows > 0){
+          $registro = $datos->fetch_assoc();
+          $proveedor = self::_generarProveedor($registro);
+          return $proveedor;
+        } else {
+          return;   
+        }
+
     }
 
     public static function obtenerPorIdCompra($id){

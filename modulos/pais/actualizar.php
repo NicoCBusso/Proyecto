@@ -30,7 +30,7 @@ $pais = Pais::obtenerPorId($id);
 						<div class="col-md-12 col-sm-12 ">
 							<div class="x_panel">
 								<div class="x_title">
-									<h2>Modificacion de Pais <small>different form elements</small></h2>
+									<h2>Modificacion de Pais</small></h2>
 									<ul class="nav navbar-right panel_toolbox">
 										<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 										</li>
@@ -71,29 +71,3 @@ $pais = Pais::obtenerPorId($id);
 	<?php require_once"../../footer.php"; ?> 
 </body>
 </html>
-
-
-
-<?php/*<body>
-	<?php require_once "../../menu.php"; ?>
-	<?php if (isset($_SESSION['mensaje_error'])) :?>
-		<h3><font color="red">
-			<?php
-				echo $_SESSION['mensaje_error']; 
-		        unset($_SESSION['mensaje_error']);
-		    ?>
-	    </font></h3>
-    <?php endif;?>
-	<form name="frmDatos" id="frmDatos" method="POST" action="procesar/update.php">
-		<p>Acuerdese de actualizar todos los datos</p>
-		<fieldset>
-			<legend>Actualizar datos</legend>
-				<label for="txtId"></label>	<input type="hidden" name="txtId" value="<?php echo $pais->getIdPais(); ?>">
-				<p><label>Nombre: <input type="text" name="txtNombre" id="txtNombre" value="<?php echo $pais->getDescripcion(); ?>"></label></p>
-				<input type="button" value="Actualizar" onclick="validar();">
-		</fieldset>
-		<a href="listado.php" role="button">Cancelar</a>
-	</form>
-</body>
-</html>
-*/?>

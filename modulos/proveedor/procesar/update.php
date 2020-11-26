@@ -4,7 +4,7 @@ session_start();
 $id = $_POST['txtId'];
 $razonsocial = $_POST['txtRazonSocial'];
 $cuit = $_POST['txtCuit'];
-/*
+
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
 	//De RAZON SOCIAL
 	if (empty(trim($razonsocial))) {
@@ -42,7 +42,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 	}
 	
 }
-*/
+
 $proveedor = Proveedor::obtenerPorId($id);
 $proveedor->setRazonSocial($razonsocial);
 $proveedor->setCuit($cuit);

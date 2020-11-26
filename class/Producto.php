@@ -104,10 +104,13 @@ class Producto extends ProductoFinal{
         $datos = $mysql->consultar($sql);
         $mysql->desconectar();
 
-        $registro = $datos->fetch_assoc();
-
-        $producto= self::_generarProducto($registro);
-        return $producto;
+        if ($datos->num_rows > 0){
+          $registro = $datos->fetch_assoc();
+          $producto= self::_generarProducto($registro);
+          return $producto;
+        } else {
+          return;   
+        } 
     }
 
     public function _generarProducto($registro){

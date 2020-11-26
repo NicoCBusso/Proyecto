@@ -41,72 +41,41 @@ $listadoUsuarios = Usuario::obtenerTodos();
                     <p class="text-muted font-13 m-b-30">
                       <a href="alta.php" role="button" class="btn btn-primary">Agregar</a>
                     </p>
-                    <table id="datatable" class="table" style="width:100%">
+                    <table class="table table-striped jambo_table bulk_action">
                       <thead>
-                        <tr>
-                          <th>Username</th>                          
-                          <th>Nombre</th>
-                          <th>Apellido</th>
-                          <th>Perfil</th>
-                          <th>Opciones</th>
+                        <tr class="headings">                            
+                          <th class="column-title">Username</th>                          
+                          <th class="column-title">Nombre</th>
+                          <th class="column-title">Apellido</th>
+                          <th class="column-title">Perfil</th>
+                          <th class="column-title">Opciones</th>
                         </tr>
                       </thead>
-                      <?php foreach ($listadoUsuarios as $usuarioo): ?>
-                        <tbody>                     
-                          <tr>
-                          <td> <?php echo $usuarioo->getUsername(); ?> </td>                    
-                          <td> <?php echo $usuarioo->getNombre(); ?></td>
-                          <td> <?php echo $usuarioo->getApellido(); ?></td>
-                          <td><?php echo $usuarioo->perfil->getDescripcion(); ?></td>
-                          <td width="50%"> 
-                            <a href="actualizar.php?id=<?php echo $usuarioo->getIdUsuario(); ?>" role="button" title="Editar">Actualizar</a>
-                            -
-                            <a href="detalle.php?id=<?php echo $usuarioo->getIdUsuario(); ?>">Ver Detalle</a>
-                          </td></tr>                       
-                        </tbody>
-                      <?php endforeach ?>
+
+                      <tbody>
+                        <?php foreach ($listadoUsuarios as $usuarioo): ?>
+                        <tr class="even pointer">
+                          <td class=" "> <?php echo $usuarioo->getUsername(); ?> </td>                    
+                          <td class=" "> <?php echo $usuarioo->getNombre(); ?></td>
+                          <td class=" "> <?php echo $usuarioo->getApellido(); ?></td>
+                          <td class=" "><?php echo $usuarioo->perfil->getDescripcion(); ?></td>
+                          <td class=" last">
+                            <a href="actualizar.php?id=<?php echo $usuarioo->getIdUsuario(); ?>" role="button" class="btn btn-primary" title="Editar">Actualizar</a>
+                              <a href="detalle.php?id=<?php echo $usuarioo->getIdUsuario(); ?>" role="button" class="btn btn-success">Ver Detalle</a></a>
+                          </td>
+                        </tr>
+                        <?php endforeach ?>
+                      </tbody>
                     </table>
                   </div>
                   </div>
               </div>
             </div>
-
+        </div>
+      </div>
     </div>
   </div>
-
+</div>
   <?php require_once"../../footer.php"; ?>              
 </body>
 </html>
-<?php /*
-<body>
-  <?php include "../../menu.php"; ?>
-  <a href="alta.php"  role="button">Agregar</a>
-  <table align="center" border="1 " width="50% "><thead>
-      <tr>
-        <th>Username</th>
-        <th>Password</th>
-        <th>Nombre</th>
-        <th>Apellido</th>
-        <th>Perfil</th>
-        <th>Opciones</th>
-      </tr>
-    </thead>
-    <?php foreach ($listadoUsuarios as $usuarioo): ?>
-      <tbody align="center">                     
-        <tr>
-        <td> <?php echo $usuarioo->getUsername(); ?> </td>
-        <td> <?php echo $usuarioo->getPassword(); ?> </td>
-        <td> <?php echo $usuarioo->getNombre(); ?></td>
-        <td> <?php echo $usuarioo->getApellido(); ?></td>
-        <td><?php echo $usuarioo->getApellido(); ?></td>
-        <td width="50%"> 
-          <a href="actualizar.php?id=<?php echo $usuarioo->getIdUsuario(); ?>" role="button" title="Editar">Actualizar</a>
-          <a href="detalle.php?id=<?php echo $usuarioo->getIdUsuario(); ?>">Ver Detalle</a>
-        </td></tr>                       
-      </tbody>
-    <?php endforeach ?>
-  </table>
-  <a href="../../menu.php"  role="button">Menu</a>
-</body>
-</html>
-*/?>

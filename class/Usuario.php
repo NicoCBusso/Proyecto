@@ -32,27 +32,29 @@ class Usuario extends PersonaFisica {
     public function actualizar() {
 
         $sql = "UPDATE usuario SET username = '$this->_username', password = '$this->_password', id_perfil = $this->_idPerfil, avatar = '$this->_avatar' WHERE id_usuario = $this->_idUsuario";
-        var_dump($sql);
+        //var_dump($sql);
         $mysql = new MySQL();
         $mysql->actualizar($sql);
 
     }
-    /*public static function obtenerNoUsuarios()
-    {
-        $sql= "SELECT personafisica.id_persona_fisica,personafisica.nombre,personafisica.apellido,personafisica.dni,personafisica.sexo,personafisica.fecha_nacimiento FROM personafisica LEFT JOIN usuario ON personafisica.id_persona_fisica = usuario.id_persona_fisica WHERE usuario.`id_persona_fisica` IS NULL";
-        
+    public static function consultarUsername($username){
+        $sql = "SELECT username FROM usuario WHERE username = ".$username;
+
         $mysql = new MySQL();
         $datos = $mysql->consultar($sql);
         $mysql->desconectar();
 
-        $listado = self::_generarListadoPersonaFisica($datos);
-
-        return $listado;
-    }*/
+        if ($datos->num_rows > 0) {
+            $registro = $datos->fetch_assoc();
+            $usuario = self::_generarUsuario($registro);
+        } else {
+            return;
+        }
+    }
     public static function obtenerTodos()
     {
         $sql= "SELECT * FROM personafisica INNER JOIN usuario ON personafisica.id_persona_fisica = usuario.id_persona_fisica";
-        ;
+        
         $mysql = new MySQL();
         $datos = $mysql->consultar($sql);
         $mysql->desconectar();

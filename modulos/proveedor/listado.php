@@ -36,68 +36,42 @@ $listadoProveedor = Proveedor::obtenerTodos();
                   <div class="x_content">
                       <div class="row">
                           <div class="col-sm-12">
-                            <div class="card-box table-responsive">
-                    <p class="text-muted font-13 m-b-30">
-                      <a href="alta.php" role="button" class="btn btn-primary">Agregar</a>
-                    </p>
-                    <table id="datatable" class="table" style="width:100%">
-                      <thead>
-                        <tr>
-                          <th>Razon Social</th>
-                          <th>Cuit</th>
-                          <th>Acciones</th>
-                        </tr>
-                      </thead>
-                      <?php foreach ($listadoProveedor as $proveedor): ?>
-                      <tbody>
-                        <tr>
-                          <td> <?php echo $proveedor->getRazonSocial(); ?> </td>
-                          <td> <?php echo $proveedor->getCuit(); ?> </td>
-                          <td width="50%"> 
-                            <a href="actualizar.php?id=<?php echo $proveedor->getIdProveedor(); ?>" role="button" title="Editar">Actualizar</a>
-                            <a href="detalle.php?id=<?php echo $proveedor->getIdProveedor(); ?>">Ver Detalle</a>
-                          </td>
-                        </tr>
-                      </tbody>
-                      <?php endforeach ?>
-                    </table>
-                  </div>
+                            <div class="table-responsive">
+                            <p class="text-muted font-13 m-b-30">
+                              <a href="alta.php" role="button" class="btn btn-primary">Agregar</a>
+                            </p>
+                            <table class="table table-striped jambo_table bulk_action">
+                              <thead>
+                                <tr class="headings">                            
+                                  <th class="column-title">Razon Social</th>
+                                  <th class="column-title">Cuit</th>
+                                  <th class="column-title">Acciones</th>
+                                </tr>
+                              </thead>
+
+                              <tbody>
+                                <?php foreach ($listadoProveedor as $proveedor): ?>
+                                <tr class="even pointer">
+                                  <td class=" "><?php echo $proveedor->getRazonSocial(); ?></td>
+                                  <td class=" "><?php echo $proveedor->getCuit(); ?></td>
+                                  <td class=" last">
+                                    <a href="actualizar.php?id=<?php echo $proveedor->getIdProveedor(); ?>" role="button" class="btn btn-primary" title="Editar">Actualizar</a>
+                                      <a href="detalle.php?id=<?php echo $proveedor->getIdProveedor(); ?>" role="button" class="btn btn-success">Ver Detalle</a></a>
+                                  </td>
+                                </tr>
+                                <?php endforeach ?>
+                              </tbody>
+                            </table>
+                    </div>
                   </div>
               </div>
             </div>
-
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
   <?php require_once"../../footer.php"; ?>              
 </body>
 </html>
-<?php /*
-<body>
-  <p><?php require_once "../../menu.php"; ?></p>  
-  <a href="alta.php"  role="button">Agregar</a>
-  <table align="center" border="1 " width="50% ">
-    <thead>
-      <tr>
-      <th>Razon Social</th>
-      <th>Cuit</th>
-      <th>Acciones</th>
-    </tr>
-  </thead>
-  <?php foreach ($listadoProveedor as $proveedor): ?>
-    <tbody align="center">
-      <tr>
-        <td> <?php echo $proveedor->getRazonSocial(); ?> </td>
-        <td> <?php echo $proveedor->getCuit(); ?> </td>
-        <td width="50%"> 
-          <a href="actualizar.php?id=<?php echo $proveedor->getIdProveedor(); ?>" role="button" title="Editar">Actualizar</a>
-          <a href="detalle.php?id=<?php echo $proveedor->getIdProveedor(); ?>">Ver Detalle</a>
-        </td>
-      </tr>
-    </tbody>
-  <?php endforeach ?>
-  </table>
-  <a href="../../menu.php"  role="button">Menu</a>                
-</body>
-</html>
-*/?>

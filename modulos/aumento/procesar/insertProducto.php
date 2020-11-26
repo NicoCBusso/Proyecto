@@ -9,6 +9,17 @@ $idSubCategoria = $_GET['idSubCategoria'];
 $idProveedor = $_GET['idProveedor'];
 $aumento = $_GET['aumento'];
 
+if (empty($aumento)){
+	//echo "<span style='font-weight:bold;color:red;'>Aumento no asignado</span>";
+	exit;
+} else if ($aumento == 0){
+	//echo "<span style='font-weight:bold;color:red;'>Aumento en 0</span>";
+	exit;	
+} else if ($aumento < 0){
+	//echo "<span style='font-weight:bold;color:red;'>Aumento en 0</span>";
+	exit;
+}
+
 $sql = "UPDATE producto" 
 		." INNER JOIN productofinal ON producto.id_producto_final = productofinal.id_producto_final"
 		." SET precio_venta = precio_venta+(precio_venta * $aumento / 100) WHERE ";

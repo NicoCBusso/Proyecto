@@ -14,6 +14,7 @@ $listadoCategoria = Categoria::obtenerTodos();
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+  <script src="../../js/validaciones/validarAumento.js"></script>
   <script type="text/javascript" src="../../js/functions/producto/functions.js" ></script>
   <title>Glou Glou!</title>
 </head>
@@ -133,30 +134,32 @@ $listadoCategoria = Categoria::obtenerTodos();
     let idProveedor = $('#cboProveedor').val();
     let aumento = $('#txtPorcentaje').val();
     console.log (aumento);
-    $.ajax({
-        type: 'GET',
-        url : 'procesar/insertProducto.php',
-        data: {
-            'idMarca': idMarca,
-            'idCategoria': idCategoria,
-            'idSubCategoria': idSubCategoria,
-            'idProveedor': idProveedor,
-            'aumento': aumento
-        },
-        success: function(data){
-          var datos = JSON.parse(data);
-          console.log(datos);
-          $('#tablaInforme tbody tr').empty();
-          for (var x=0; x < datos.length; x++){
-            //console.log(datos[x]);
-             row = generarFila(
-              datos[x].descripcion,
-              datos[x].precio_venta
-            );              
-            $('#tablaInforme tbody tr:last').after(row);
-          }
-      }
-    })
+    if(validar() != 1){
+      $.ajax({
+          type: 'GET',
+          url : 'procesar/insertProducto.php',
+          data: {
+              'idMarca': idMarca,
+              'idCategoria': idCategoria,
+              'idSubCategoria': idSubCategoria,
+              'idProveedor': idProveedor,
+              'aumento': aumento
+          },
+          success: function(data){
+            var datos = JSON.parse(data);
+            console.log(datos);
+            $('#tablaInforme tbody tr').empty();
+            for (var x=0; x < datos.length; x++){
+              //console.log(datos[x]);
+               row = generarFila(
+                datos[x].descripcion,
+                datos[x].precio_venta
+              );              
+              $('#tablaInforme tbody tr:last').after(row);
+            }
+        }
+      })
+    }
   }
 
   function generarFila(nombre,precio) {

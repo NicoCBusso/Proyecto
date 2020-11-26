@@ -136,7 +136,7 @@ class Compra {
         $idInsertado = $mysql->insertar($sql);
 
         $this->_idCompra= $idInsertado;
-        var_dump($sql);        
+        //var_dump($sql);        
     }
 
     public function _generarCompra($registro){

@@ -4,8 +4,23 @@ require_once "../../../class/Producto.php";
 require_once "../../../class/Aumento.php";	
 
 $idProducto = $_GET['idProducto'];
-$aumento = $_GET['aumento'];
 
+$aumento = $_GET['aumento'];
+if(!empty($idProducto)){
+	if (empty(Producto::obtenerPorId($idProducto))){
+		exit;
+	}
+}
+if (empty($aumento)){
+	//echo "<span style='font-weight:bold;color:red;'>Aumento no asignado</span>";
+	exit;
+} else if ($aumento == 0){
+	//echo "<span style='font-weight:bold;color:red;'>Aumento en 0</span>";
+	exit;	
+} else if ($aumento < 0){
+	//echo "<span style='font-weight:bold;color:red;'>Aumento en 0</span>";
+	exit;
+}
 
 $sql = "UPDATE productofinal "
 		."INNER JOIN trago ON trago.id_producto_final = productofinal.id_producto_final "

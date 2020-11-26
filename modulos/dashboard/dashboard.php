@@ -29,7 +29,7 @@
 
             <div class="tile_count">
               <div class="col-md-2 col-sm-4  tile_stats_count">
-                <span class="count_top"><i class="fa fa-user"></i> Total ventas del año</span>
+                <span class="count_top"><i class="fa fa-clock-o"></i> Total ventas del año</span>
                 <div class="count">
                   <?php echo $cantidadVendidoEnElAño ?></div>
               </div>
@@ -38,11 +38,11 @@
                 <div class="count"><?php echo $cantidadCompradoEnElAño ?></div>
               </div>
               <div class="col-md-2 col-sm-4  tile_stats_count">
-                <span class="count_top"><i class="fa fa-user"></i> Producto con mas salida del mes</span>
+                <span class="count_top"><i class="fa fa-beer"></i> Producto con mas salida del mes</span>
                 <div class="count"><?php echo $productoMasVendidoDelMes ?></div>
               </div>
               <div class="col-md-2 col-sm-4  tile_stats_count">
-                <span class="count_top"><i class="fa fa-user"></i> Trago con mas salida del mes</span>
+                <span class="count_top"><i class="fa fa-glass"></i> Trago con mas salida del mes</span>
                 <div class="count"><h5><?php echo $tragoMasVendidoDelMes ?></h5></div>
               </div>
               <div class="col-md-2 col-sm-4  tile_stats_count">
@@ -50,7 +50,7 @@
                 <div class="count"><h4><?php echo $puestoConMasSalida ?></h4></div>
               </div>
               <div class="col-md-2 col-sm-4  tile_stats_count">
-                <span class="count_top"><i class="fa fa-user"></i> Facturado en el año</span>
+                <span class="count_top"><i class="fa fa-money"></i> Facturado en el año</span>
                 <div class="count">$<?php echo intval($totalFacturadoAño) ?></div>
               </div>
             </div>

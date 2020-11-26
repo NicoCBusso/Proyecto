@@ -71,6 +71,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 		exit;
 	}
 	//De DNI
+
 	if (empty(trim($dni))) {
 		$_SESSION['mensaje_error'] = "El campo dni no debe estar vacio";
 		echo $_SESSION['mensaje_error'];
@@ -82,6 +83,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 		exit;
 	} elseif (strlen(trim($dni)) != 8) {
 		$_SESSION['mensaje_error'] = "El campo dni debe contener 10 digitos, sin punto y agregar 0 en caso de valor menor 10 millones";
+		header("location: ../alta.php");
+		exit;
+	} elseif (empty(Empleado::obtenerPorDni($dni))){
+		$_SESSION['mensaje_error'] = "Existe ya una persona con ese DNI";
 		header("location: ../alta.php");
 		exit;
 	}

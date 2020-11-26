@@ -149,7 +149,7 @@ class DetalleCompra{
         $idInsertado = $mysql->insertar($sql);
 
         $this->_idDetalleCompra = $idInsertado;
-        var_dump($sql);
+        //var_dump($sql);
     }
     public function _generarDetalleCompra ($registro){
     	$detalleCompra = new DetalleCompra($registro['id_producto']);

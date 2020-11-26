@@ -48,14 +48,9 @@ $proveedor = Proveedor::obtenerPorId($id);
                         </ul>
                         <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade active show" id="home" role="tabpanel" aria-labelledby="home-tab">
-                                <h5>                                
-                                   <span class="badge bg-green">ID:</span> <?php echo $proveedor->getIdProveedor();?>                            
-                                <br>
-                                    <span class="badge bg-green">Razon Social:</span> <?php echo $proveedor->getRazonSocial(); ?>
-                                <br>
-                                    <span class="badge bg-green">CUIT:</span> <?php echo $proveedor->getCuit();?>
-                                <br>
-                                </h5>
+                                <h5><span class="badge bg-green">ID:</span></h5><h4><?php echo $proveedor->getIdProveedor();?></h4>
+                                <h5><span class="badge bg-green">Razon Social:</span></h5><h4><?php echo $proveedor->getRazonSocial(); ?></h4>
+                                <h5><span class="badge bg-green">CUIT:</span></h5><h4><?php echo $proveedor->getCuit();?></h4>
                             </div>
                             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                                 <?php if(is_null($proveedor->direccion)): ?>
@@ -64,20 +59,13 @@ $proveedor = Proveedor::obtenerPorId($id);
                                     </a>
 
                                 <?php else:?>                          
-                                    <h5>
-                                    
-                                        <span class="badge bg-green">Pais:</span> <?php echo $proveedor->direccion->localidad->provincia->pais->getDescripcion();?>
-                                        <br>
-                                        <span class="badge bg-green">Provincia:</span> <?php echo $proveedor->direccion->localidad->provincia->getDescripcion();?>
-                                        <br>
-                                        <span class="badge bg-green">Localidad:</span> <?php echo $proveedor->direccion->localidad->getDescripcion();?>
-                                    <br>
-                                        <span class="badge bg-green">Direccion:</span> <?php echo $proveedor->direccion;?>
-                                    <br><br>
-                                        <a href="/programacion3/Proyecto/modulos/direccion/actualizar.php?id_direccion=<?php echo $proveedor->direccion->getIdDireccion();?>&id_persona=<?php echo $proveedor->getIdPersona(); ?>&idLlamada=<?php echo $proveedor->getIdProveedor(); ?>&modulo=proveedor" class="btn btn-primary">
-                                            Modificar Domicilio
-                                        </a>
-                                    <br>
+                                    <h5><span class="badge bg-green">Pais:</span></h5><h4><?php echo $proveedor->direccion->localidad->provincia->pais->getDescripcion();?></h4>
+                                    <h5><span class="badge bg-green">Provincia:</span></h5><h4><?php echo $proveedor->direccion->localidad->provincia->getDescripcion();?></h4>
+                                    <h5><span class="badge bg-green">Localidad:</span></h5><h4><?php echo $proveedor->direccion->localidad->getDescripcion();?></h4>
+                                    <h5><span class="badge bg-green">Direccion:</span></h5><h4><?php echo $proveedor->direccion;?></h4>
+                                    <a href="/programacion3/Proyecto/modulos/direccion/actualizar.php?id_direccion=<?php echo $proveedor->direccion->getIdDireccion();?>&id_persona=<?php echo $proveedor->getIdPersona(); ?>&idLlamada=<?php echo $proveedor->getIdProveedor(); ?>&modulo=proveedor" class="btn btn-primary">
+                                        Modificar Domicilio
+                                    </a>
                                     </h5>
                                 <?php endif ?>
                             </div>
@@ -88,7 +76,7 @@ $proveedor = Proveedor::obtenerPorId($id);
                                     </a>
                                 
                                 <?php foreach ($proveedor->getArrContacto() as $contacto) : ?>
-                                    <h5><span class="badge bg-green"><?php echo $contacto->tipoContacto->getDescripcion();?>:</span>  <span><?php echo $contacto; ?></h5>                                   
+                                    <h5><span class="badge bg-green"><?php echo $contacto->tipoContacto->getDescripcion();?>:</span></h5><h4><?php echo $contacto; ?></h4>                                   
                                     <a href="/programacion3/Proyecto/modulos/contacto/actualizar.php?id_contacto=<?php echo $contacto->getIdContacto();?>&id_persona=<?php echo $proveedor->getIdPersona(); ?>&idLlamada=<?php echo $proveedor->getIdProveedor(); ?>&modulo=proveedor" class="btn btn-primary">
                                         Modificar Contacto
                                     </a>
@@ -96,122 +84,17 @@ $proveedor = Proveedor::obtenerPorId($id);
                                 
                                 <?php endforeach ?>
                             </div>
-                        </div>                                
+                        </div>
+                        <a href="listado.php" role="button" class="btn btn-primary">Atras</a>                                  
                             
                             </div>                            
                         </div>
+                </div>
             </div>
-              <div class="col-md-12 col-sm-12 ">
-                <div class="x_panel">
-                  <div class="x_title">
-                    <h2>Lista de Usuarios <small></small></h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">
-                      <div class="row">
-                          <div class="col-sm-12">
-                            <div class="card-box table-responsive">
-                    <p class="text-muted font-13 m-b-30">
-                      <a href="alta.php" role="button" class="btn btn-primary">Agregar</a>
-                    </p>
-                    <table id="datatable" class="table" style="width:100%">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Razon Social</th>
-                                <th>CUIT</th>
-                                <th>Direccion</th>
-                                <th>Localidad</th>
-                                <th>Provincia</th>
-                                <th>Pais</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td> <?php echo $proveedor->getIdProveedor(); ?> </td>
-                            <td> <?php echo $proveedor->getRazonSocial(); ?> </td>
-                            <td> <?php echo $proveedor->getCuit(); ?> </td>
-                            <td> <?php if(is_null($proveedor->direccion)): ?>
-                                <a href="/programacion3/Proyecto/modulos/direccion/alta.php?id_persona=<?php echo $proveedor->getIdPersona(); ?>&idLlamada=<?php echo $proveedor->getIdProveedor(); ?>&modulo=proveedor">
-                                Agregar Domicilio
-                                </a>
-                            <?php else:?>
-                                <?php echo $proveedor->direccion; ?>
-                                <a href="/programacion3/Proyecto/modulos/direccion/actualizar.php?id_direccion=<?php echo $proveedor->direccion->getIdDireccion(); ?>&id_persona=<?php echo $proveedor->getIdPersona(); ?>&idLlamada=<?php echo $proveedor->getIdProveedor(); ?>&modulo=proveedor">
-                                    Modificar Domicilio
-                                </a>
-                                <td><?php echo $proveedor->direccion->localidad->getDescripcion();?></td>
-                                <td><?php echo $proveedor->direccion->localidad->provincia->getDescripcion();?></td>
-                                <td><?php echo $proveedor->direccion->localidad->provincia->pais->getDescripcion();?></td>
-                            <?php endif ?>
-                          </tr>   
-                        </tbody>
-                    </table>
-                  </div>
-                  </div>
-              </div>
-            </div>
-
+        </div>
     </div>
   </div>
 
   <?php require_once"../../footer.php"; ?>              
 </body>
 </html>
-<?php /*
-<!DOCTYPE html>
-<html lang="es">
-
-<body>
-    <p><?php require_once "../../menu.php"; ?></p>  
-    <table border="1" align="center">
-    <thead>
-     <tr>
-        <th>ID</th>
-        <th>Razon Social</th>
-        <th>CUIT</th>
-        <th>Direccion</th>
-        <th>Localidad</th>
-        <th>Provincia</th>
-        <th>Pais</th>
-     </tr>
-    </thead>
-
-    <tbody align="center">
-      <tr>
-        <td> <?php echo $proveedor->getIdProveedor(); ?> </td>
-        <td> <?php echo $proveedor->getRazonSocial(); ?> </td>
-        <td> <?php echo $proveedor->getCuit(); ?> </td>
-        <td> <?php if(is_null($proveedor->direccion)): ?>
-            <a href="/programacion3/Proyecto/modulos/direccion/alta.php?id_persona=<?php echo $proveedor->getIdPersona(); ?>&idLlamada=<?php echo $proveedor->getIdProveedor(); ?>&modulo=proveedor">
-            Agregar Domicilio
-            </a>
-
-        <?php else:?>
-            <?php echo $proveedor->direccion; ?>
-
-            <a href="/programacion3/Proyecto/modulos/direccion/actualizar.php?id_direccion=<?php echo $proveedor->direccion->getIdDireccion(); ?>&id_persona=<?php echo $proveedor->getIdPersona(); ?>&idLlamada=<?php echo $proveedor->getIdProveedor(); ?>&modulo=proveedor">
-                Modificar Domicilio
-            </a>
-            <td><?php echo $proveedor->direccion->localidad->getDescripcion();?></td>
-            <td><?php echo $proveedor->direccion->localidad->provincia->getDescripcion();?></td>
-            <td><?php echo $proveedor->direccion->localidad->provincia->pais->getDescripcion();?></td>
-        <?php endif ?>
-      </tr>   
-
-    </tbody>
-
-</table>
-<a href="listado.php">Volver al Listado</a>
-
-
-</body>
-
-</html>
-*/?>
