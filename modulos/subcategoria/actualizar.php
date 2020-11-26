@@ -13,15 +13,7 @@ $listadoCategoria = Categoria::obtenerTodos();
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 </head>
 <body class="nav-md">
-	<?php require_once "../../menu.php"; ?>
-	<?php if (isset($_SESSION['mensaje_error'])) :?>
-		<h3><font color="red">
-			<?php
-				echo $_SESSION['mensaje_error']; 
-		        unset($_SESSION['mensaje_error']);
-		    ?>
-	    </font></h3>
-    <?php endif;?>
+	<?php require_once "../../menu.php"; ?>	
 	<div class="right_col" role="main">
 				<div class="">
 					<div class="clearfix"></div>
@@ -29,7 +21,7 @@ $listadoCategoria = Categoria::obtenerTodos();
 						<div class="col-md-12 col-sm-12 ">
 							<div class="x_panel">
 								<div class="x_title">
-									<h2>Modificacion de SubCategoria <small>different form elements</small></h2>
+									<h2>Modificacion de SubCategoria</h2>
 									<ul class="nav navbar-right panel_toolbox">
 										<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 										</li>
@@ -41,6 +33,14 @@ $listadoCategoria = Categoria::obtenerTodos();
 								<div class="x_content">
 									<br />
 									<form  data-parsley-validate class="form-horizontal form-label-left" name="frmDatos" id="frmDatos" method="POST" action="procesar/update.php">
+										<?php if (isset($_SESSION['mensaje_error'])) :?>
+											<h4><font color="red">
+												<?php
+													echo $_SESSION['mensaje_error']; 
+											        unset($_SESSION['mensaje_error']);
+											    ?>
+										    </font></h4>
+									    <?php endif;?>
 										<input type="hidden" name="txtId" value="<?php echo $subcategoria->getIdSubCategoria(); ?>">
 										<input type="hidden" name="idCategoriaVer" value="<?php echo $idCategoria ?>">
 										<div class="item form-group">
@@ -68,7 +68,7 @@ $listadoCategoria = Categoria::obtenerTodos();
 										<div class="ln_solid"></div>
 										<div class="item form-group">
 											<div class="col-md-6 col-sm-6 offset-md-3">
-												<a href="listado.php" role="button" class="btn btn-primary">Cancelar</a>												
+												<a href="listado.php?id=<?php echo $idCategoria ?>" role="button" class="btn btn-primary">Cancelar</a>												
 												<button class="btn btn-primary" type="reset">Borrar</button>
 												<input type="button" value="Actualizar" class="btn btn-success" onclick="validar();">											
 											</div>

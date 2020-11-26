@@ -138,18 +138,18 @@ $listadoTipoExcepcion = TipoExcepcion::obtenerTodos();
 		      <div class="modal-body">
 		      	<div>
 		      		<table class="table table-striped table-sm">
-		      			<thead>
-                        <tr>
-                        <th>Código</th>
-                        <th>Consumicion</th>
-                        <th>Precio</th>
-                        </tr>
-                    </thead>
-                    <tbody id="id_busqueda">
-                        <td id="idConsumicion"></td>
-                        <td id="nombreConsumicion"></td>
-                        <td id="precioConsumicion"></td>
-                    </tbody>
+			      		<thead>
+	                        <tr>
+	                        <th>Código</th>
+	                        <th>Consumicion</th>
+	                        <th>Precio</th>
+	                        </tr>
+	                    </thead>
+	                    <tbody id="id_busqueda">
+	                        <td id="idConsumicion"></td>
+	                        <td id="nombreConsumicion"></td>
+	                        <td id="precioConsumicion"></td>
+	                    </tbody>
 		      		</table>
 		      	</div>
 		        <input id="id_txt_buscar" class="form-control" placeholder="Buscar producto" >

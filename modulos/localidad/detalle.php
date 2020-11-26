@@ -20,7 +20,7 @@ $localidad = Localidad::obtenerPorId($id);
               <div class="col-md-12 col-sm-12 ">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Detalle Localidad <small></small></h2>
+                    <h2>Detalle Localidad</h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -40,35 +40,32 @@ $localidad = Localidad::obtenerPorId($id);
                       <div class="row">
                           <div class="col-sm-12">
                             <div class="card-box table-responsive">
-                    <p class="text-muted font-13 m-b-30">
-                      <a href="alta.php" role="button" class="btn btn-primary">Agregar</a>
-                    </p>
-                    <table id="datatable" class="table" style="width:100%">
-                      <thead>
-                        <tr>
-                          <tr>
-                          	<th>ID</th>
-                            <th>Nombre</th>
-                            <th>Provincia</th>                           
-                          </tr>
-                      </thead>                      
-                        <tbody>               
-                          <tr>
-                            <td><?php echo $localidad->getIdLocalidad(); ?></td>
-							<td><?php echo $localidad->getDescripcion(); ?></td>
-							<td><?php echo $localidad->provincia->getDescripcion(); ?></td>                          
-                          </tr>              
-                        </tbody>
-                    </table>
-                    <a href="listado.php" role="button" class="btn btn-primary">Atras</a>
+                              <table id="datatable" class="table" style="width:100%">
+                                <thead>
+                                  <tr>
+                                  	<th>ID</th>
+                                    <th>Nombre</th>
+                                    <th>Provincia</th>                           
+                                  </tr>
+                                </thead>                      
+                                  <tbody>               
+                                    <tr>
+                                      <td><?php echo $localidad->getIdLocalidad(); ?></td>
+                        							<td><?php echo $localidad->getDescripcion(); ?></td>
+                        							<td><?php echo $localidad->provincia->getDescripcion(); ?></td>                          
+                                    </tr>              
+                                  </tbody>
+                              </table>
+                              <a href="listado.php" role="button" class="btn btn-primary">Atras</a>
+                            </div>
+                          </div>
+                      </div>
                   </div>
-                  </div>
+                </div>
               </div>
             </div>
-
-    </div>
-  </div>
-
+          </div>
+        </div>
   <?php require_once"../../footer.php"; ?>              
 </body>
 </html>

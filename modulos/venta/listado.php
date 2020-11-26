@@ -1,9 +1,11 @@
 <?php
 require_once "../../class/Venta.php";
 
-$listadoVentas = Venta::obtenerTodos();
+//$listadoVentas = Venta::obtenerTodos();
 //highlight_string(var_export($listadoVentas,true));
 //exit;
+
+
 ?>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -41,34 +43,24 @@ $listadoVentas = Venta::obtenerTodos();
                     <p class="text-muted font-13 m-b-30">
                       <a href="alta.php" role="button" class="btn btn-primary">Agregar</a>
                     </p>
-                    <table id="datatable" class="table" style="width:100%">
+                    <table id="tablaVenta" class="table table-striped jambo_table bulk_action">
                       <thead>
-                      <tr>
-                        <th>Nro</th>
-                        <th>Cajero/a</th>
-                        <th>Fecha Hora Emision</th>
-                        <th>Fecha Hora Expiracion</th>
-                        <th>Total</th>
-                        <th>Acciones</th>
-                      </tr>
+                        <tr class="headings">                            
+                          <th class="column-title">Nombre</th>
+                          <th class="column-title">Cajero/a</th>
+                          <th class="column-title">Fecha Hora Emision</th>
+                          <th class="column-title">Fecha Hora Expiracion</th>
+                          <th class="column-title">Total</th>                          
+                          <th class="column-title">Acciones</th>                          
+                        </tr>
                       </thead>
-                      <?php foreach ($listadoVentas as $venta): ?>
                       <tbody>
-                        <tr>
-                          <td> <?php echo $venta->getIdVenta(); ?> </td>
-                          <td> <?php echo $venta->usuario->getNombre(); ?> </td>
-                          <td><?php echo $venta->getFechaHoraEmision();?></td>
-                          <td><?php echo $venta->getFechaHoraExpiracion();?></td>
-                          <td>$<?php echo $venta->obtenerTotal();?></td>
-                          <td width="50%"> 
-
-                          <a href="detalle.php?id=<?php echo $venta->getIdVenta(); ?>" role="button" title="Editar">Detalle</a>
-
-                          </td>
+                        <tr class="even pointer">                          
                         </tr>
                       </tbody>
-                      <?php endforeach ?>
                     </table>
+
+                    
                   </div>
                   </div>
               </div>
@@ -81,4 +73,42 @@ $listadoVentas = Venta::obtenerTodos();
 
   <?php require_once"../../footer.php"; ?>              
 </body>
+<script>
+  $.ajax({
+    type: 'GET',
+      url : '../../utils/venta/listadoVenta.php',
+      data: {
+      },
+    success: function(data){
+      var datos = JSON.parse(data);
+      console.log(datos);
+      for (var x=0; x < datos.length; x++){
+            row = generarFila(
+              datos[x].id_venta,
+              datos[x].nombre,
+              datos[x].fecha_hora_emision,
+              datos[x].fecha_hora_expiracion,
+              datos[x].total
+            );            
+        $('#tablaVenta tbody tr:last').after(row);
+      }
+    }
+  })
+  function generarFila(idVenta,cajero,fechaHoraEmision,fechaHoraExpiracion,total) {
+    if (fechaHoraExpiracion = "undefined"){
+      fechaHoraExpiracion = "";
+
+    }
+    var row = '<tr class="even pointer"><td>';
+    row += idVenta + '</td><td>';
+    row += cajero + '</td><td>';
+    row += fechaHoraEmision + '</td><td>';
+    row += fechaHoraExpiracion + '</td><td>$';
+    row += total + '</td>';
+    row += '<td><a href="detalle.php?id=';
+    row += idVenta+'';
+    row += '"role="button" class="btn btn-primary" title="Editar">Detalle</a></td></trim>'; 
+    return row;
+  }
+</script>
 </html>

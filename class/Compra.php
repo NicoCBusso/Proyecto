@@ -178,6 +178,30 @@ class Compra {
         return $listado;
     }
 
+    public static function obtenerTodosListado(){
+        $sql = "SELECT compra.id_compra,"
+                ."personafisica.nombre,"
+                ."compra.fecha,"
+                ."tipocomprobante.descripcion,"
+                ."CAST(SUM(detallecompra.precio*detallecompra.cantidad) AS INT) AS total"
+                ." FROM compra"
+                ." INNER JOIN detallecompra ON compra.id_compra = detallecompra.id_compra"
+                ." INNER JOIN usuario ON compra.id_usuario = usuario.id_usuario"
+                ." INNER JOIN tipocomprobante ON tipocomprobante.id_tipo_comprobante = compra.id_tipo_comprobante"
+                ." INNER JOIN personafisica ON usuario.id_persona_fisica = personafisica.id_persona_fisica"
+                ." GROUP BY compra.id_compra";
+        //var_dump($sql);
+        $mysql = new MySQL();
+        $datos = $mysql->consultar($sql);
+        $mysql->desconectar();
+        $listado = array();
+        while($r = mysqli_fetch_assoc($datos)) {
+            $listado[] = $r;
+        }
+        echo json_encode($listado);
+        exit;
+    }
+
     public static function obtenerPorId($id){
     	$sql = "SELECT * FROM compra WHERE id_compra = ". $id;
 

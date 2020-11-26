@@ -174,22 +174,6 @@ class Venta {
             }
         return $listado;
     }
-    /*public function _informeVenta($datos){
-        $listado = array();
-        while ($registro = $datos->fetch_assoc())
-            {
-            $venta = new Venta();
-            $venta->_idVenta = $registro['id_venta'];
-            $venta->_idUsuario = $registro['id_usuario'];
-            $venta->_arrDetalleVenta = DetalleVenta::informeConsumicion($venta->_idVenta);
-            $venta->_fechaHoraEmision = $registro['fecha_hora_emision'];
-            $venta->_fechaHoraExpiracion = $registro['fecha_hora_expiracion'];
-            $venta->_estado = $registro['estado'];    
-            $venta->setUsuario();
-            $listado[] = $venta;
-            }
-        return $listado;
-    }*/
 
     public static function obtenerTodos(){
     	$sql = "SELECT * FROM venta";
@@ -201,6 +185,29 @@ class Venta {
         $listado = self::_generarListadoVenta($datos);
 
         return $listado;
+    }
+
+    public static function obtenerTodosListado(){
+        $sql = "SELECT venta.id_venta,"
+                ."personafisica.nombre,"
+                ."venta.fecha_hora_emision,"
+                ."venta.fecha_hora_expiracion,"
+                ."CAST(SUM(detalleventa.precio) AS int) as total "
+                ." FROM venta "
+                ." INNER JOIN detalleventa ON venta.id_venta = detalleventa.id_venta"
+                ." INNER JOIN usuario ON venta.id_usuario = usuario.id_usuario"
+                ." INNER JOIN personafisica ON usuario.id_persona_fisica = personafisica.id_persona_fisica"
+                ." GROUP BY venta.id_venta";
+        //var_dump($sql);
+        $mysql = new MySQL();
+        $datos = $mysql->consultar($sql);
+        $mysql->desconectar();
+        $listado = array();
+        while($r = mysqli_fetch_assoc($datos)) {
+            $listado[] = $r;
+        }
+        echo json_encode($listado);
+        exit;
     }
 
     public static function obtenerPorId($id){

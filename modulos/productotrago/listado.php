@@ -37,27 +37,27 @@ $listadoIngrediente = ProductoTrago::obtenerPorIdTrago($idTrago);
                     <p class="text-muted font-13 m-b-30">
                       <a href="alta.php?id=<?php echo $idTrago; ?>" role="button" class="btn btn-primary">Agregar</a>
                     </p>
-                    <table id="datatable" class="table" style="width:100%">
+                    <table class="table table-striped jambo_table bulk_action">
                       <thead>
-                        <tr>
-							<th>Producto</th>
-							<th>Cantidad</th>
-							<th>Opciones</th>
-						</tr>
+                        <tr class="headings">                            
+                          <th class="column-title">Producto</th>
+                          <th class="column-title">Cantidad</th>
+                          <th class="column-title">Acciones</th>                          
+                        </tr>
                       </thead>
-                      <?php foreach ($listadoIngrediente as $ingrediente): ?>
-						<tbody >
-							<tr>
-								<td><?php echo $ingrediente->producto->getNombre(); ?></td>
-								<td> <?php echo $ingrediente->getCantidad(); ?> ml</td>
-								<td>
-									<a href="procesar/delete.php?id=<?php echo $ingrediente->getIdProductoTrago(); ?>&idTrago=<?php echo $idTrago;?>" role="button" title="Editar">Eliminar</a>
-								</td>					
-							</tr>
-						</tbody>
-					  <?php endforeach ?>
+                      <tbody>
+                        <?php foreach ($listadoIngrediente as $ingrediente): ?>
+                        <tr class="even pointer">
+                          <td class=" "><?php echo $ingrediente->producto->getNombre();?></td>
+                          <td class=" "><?php echo $ingrediente->getCantidad();?></td>
+                          <td class=" last">
+                            <a href="procesar/delete.php?id=<?php echo $ingrediente->getIdProductoTrago(); ?>&idTrago=<?php echo $idTrago;?>" role="button" class="btn btn-primary" title="Editar">Eliminar</a>
+                          </td>
+                        </tr>
+                        <?php endforeach ?>
+                      </tbody>
                     </table>
-                    <a href="../trago/listado.php" class="btn btn-primary role="button">Atras</a> 
+                    <a href="../trago/listado.php" class="btn btn-primary" role="button" >Atras</a> 
                   </div>
                   </div>
               </div>
@@ -65,7 +65,9 @@ $listadoIngrediente = ProductoTrago::obtenerPorIdTrago($idTrago);
 
     </div>
   </div>
-
+</div>
+</div>
+</div>
   <?php require_once"../../footer.php"; ?>              
 </body>
 </html>

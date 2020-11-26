@@ -40,36 +40,35 @@ $listadoSolicitud = Solicitud::obtenerTodos();
                     <p class="text-muted font-13 m-b-30">
                       <a href="alta.php" role="button" class="btn btn-primary">Agregar</a>
                     </p>
-                    <table id="datatable" class="table" style="width:100%">
+                    <table class="table table-striped jambo_table bulk_action">
                       <thead>
-                      <tr>
-                        <th>Nro</th>
-                        <th>Jefe de Barman/a</th>
-                        <th>Fecha y Hora Pedido</th>
-                        <th>Fecha y Hora Entrega</th>              
-                        <th>Estado</th>
-                        <th>Acciones</th>
-                      </tr>
+                        <tr class="headings">                            
+                          <th class="column-title">Nro</th>
+                          <th class="column-title">Jefe de Barman/a</th>
+                          <th class="column-title">Fecha y Hora Pedido</th>
+                          <th class="column-title">Fecha y Hora Entrega</th>              
+                          <th class="column-title">Estado</th>
+                          <th class="column-title">Acciones</th>                         
+                        </tr>
                       </thead>
-                      <?php foreach ($listadoSolicitud as $solicitud): ?>
-                        <tbody>
-                          <tr>
-                            <td><?php echo $solicitud->getIdSolicitud(); ?></td>
-                            <td><?php echo $solicitud->usuario->getNombre(); ?></td>
-                            <td><?php echo $solicitud->getFechaHoraPedido();?></td> 
-                            <td><?php if($solicitud->getFechaHoraEntrega() != '0000-00-00 00:00:00'){
-                                        echo $solicitud->getFechaHoraEntrega();
-                                      }
-                                ?></td>           
-                            <td><?php echo $solicitud->estado->getDescripcion();?></td>
-                            <td width="50%"> 
-
-                            <a href="detalle.php?id=<?php echo $solicitud->getIdSolicitud(); ?>" role="button" title="Editar">Detalle</a>
-
-                            </td>
-                          </tr>
-                        </tbody>
-                      <?php endforeach ?>
+                      <tbody>
+                        <?php foreach ($listadoSolicitud as $solicitud): ?>
+                        <tr class="even pointer">
+                          <td class=" "><?php echo $solicitud->getIdSolicitud(); ?></td>
+                          <td class=" "><?php echo $solicitud->usuario->getNombre(); ?></td>
+                          <td class=" "><?php echo $solicitud->getFechaHoraPedido();?></td> 
+                          <td class=" ">
+                            <?php if($solicitud->getFechaHoraEntrega() != '0000-00-00 00:00:00'){
+                              echo $solicitud->getFechaHoraEntrega();
+                            }?>                                
+                          </td>           
+                          <td class=" "><?php echo $solicitud->estado->getDescripcion();?></td>
+                          <td class=" last">
+                            <a href="detalle.php?id=<?php echo $solicitud->getIdSolicitud(); ?>" role="button" class="btn btn-primary" title="Editar">Detalle</a>
+                          </td>
+                        </tr>
+                        <?php endforeach ?>
+                      </tbody>
                     </table>
                   </div>
                   </div>

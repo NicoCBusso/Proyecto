@@ -12,15 +12,7 @@ $envase = Envase::obtenerPorId($id);
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 </head>
 <body class="nav-md">
-	<?php require_once "../../menu.php"; ?>
-	<?php if (isset($_SESSION['mensaje_error'])) :?>
-		<h3><font color="red">
-			<?php
-				echo $_SESSION['mensaje_error']; 
-		        unset($_SESSION['mensaje_error']);
-		    ?>
-	    </font></h3>
-    <?php endif;?>
+	<?php require_once "../../menu.php"; ?>	
 	<div class="right_col" role="main">
 				<div class="">
 					<div class="clearfix"></div>
@@ -28,7 +20,7 @@ $envase = Envase::obtenerPorId($id);
 						<div class="col-md-12 col-sm-12 ">
 							<div class="x_panel">
 								<div class="x_title">
-									<h2>Modificacion de Envase <small>different form elements</small></h2>
+									<h2>Modificacion de Envase</h2>
 									<ul class="nav navbar-right panel_toolbox">
 										<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 										</li>
@@ -40,6 +32,14 @@ $envase = Envase::obtenerPorId($id);
 								<div class="x_content">
 									<br />
 									<form  data-parsley-validate class="form-horizontal form-label-left" name="frmDatos" id="frmDatos" method="POST" action="procesar/update.php">
+										<?php if (isset($_SESSION['mensaje_error'])) :?>
+											<h3><font color="red">
+												<?php
+													echo $_SESSION['mensaje_error']; 
+											        unset($_SESSION['mensaje_error']);
+											    ?>
+										    </font></h3>
+									    <?php endif;?>
 										<input type="hidden" name="txtId" value="<?php echo $envase->getIdEnvase(); ?>">
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Nombre <span class="required">*</span>

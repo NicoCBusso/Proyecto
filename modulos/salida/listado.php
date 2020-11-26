@@ -37,29 +37,28 @@ $listadoSalida = Salida::obtenerTodos();
                     <p class="text-muted font-13 m-b-30">
                       <a href="alta.php" role="button" class="btn btn-primary">Agregar</a>
                     </p>
-                    <table id="datatable" class="table" style="width:100%">
+                    <table class="table table-striped jambo_table bulk_action">
                       <thead>
-                        <tr>
-                          <th>Producto</th>
-                          <th>Puesto</th>
-                          <th>Fecha Hora de Salida</th>
+                        <tr class="headings">                            
+                          <th class="column-title">Producto</th>
+                          <th class="column-title">Puesto</th>
+                          <th class="column-title">Fecha Hora de Salida</th>                          
                         </tr>
                       </thead>
                       <?php foreach ($listadoSalida as $salida): ?>
-                        <tbody>              
-	                        <tr>
-            								<td>
+                        <tbody>
+                          <tr class="even pointer">
+                            <td class=" ">
                               <?php
                                 if($salida->getIdDetalleVenta() == NULL){
                                   echo $salida->detalle->getNombre();
                                 } else {
                                   echo $salida->detalle->productoFinal->getNombre();
                                 }
-                              ?>
-                            </td>
-                            <td><?php echo $salida->puesto->getLugar(); ?></td>
-                            <td><?php echo $salida->getFechaHoraEntrega(); ?></td>            								
-            							</tr>
+                              ?></td>
+                              <td class=" "><?php echo $salida->puesto->getLugar(); ?></td>
+                              <td class=" "><?php echo $salida->getFechaHoraEntrega(); ?></td>                            
+                          </tr>                        
                         </tbody>
                       <?php endforeach ?>
                     </table>

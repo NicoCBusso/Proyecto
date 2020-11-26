@@ -16,7 +16,7 @@ $listadoCargo = Cargo::obtenerTodos();
               <div class="col-md-12 col-sm-12 ">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Lista de Cargos <small>Users</small></h2>
+                    <h2>Lista de Cargos</h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -39,34 +39,33 @@ $listadoCargo = Cargo::obtenerTodos();
                     <p class="text-muted font-13 m-b-30">
                       <a href="alta.php" role="button" class="btn btn-primary">Agregar</a>
                     </p>
-                    <table id="datatable" class="table" style="width:100%">
+                    <table class="table table-striped jambo_table bulk_action">
                       <thead>
-                        <tr>
-                          <th>Nombre</th>
-                          <th>Opciones</th>
+                        <tr class="headings">                            
+                          <th class="column-title">Nombre</th>
+                          <th class="column-title">Acciones</th>                          
                         </tr>
                       </thead>
-                      <?php foreach ($listadoCargo as $cargo): ?>
-                        <tbody>              
-                          <tr>
-                            <td> <?php echo $cargo->getNombre(); ?> </td>
-                            <td width="50%"> 
-                              <a href="actualizar.php?id=<?php echo $cargo->getIdCargo(); ?>" role="button" title="Editar">Actualizar</a>
-                            </td>
-                          </tr> 
-                        </tbody>
-                      <?php endforeach ?>
+                      <tbody>
+                        <?php foreach ($listadoCargo as $cargo): ?>
+                        <tr class="even pointer">
+                          <td class=" "><?php echo $cargo->getNombre();?></td>
+                          <td class=" last">
+                            <a href="actualizar.php?id=<?php echo $cargo->getIdCargo(); ?>" role="button" class="btn btn-primary" title="Editar">Actualizar</a>
+                          </td>
+                        </tr>
+                        <?php endforeach ?>
+                      </tbody>
                     </table>
                   </div>
                   </div>
               </div>
             </div>
-</div>
-</div>
-</div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-
   <?php require_once"../../footer.php"; ?>              
 </body>
 </html>

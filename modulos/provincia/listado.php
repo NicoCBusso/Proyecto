@@ -35,37 +35,37 @@ $listadoProvincia = Provincia::obtenerTodos();
                       <div class="row">
                           <div class="col-sm-12">
                             <div class="card-box table-responsive">
-                    <p class="text-muted font-13 m-b-30">
-                      <a href="alta.php" role="button" class="btn btn-primary">Agregar</a>
-                    </p>
-                    <table class="table table-striped jambo_table bulk_action">
-                      <thead>
-                        <tr class="headings">                            
-                          <th class="column-title">Nombre</th>
-                          <th class="column-title">Acciones</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <?php foreach ($listadoProvincia as $provincia): ?>
-                        <tr class="even pointer">
-                          <td class=" "><?php echo $provincia->getDescripcion(); ?></td>
-                          <td class=" last">
-                            <a href="actualizar.php?id=<?php echo $provincia->getIdProvincia(); ?>" role="button" class="btn btn-primary" title="Editar">Actualizar</a>
-                            <a href="actualizar.php?id=<?php echo $provincia->getIdProvincia(); ?>" role="button" class="btn btn-primary" title="Editar">Detalle</a>
-                          </td>
-                        </tr>
-                        <?php endforeach ?>
-                      </tbody>
-                    </table>
+                              <p class="text-muted font-13 m-b-30">
+                                <a href="alta.php" role="button" class="btn btn-primary">Agregar</a>
+                              </p>
+                              <table class="table table-striped jambo_table bulk_action">
+                                <thead>
+                                  <tr class="headings">                            
+                                    <th class="column-title">Nombre</th>
+                                    <th class="column-title">Acciones</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <?php foreach ($listadoProvincia as $provincia): ?>
+                                  <tr class="even pointer">
+                                    <td class=" "><?php echo $provincia->getDescripcion(); ?></td>
+                                    <td class=" last">
+                                      <a href="actualizar.php?id=<?php echo $provincia->getIdProvincia(); ?>" role="button" class="btn btn-primary" title="Editar">Actualizar</a>
+                                      <a href="actualizar.php?id=<?php echo $provincia->getIdProvincia(); ?>" role="button" class="btn btn-primary" title="Editar">Detalle</a>
+                                    </td>
+                                  </tr>
+                                  <?php endforeach ?>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                      </div>
                   </div>
-                  </div>
-              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
   <?php require_once"../../footer.php"; ?>              
 </body>

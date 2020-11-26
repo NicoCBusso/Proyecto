@@ -87,6 +87,8 @@ $listadoProducto = Producto::obtenerTodos();
               </div>
             </div>
           </div>
+        </div>
+      </div>
             <!-- Modal Lista Productos-->
             <div class="modal fade" id="id_lista_stock" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog">
@@ -98,18 +100,18 @@ $listadoProducto = Producto::obtenerTodos();
                     </button>
                   </div>
                   <div class="modal-body">
-                        <table class="table table-striped table-sm" id="stock_puesto">
-                            <thead>
-                                <tr>
-                                  <th>Puesto</th>
-                                  <th>Cantidad</th>
-                                </tr>
-                            </thead>
-                            <tbody id="id_busqueda">
-                                <tr>                           
-                                </tr>
-                            </tbody>
-                            </table>
+                    <table class="table table-striped table-sm" id="stock_puesto">
+                        <thead>
+                            <tr>
+                              <th>Puesto</th>
+                              <th>Cantidad</th>
+                            </tr>
+                        </thead>
+                        <tbody id="id_busqueda">
+                            <tr>                           
+                            </tr>
+                        </tbody>
+                        </table>
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Listo</button>           
@@ -144,6 +146,7 @@ function abrirListaStock($idProducto){
     },
     success: function(data){
       var datos = JSON.parse(data);
+      
       for (var x=0; x < datos.length; x++){
         console.log(datos[x]);
         row = generarFila(

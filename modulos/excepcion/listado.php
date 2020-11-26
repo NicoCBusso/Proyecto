@@ -42,33 +42,27 @@ $listadoExcepcion = Excepcion::obtenerTodos();
                       <a href="rotura.php" role="button" class="btn btn-danger">Rotura</a>
                       <a href="cambioBarra.php" role="button" class="btn btn-success">Cambio Barra</a>
                     </p>
-                    <table id="datatable" class="table" style="width:100%">
+                    <table class="table table-striped jambo_table bulk_action">
                       <thead>
-                      <tr>
-                        <th>Tipo de Excepcion</th>
-                        <th>Consumicion a cambiar</th>
-                        <th>Consumicion cambiada</th>
-                        <th>Fecha y Hora generada</th>
-                        <th>Puesto</th>        
-                        <th>Acciones</th>
-                      </tr>
+                        <tr class="headings">                            
+                          <th class="column-title">Tipo de Excepcion</th>
+                          <th class="column-title">Consumicion a cambiar</th>
+                          <th class="column-title">Consumicion cambiada</th>
+                          <th class="column-title">Fecha y Hora generada</th>
+                          <th class="column-title">Puesto</th>                         
+                        </tr>
                       </thead>
                       <?php foreach ($listadoExcepcion as $excepcion): ?>
-                        <tbody>
-                          <tr>
-                            <td><?php echo $excepcion->tipoExcepcion->getDescripcion();?></td>                            
-                            <td><?php echo $excepcion->consumicionACambiar->getNombre(); ?></td>
-                            <td><?php echo $excepcion->consumicionCambiada->getNombre(); ?></td>
-                            <td><?php echo $excepcion->getFechaHora();?></td>
-                            <td><?php echo $excepcion->puesto->getLugar(); ?></td>          
-                            
-                            <td width="50%"> 
-
-                            <a href="detalle.php?id=<?php echo $excepcion->getIdExcepcion(); ?>" role="button" title="Editar">Detalle</a>
-
-                            </td>
-                          </tr>
-                        </tbody>
+                      <tbody>                        
+                        <tr class="even pointer">
+                          <td class="even pointer"><?php echo $excepcion->tipoExcepcion->getDescripcion();?></td>                            
+                            <td class="even pointer"><?php echo $excepcion->consumicionACambiar->getNombre(); ?></td>
+                            <td class="even pointer"><?php echo $excepcion->consumicionCambiada->getNombre(); ?></td>
+                            <td class="even pointer"><?php echo $excepcion->getFechaHora();?></td>
+                            <td class="even pointer"><?php echo $excepcion->puesto->getLugar(); ?></td> 
+                          
+                        </tr>
+                      </tbody>
                       <?php endforeach ?>
                     </table>
                   </div>

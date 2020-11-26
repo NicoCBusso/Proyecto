@@ -12,15 +12,7 @@ $localidad = Localidad::obtenerPorId($id);
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 </head>
 <body class="nav-md">
-	<?php require_once "../../menu.php"; ?>
-	<?php if (isset($_SESSION['mensaje_error'])) :?>
-		<h3><font color="red">
-			<?php
-				echo $_SESSION['mensaje_error']; 
-		        unset($_SESSION['mensaje_error']);
-		    ?>
-	    </font></h3>
-    <?php endif;?>
+	<?php require_once "../../menu.php"; ?>	
 	<div class="right_col" role="main">
 				<div class="">
 					<div class="clearfix"></div>
@@ -40,6 +32,14 @@ $localidad = Localidad::obtenerPorId($id);
 								<div class="x_content">
 									<br />
 									<form  data-parsley-validate class="form-horizontal form-label-left" name="frmDatos" id="frmDatos" method="POST" action="procesar/update.php">
+										<?php if (isset($_SESSION['mensaje_error'])) :?>
+											<h4><font color="red">
+												<?php
+													echo $_SESSION['mensaje_error']; 
+											        unset($_SESSION['mensaje_error']);
+											    ?>
+										    </font></h4>
+									    <?php endif;?>
 										<input type="hidden" name="txtId" value="<?php echo $localidad->getIdLocalidad(); ?>">									
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Nombre <span class="required">*</span>
@@ -81,42 +81,3 @@ $localidad = Localidad::obtenerPorId($id);
 	<?php require_once"../../footer.php"; ?> 
 </body>
 </html>
-
-<?php/*
-<body>
-	<p align="center"><?php require_once"../../menu.php"; ?></p>
-	<?php if (isset($_SESSION['mensaje_error'])) :?>
-		<h3><font color="red">
-			<?php
-				echo $_SESSION['mensaje_error']; 
-		        unset($_SESSION['mensaje_error']);
-		    ?>
-	    </font></h3>
-    <?php endif;?>
-	<form name="frmDatos" id="frmDatos" method="POST" action="procesar/update.php">
-
-		<fieldset>
-			<legend>Datos Antiguos</legend>
-			<p><label>Localidad: <?php echo $localidad->getDescripcion();?></label></p>
-			<p><label>Provincia: <?php echo $localidad->provincia->getDescripcion();?></label></p>
-		</fieldset>
-		<fieldset>
-			<legend>Actualizar datos</legend>
-				<label for="txtId"></label>	<input type="hidden" name="txtId" value="<?php echo $localidad->getIdLocalidad(); ?>">
-				<p><label>Localidad: <input type="text" name="txtNombre" id="txtNombre" value="<?php echo $localidad->getDescripcion(); ?>"></label></p>
-				<p><label>Provincia: <select name="cboProvincia" id="cboProvincia"></label></p>
-					<option value="0">Seleccionar</option>
-					<?php foreach ($listadoProvincia as $provincia): ?>
-					
-					<option value="<?php echo $provincia->getIdProvincia(); ?>"><?php echo $provincia->getDescripcion(); ?></option> 
-					
-					<?php endforeach ?>
-				</select></label></p>			
-				
-				<input type="button" value="Actualizar" onclick="validar();">
-		</fieldset>
-		<p><a href="listado.php" role="button">Cancelar</a></p>
-	</form>
-</body>
-</html>
-*/?>

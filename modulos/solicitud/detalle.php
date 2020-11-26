@@ -38,26 +38,26 @@ $solicitud = Solicitud::obtenerPorId($idSolicitud);
                           <a href="listado.php" role="button" class="btn btn-primary">Atras</a>
                           <button type="button" class="btn btn-success" onclick="actualizarSolicitud(2);">En proceso</button>
                           <button type="button" class="btn btn-success" onclick="actualizarSolicitud(3);">Entregado</button>
-                        </p>  
-                    <table id="datatable" class="table" style="width:100%">
-                      <thead>
-                        <tr>
-                          <th>ID</th>
-                          <th>Cajero/a</th>
-                          <th>Puesto</th>
-                          <th>Estado</th>
-                        </tr>
-                      </thead>
-                        <tbody>
-                          <tr>
-                            <input type="hidden" id="idSolicitud" value="<?php echo $solicitud->getIdSolicitud();?>">
-                            <td> <?php echo $solicitud->getIdSolicitud();?></td>
-                            <td> <?php echo $solicitud->usuario->getNombre(); ?> </td>
-                            <td> <?php echo $solicitud->puesto->getLugar(); ?>  </td> 
-                            <td> <?php echo $solicitud->estado->getDescripcion(); ?></td>
-                          </tr>
-                        </tbody>
-                    </table>
+                        </p>
+                          <table class="table table-striped jambo_table bulk_action">
+                            <thead>
+                              <tr class="headings">                            
+                                <th class="column-title">Nombre</th>
+                                <th class="column-title">Cajero/a</th> 
+                                <th class="column-title">Puesto</th> 
+                                <th class="column-title">Estado</th>                          
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr class="even pointer">
+                                <input type="hidden" id="idSolicitud" value="<?php echo $solicitud->getIdSolicitud();?>">
+                                <td class=" "> <?php echo $solicitud->getIdSolicitud();?></td>
+                                <td class=" "> <?php echo $solicitud->usuario->getNombre(); ?> </td>
+                                <td class=" "> <?php echo $solicitud->puesto->getLugar(); ?>  </td> 
+                                <td class=" "> <?php echo $solicitud->estado->getDescripcion(); ?></td>                                  
+                              </tr>
+                            </tbody>
+                          </table>
                   </div>
                   </div>
               </div>
@@ -79,23 +79,25 @@ $solicitud = Solicitud::obtenerPorId($idSolicitud);
                     <div class="x_content">
                         <div class="row">
                             <div class="col-sm-12">
-                              <div class="card-box table-responsive">                     
-                      <table id="datatable" class="table" style="width:100%">
+                              <div class="card-box table-responsive">
+                      <table class="table table-striped jambo_table bulk_action">
                         <thead>
-                          <tr>
-                            <th>ID</th>
-                            <th>Producto</th>                            
-                            <th>Cantidad</th>
+                          <tr class="headings">                            
+                            <th class="column-title">ID</th>
+                            <th class="column-title">Producto</th>
+                            <th class="column-title">Cantidad</th>                          
                           </tr>
-                            </thead>
-                            <?php foreach($solicitud->getArrDetalleSolicitud() as $detalleSolicitud) :?>
-                              <tbody>
-                                  <td><?php echo $detalleSolicitud->getIdDetalleSolicitud();?></td>
-                                  <td><?php echo $detalleSolicitud->producto->getNombre();?></td>                                  
-                                  <td><?php echo $detalleSolicitud->getCantidad();?></td>
-                              </tbody>      
-                            <?php endforeach ?>
-                      </table>                      
+                        </thead>
+                        <?php foreach ($solicitud->getArrDetalleSolicitud() as $detalleSolicitud): ?>                        
+                          <tbody>
+                            <tr class="even pointer">
+                              <td class=" "><?php echo $detalleSolicitud->getIdDetalleSolicitud();?></td>
+                              <td class=" "><?php echo $detalleSolicitud->producto->getNombre();?></td>
+                              <td class=" "><?php echo $detalleSolicitud->getCantidad();?></td>
+                            </tr>                          
+                          </tbody>
+                        <?php endforeach ?>
+                      </table>               
                     </div>
                 </div>
               </div>

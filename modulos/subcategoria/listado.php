@@ -40,32 +40,34 @@ $listadoSubCategoria = SubCategoria::obtenerPorIdCategoria($idCategoria);
                     <p class="text-muted font-13 m-b-30">
                       <a href="alta.php?id=<?php echo $idCategoria; ?>" role="button" class="btn btn-primary">Agregar</a>
                     </p>
-                    <table id="datatable" class="table" style="width:100%">
+                    <table class="table table-striped jambo_table bulk_action">
                       <thead>
-                        <tr>
-                          <th>Nombre</th>
-                          <th>Opciones</th>
+                        <tr class="headings">                            
+                          <th class="column-title">Nombre</th>
+                          <th class="column-title">Acciones</th>                          
                         </tr>
                       </thead>
-                      <?php foreach ($listadoSubCategoria as $subcategoria): ?>
-                        <tbody>              
-	                        <tr>
-								<td><?php echo $subcategoria->getNombre(); ?></td>
-								<td><a href="actualizar.php?id=<?php echo $subcategoria->getIdSubCategoria(); ?>&idCategoria=<?php echo $idCategoria;?>" role="button" title="Editar">Actualizar</a>
-								</td>
-							</tr>
-                        </tbody>
-                      <?php endforeach ?>
+                      <tbody>
+                        <?php foreach ($listadoSubCategoria as $subcategoria): ?>
+                        <tr class="even pointer">
+                          <td class=" "><?php echo $subcategoria->getNombre();?></td> 
+                          <td class=" last">
+                            <a href="actualizar.php?id=<?php echo $subcategoria->getIdSubCategoria(); ?>&idCategoria=<?php echo $idCategoria;?>" role="button" class="btn btn-primary" title="Editar">Actualizar</a>                          
+                          </td>
+                        </tr>
+                        <?php endforeach ?>
+                      </tbody>
                     </table>
-                    <p class="text-muted font-13 m-b-30">
-		                <a href="../categoria/listado.php" role="button" class="btn btn-primary">Atras</a>
-		            </p>
+                    <a href="../categoria/listado.php" role="button" class="btn btn-primary">Atras</a>
                   </div>
-                  </div>
+                </div>
               </div>
             </div>            
+          </div>
+        </div>
     </div>
   </div>
+</div>
 
   <?php require_once"../../footer.php"; ?>              
 </body>

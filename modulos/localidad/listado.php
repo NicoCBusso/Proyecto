@@ -34,39 +34,39 @@ $listadoLocalidad = Localidad::obtenerTodos();
                   </div>
                   <div class="x_content">
                       <div class="row">
-                          <div class="col-sm-12">
-                            <div class="card-box table-responsive">
-                    <p class="text-muted font-13 m-b-30">
-                      <a href="alta.php" role="button" class="btn btn-primary">Agregar</a>
-                    </p>
-                    <table id="datatable" class="table" style="width:100%">
-                      <thead>
-                        <tr>
-                          <tr>
-                            <th>Nombre</th>
-                            <th>Provincia</th>
-                            <th>Opciones</th>
-                          </tr>
-                      </thead>
-                      <?php foreach ($listadoLocalidad as $localidad): ?>
-                        <tbody>               
-                          <tr>
-                            <td> <?php echo $localidad->getDescripcion(); ?> </td>
-                            <td> <?php echo $localidad->provincia->getDescripcion();?></td>
-                            <td width="50%"> 
-                              <a href="actualizar.php?id=<?php echo $localidad->getIdLocalidad(); ?>" role="button" title="Editar">Actualizar</a>
-                              -
-                              <a href="detalleLocalidad.php?id=<?php echo $localidad->getIdLocalidad(); ?>" role="button" title="Editar">Detalle</a>
-                            </td>
-                          </tr>              
-                      <?php endforeach ?>
-                        </tbody>
-                    </table>
-                  </div>
+                        <div class="col-sm-12">
+                            <div class="table-responsive">
+                              <p class="text-muted font-13 m-b-30">
+                                <a href="alta.php" role="button" class="btn btn-primary">Agregar</a>
+                              </p>
+                              <table class="table table-striped jambo_table bulk_action">
+                                <thead>
+                                  <tr class="headings">                            
+                                    <th class="column-title">Nombre</th>
+                                    <th class="column-title">Provincia</th>
+                                    <th class="column-title">Acciones</th>                          
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <?php foreach ($listadoLocalidad as $localidad): ?>
+                                  <tr class="even pointer">
+                                    <td class=" "><?php echo $localidad->getDescripcion();?></td>.
+                                    <td class=" "><?php echo $localidad->provincia->getDescripcion();?></td>
+                                    <td class=" last">
+                                      <a href="actualizar.php?id=<?php echo $localidad->getIdLocalidad(); ?>" role="button" class="btn btn-primary" title="Editar">Actualizar</a>
+                                      <a href="detalle.php?id=<?php echo $localidad->getIdLocalidad(); ?>" role="button" class="btn btn-primary" title="Editar">Detalle</a>
+                                    </td>
+                                  </tr>
+                                  <?php endforeach ?>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
                   </div>
               </div>
             </div>
-
     </div>
   </div>
 

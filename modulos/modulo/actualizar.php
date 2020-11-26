@@ -15,15 +15,7 @@ $modulos = Modulo::obtenerPorId($id);
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 </head>
 <body class="nav-md">
-	<?php require_once "../../menu.php"; ?>
-	<?php if (isset($_SESSION['mensaje_error'])) :?>
-		<h3><font color="red">
-			<?php
-				echo $_SESSION['mensaje_error']; 
-		        unset($_SESSION['mensaje_error']);
-		    ?>
-	    </font></h3>
-    <?php endif;?>
+	<?php require_once "../../menu.php"; ?>	
 	<div class="right_col" role="main">
 				<div class="">
 					<div class="clearfix"></div>
@@ -43,6 +35,14 @@ $modulos = Modulo::obtenerPorId($id);
 								<div class="x_content">
 									<br />
 									<form  data-parsley-validate class="form-horizontal form-label-left" name="frmDatos" id="frmDatos" method="POST" action="procesar/update.php">
+										<?php if (isset($_SESSION['mensaje_error'])) :?>
+											<h4><font color="red">
+												<?php
+													echo $_SESSION['mensaje_error']; 
+											        unset($_SESSION['mensaje_error']);
+											    ?>
+										    </font></h4>
+									    <?php endif;?>
 										<input type="hidden" name="txtId" value="<?php echo $modulos->getIdModulo(); ?>">
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Nombre <span class="required">*</span>

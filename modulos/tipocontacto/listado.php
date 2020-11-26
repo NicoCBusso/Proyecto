@@ -16,7 +16,7 @@ $listadoTipoContacto = TipoContacto::obtenerTodos();
               <div class="col-md-12 col-sm-12 ">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Lista de Tipo de Contacto <small>Users</small></h2>
+                    <h2>Lista de Tipo de Contacto</h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -39,26 +39,26 @@ $listadoTipoContacto = TipoContacto::obtenerTodos();
                     <p class="text-muted font-13 m-b-30">
                       <a href="alta.php" role="button" class="btn btn-primary">Agregar</a>
                     </p>
-                    <table id="datatable" class="table" style="width:100%">
+                    <table class="table table-striped jambo_table bulk_action">
                       <thead>
-                        <tr>
-                          <th>Nombre</th>
-                          <th>Opciones</th>
+                        <tr class="headings">                            
+                          <th class="column-title">Nombre</th>
+                          <th class="column-title">Acciones</th>                          
                         </tr>
                       </thead>
-                      <?php foreach ($listadoTipoContacto as $tipoContacto): ?>
-                        <tbody>              
-                          <tr>
-                            <td> <?php echo $tipoContacto->getDescripcion(); ?> </td>
-                            <td width="50%"> 
-                              <a href="actualizar.php?id=<?php echo $tipoContacto->getIdTipoContacto(); ?>" role="button" title="Editar">Actualizar</a>
-                            </td>
-                          </tr>
-                        </tbody>
-                      <?php endforeach ?>
+                      <tbody>
+                        <?php foreach ($listadoTipoContacto as $tipoContacto): ?>
+                        <tr class="even pointer">
+                          <td class=" "><?php echo $tipoContacto->getDescripcion();?></td>
+                          <td class=" last">
+                            <a href="actualizar.php?id=<?php echo $tipoContacto->getIdTipoContacto(); ?>" role="button" class="btn btn-primary" title="Editar">Actualizar</a>
+                          </td>
+                        </tr>
+                        <?php endforeach ?>
+                      </tbody>
                     </table>
                   </div>
-                  </div>
+                </div>
               </div>
             </div>
           </div>

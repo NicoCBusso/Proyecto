@@ -12,15 +12,7 @@ $idCategoria = $_GET['id'];
 	<title>Alta SubCategoria</title>
 </head>
 <body class="nav-md">
-	<?php require_once "../../menu.php"; ?>
-	<?php if (isset($_SESSION['mensaje_error'])) :?>
-		<h3><font color="red">
-			<?php
-				echo $_SESSION['mensaje_error']; 
-		        unset($_SESSION['mensaje_error']);
-		    ?>
-	    </font></h3>
-    <?php endif;?>
+	<?php require_once "../../menu.php"; ?>	
 	<div class="right_col" role="main">
 				<div class="">
 					<div class="clearfix"></div>
@@ -43,6 +35,14 @@ $idCategoria = $_GET['id'];
 								<div class="x_content">
 									<br />
 									<form  data-parsley-validate class="form-horizontal form-label-left" name="frmDatos" id="frmDatos" method="POST" action="procesar/insert.php">
+										<?php if (isset($_SESSION['mensaje_error'])) :?>
+											<h4><font color="red">
+												<?php
+													echo $_SESSION['mensaje_error']; 
+											        unset($_SESSION['mensaje_error']);
+											    ?>
+										    </font></h4>
+									    <?php endif;?>
 										<input type="hidden" name="idCategoriaVer" value="<?php echo $idCategoria; ?>">		
 										<input type="hidden" name="id" value="<?php echo $idCategoria; ?>">
 										<div class="item form-group">

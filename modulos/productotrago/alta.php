@@ -12,15 +12,7 @@ $listadoProducto = Producto::obtenerTodos();
 	<title>Alta Ingrediente</title>
 </head>
 <body class="nav-md">
-	<?php require_once "../../menu.php"; ?>
-	<?php if (isset($_SESSION['mensaje_error'])) :?>
-		<h3><font color="red">
-			<?php
-				echo $_SESSION['mensaje_error']; 
-		        unset($_SESSION['mensaje_error']);
-		    ?>
-	    </font></h3>
-    <?php endif;?>
+	<?php require_once "../../menu.php"; ?>	
 	<div class="right_col" role="main">
 				<div class="">
 					<div class="clearfix"></div>
@@ -29,7 +21,7 @@ $listadoProducto = Producto::obtenerTodos();
 						<div class="col-md-12 col-sm-12 ">
 							<div class="x_panel">
 								<div class="x_title">
-									<h2>Agregar Producto <small></small></h2>
+									<h2>Agregar Ingrediente <small></small></h2>
 									<ul class="nav navbar-right panel_toolbox">
 										<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 										</li>
@@ -44,6 +36,14 @@ $listadoProducto = Producto::obtenerTodos();
 								<div class="x_content">
 									<br />
 									<form  data-parsley-validate class="form-horizontal form-label-left" name="frmDatos" id="frmDatos" method="POST" action="procesar/insert.php">
+										<?php if (isset($_SESSION['mensaje_error'])) :?>
+											<h4><font color="red">
+												<?php
+													echo $_SESSION['mensaje_error']; 
+											        unset($_SESSION['mensaje_error']);
+											    ?>
+										    </font></h4>
+									    <?php endif;?>
 										<input type="hidden" name="idTragoVer" value="<?php echo $idTrago; ?>">		
 										<input type="hidden" name="id" value="<?php echo $idTrago; ?>">
 										<div class="item form-group">
@@ -53,7 +53,7 @@ $listadoProducto = Producto::obtenerTodos();
 												<select name="cboProducto" id="cboProducto" class="form-control">
 													<option value="0">Seleccionar</option>
 													<?php foreach ($listadoProducto as $producto): ?>
-														<option value="<?php echo $producto->getIdProducto();?>"  ><?php echo $producto->getNombre();?></option>
+														<option value="<?php echo $producto->getIdProducto();?>"><?php echo $producto->getNombre();?></option>
 													<?php endforeach ?>
 												</select>
 											</div>

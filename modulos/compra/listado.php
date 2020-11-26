@@ -1,7 +1,7 @@
 <?php
 require_once "../../class/Compra.php";
 
-$listadoCompras = Compra::obtenerTodos();
+//$listadoCompras = Compra::obtenerTodos();
 //highlight_string(var_export($listadoCompras,true));
 //exit;
 ?>
@@ -41,33 +41,22 @@ $listadoCompras = Compra::obtenerTodos();
                     <p class="text-muted font-13 m-b-30">
                       <a href="alta.php" role="button" class="btn btn-primary">Agregar</a>
                     </p>
-                    <table id="datatable" class="table" style="width:100%">
+
+                    <table id="tablaVenta" class="table table-striped jambo_table bulk_action">
                       <thead>
-                      <tr>
-                        <th>Nro</th>
-                        <th>Cajero/a</th>
-                        <th>Fecha</th>
-                        <th>Tipo de Comprobante</th>              
-                        <th>Total</th>
-                        <th>Acciones</th>
-                      </tr>
+                        <tr class="headings">                            
+                          <th class="column-title">Nro</th>
+                          <th class="column-title">Cajero/a</th>
+                          <th class="column-title">Fecha</th>
+                          <th class="column-title">Tipo de Comprobante</th>
+                          <th class="column-title">Total</th>                          
+                          <th class="column-title">Acciones</th>                          
+                        </tr>
                       </thead>
-                      <?php foreach ($listadoCompras as $compra): ?>
-                        <tbody>
-                          <tr>
-                            <td> <?php echo $compra->getIdCompra(); ?></td>
-                            <td> <?php echo $compra->usuario->getNombre(); ?></td>
-                            <td><?php echo $compra->getFechaHoraEmision();?></td> 
-                            <td><?php echo $compra->tipoComprobante->getDescripcion();?></td>             
-                            <td>$<?php echo $compra->getTotal();?></td>
-                            <td width="50%"> 
-
-                            <a href="detalle.php?id=<?php echo $compra->getIdCompra(); ?>" role="button" title="Editar">Detalle</a>
-
-                            </td>
-                          </tr>
-                        </tbody>
-                      <?php endforeach ?>
+                      <tbody>
+                        <tr class="even pointer">                          
+                        </tr>
+                      </tbody>
                     </table>
                   </div>
                   </div>
@@ -80,4 +69,42 @@ $listadoCompras = Compra::obtenerTodos();
   </div>
   <?php require_once"../../footer.php"; ?>              
 </body>
+<script>
+  $.ajax({
+    type: 'GET',
+      url : '../../utils/compra/listaCompra.php',
+      data: {
+      },
+    success: function(data){
+      var datos = JSON.parse(data);
+      console.log(datos);
+      for (var x=0; x < datos.length; x++){
+            row = generarFila(
+              datos[x].id_compra,
+              datos[x].nombre,
+              datos[x].fecha,
+              datos[x].descripcion,
+              datos[x].total
+            );            
+        $('#tablaVenta tbody tr:last').after(row);
+      }
+    }
+  })
+  function generarFila(idCompra,cajero,fecha,descripcion,total) {
+    if (fechaHoraExpiracion = "undefined"){
+      fechaHoraExpiracion = "";
+
+    }
+    var row = '<tr class="even pointer"><td>';
+    row += idCompra + '</td><td>';
+    row += cajero + '</td><td>';
+    row += fecha + '</td><td>';
+    row += descripcion + '</td><td>$';
+    row += total + '</td>';
+    row += '<td><a href="detalle.php?id=';
+    row += idCompra+'';
+    row += '"role="button" class="btn btn-primary" title="Editar">Detalle</a></td></trim>'; 
+    return row;
+  }
+</script>
 </html>

@@ -32,22 +32,21 @@ $compra = Compra::obtenerPorId($idCompra);
                       <div class="row">
                           <div class="col-sm-12">
                             <div class="card-box table-responsive">
-                             
-                    <table id="datatable" class="table" style="width:100%">
+                    <table class="table table-striped jambo_table bulk_action">
                       <thead>
-                        <tr>
-                          <th>ID</th>
-                          <th>Cajero/a</th>
-                          <th>Total</th>
+                        <tr class="headings">                            
+                          <th class="column-title">ID</th>
+                          <th class="column-title">Cajero/a</th> 
+                          <th class="column-title">Total</th>                                                   
                         </tr>
                       </thead>
-                        <tbody>
-                          <tr>
-                            <td> <?php echo $compra->getIdCompra();?></td>
-                            <td> <?php echo $compra->usuario->getNombre(); ?> </td>
-                            <td> $<?php echo $compra->getTotal(); ?>$ </td>                            
-                          </tr>
-                        </tbody>
+                      <tbody>
+                        <tr class="even pointer">
+                          <td class=" "><?php echo $compra->getIdCompra();?></td>
+                          <td class=" "><?php echo $compra->usuario->getNombre();?></td>
+                          <td class=" "><?php echo $compra->getTotal();?>$</td>  
+                        </tr>
+                      </tbody>
                     </table>
                   </div>
                   </div>
@@ -70,25 +69,27 @@ $compra = Compra::obtenerPorId($idCompra);
                     <div class="x_content">
                         <div class="row">
                             <div class="col-sm-12">
-                              <div class="card-box table-responsive">                     
-                      <table id="datatable" class="table" style="width:100%">
-                        <thead>
-                          <tr>
-                            <th>ID</th>
-                            <th>Producto</th>
-                            <th>Precio</th>
-                            <th>Cantidad</th>
-                          </tr>
-                            </thead>
-                            <?php foreach($compra->getArrDetalleCompra() as $detalleCompra) :?>
-                              <tbody>
-                                  <td><?php echo $detalleCompra->getIdDetalleCompra();?></td>
-                                  <td><?php echo $detalleCompra->producto->getNombre();?></td>
-                                  <td>$<?php echo $detalleCompra->getPrecio();?></td> 
-                                  <td><?php echo $detalleCompra->getCantidad();?></td>
-                              </tbody>      
-                            <?php endforeach ?>
-                      </table>
+                              <div class="card-box table-responsive">
+                              <table class="table table-striped jambo_table bulk_action">
+                                <thead>
+                                  <tr class="headings">                            
+                                    <th class="column-title">ID</th>
+                                    <th class="column-title">Producto</th>
+                                    <th class="column-title">Precio</th>
+                                    <th class="column-title">Cantidad</th>                          
+                                  </tr>
+                                </thead>
+                                <?php foreach ($compra->getArrDetalleCompra() as $detalleCompra): ?>
+                                  <tbody>                                  
+                                    <tr class="even pointer">
+                                      <td class=" "><?php echo $detalleCompra->getIdDetalleCompra();?></td>
+                                      <td class=" "><?php echo $detalleCompra->producto->getNombre();?></td>
+                                      <td class=" ">$<?php echo $detalleCompra->getPrecio();?></td> 
+                                      <td class=" "><?php echo $detalleCompra->getCantidad();?></td>
+                                    </tr>
+                                  </tbody>
+                                <?php endforeach ?>
+                              </table>
                       <a href="listado.php" role="button" class="btn btn-primary">Atras</a>                      
                     </div>
                 </div>

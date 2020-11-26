@@ -38,63 +38,36 @@ $listadoModulo = Modulo::obtenerTodos();
                     <p class="text-muted font-13 m-b-30">
                       <a href="alta.php" role="button" class="btn btn-primary">Agregar</a>
                     </p>
-                    <table id="datatable" class="table" style="width:100%">
+                    <table class="table table-striped jambo_table bulk_action">
                       <thead>
-                        <tr>
-                          <th>Nombre</th>
-                          <th>Directorio</th>
-                          <th>Opciones</th>
+                        <tr class="headings">                            
+                          <th class="column-title">Nombre</th>
+                          <th class="column-title">Directorio</th>
+                          <th class="column-title">Acciones</th>                          
                         </tr>
                       </thead>
-                      <?php foreach ($listadoModulo as $modulos): ?>
-                        <tbody>                       
-                          <tr>
-                            <td> <?php echo $modulos->getDescripcion(); ?> </td>
-                            <td> <?php echo $modulos->getDirectorio(); ?> </td>
-                            <td width="50%"> 
-                              <a href="actualizar.php?id=<?php echo $modulos->getIdModulo(); ?>" role="button" title="Editar">Actualizar</a>
-                            </td>
-                          </tr> 
-                        </tbody>
+                      <tbody>
+                        <?php foreach ($listadoModulo as $modulos): ?>
+                        <tr class="even pointer">
+                          <td class=" "><?php echo $modulos->getDescripcion();?></td>
+                          <td class=" "><?php echo $modulos->getDirectorio();?></td>  
+                          <td class=" last">
+                            <a href="actualizar.php?id=<?php echo $modulos->getIdModulo(); ?>" role="button" class="btn btn-primary" title="Editar">Actualizar</a>                          
+                          </td>
+                        </tr>
                         <?php endforeach ?>
+                      </tbody>
                     </table>
                   </div>
-                  </div>
+                </div>
               </div>
             </div>
-
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
   <?php require_once"../../footer.php"; ?>              
 </body>
 </html>
-
-<?php /*
-<body>
-  <p align="center"><?php require_once"../../menu.php"; ?></p>
-  <a href="alta.php"  role="button">Agregar</a>
-  <table align="center" border="1 " width="50% ">
-    <thead>
-      <tr>
-        <th align="center">Nombre</th>
-        <th align="center">Directorio</th>
-        <th>Opciones</th>
-      </tr>
-    </thead>
-    <?php foreach ($listadoModulo as $modulos): ?>
-    <tbody align="center">                       
-      <tr>
-        <td> <?php echo $modulos->getDescripcion(); ?> </td>
-        <td> <?php echo $modulos->getDirectorio(); ?> </td>
-        <td width="50%"> 
-          <a href="actualizar.php?id=<?php echo $modulos->getIdModulo(); ?>" role="button" title="Editar">Actualizar</a>
-        </td>
-      </tr> 
-    </tbody>
-    <?php endforeach ?>
-  </table>
-  <a href="../../menu.php"  role="button">Menu</a>                
-</body>
-</html>
-*/?>

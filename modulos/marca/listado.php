@@ -16,7 +16,7 @@ $listadoMarca = Marca::obtenerTodos();
               <div class="col-md-12 col-sm-12 ">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Lista de Marcas <small>Users</small></h2>
+                    <h2>Lista de Marcas</h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -39,65 +39,34 @@ $listadoMarca = Marca::obtenerTodos();
                     <p class="text-muted font-13 m-b-30">
                       <a href="alta.php" role="button" class="btn btn-primary">Agregar</a>
                     </p>
-                    <table id="datatable" class="table" style="width:100%">
+                    <table class="table table-striped jambo_table bulk_action">
                       <thead>
-                        <tr>
-                          <th>Nombre</th>
-                          <th>Opciones</th>
+                        <tr class="headings">                            
+                          <th class="column-title">Nombre</th>
+                          <th class="column-title">Acciones</th>                          
                         </tr>
                       </thead>
-                      <?php foreach ($listadoMarca as $marca): ?>
-                        <tbody>              
-                          <tr>
-                            <td> <?php echo $marca->getNombre(); ?> </td>
-                            <td width="50%"> 
-                              <a href="actualizar.php?id=<?php echo $marca->getIdMarca(); ?>" role="button" title="Editar">Actualizar</a>
-                            </td>
-                          </tr> 
-                        </tbody>
-                      <?php endforeach ?>
+                      <tbody>
+                        <?php foreach ($listadoMarca as $marca): ?>
+                        <tr class="even pointer">
+                          <td class=" "><?php echo $marca->getNombre();?></td>
+                          <td class=" last">
+                            <a href="actualizar.php?id=<?php echo $marca->getIdMarca(); ?>" role="button" class="btn btn-primary" title="Editar">Actualizar</a>
+                          </td>
+                        </tr>
+                        <?php endforeach ?>
+                      </tbody>
                     </table>
                   </div>
-                  </div>
-              </div>
+                </div>
             </div>
-
+          </div>
+        </div>
+      </div>
     </div>
   </div>
+</div>
 
   <?php require_once"../../footer.php"; ?>              
 </body>
 </html>
-
-
-<?php /*
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Listado Marca</title>
-</head>
-<body>
-	<p align="center"><?php require_once"../../menu.php"; ?></p>
-	<a href="alta.php"  role="button">Agregar</a>
-	<table align="center" border="1 " width="50% ">
-		<thead>
-			<tr>
-				<th>Nombre</th>
-				<th>Opciones</th>
-			</tr>
-		</thead>
-		<?php foreach ($listadoMarca as $marca): ?>
-			<tbody align="center">
-				<tr>
-					<td><?php echo $marca->getNombre(); ?></td>
-					<td>
-						<a href="actualizar.php?id=<?php echo $marca->getIdMarca(); ?>" role="button" title="Editar">Actualizar</a>
-					</td>
-				</tr>
-			</tbody>
-		<?php endforeach ?>
-	</table>
-	<a href="../../menu.php"  role="button">Menu</a> 
-</body>
-</html>
-*/?>
