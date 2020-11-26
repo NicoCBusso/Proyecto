@@ -10,7 +10,8 @@ $precioVenta = $_POST['txtPrecioVenta'];
 $envase = $_POST['cboEnvase'];
 $marca = $_POST['cboMarca'];
 $subcategoria = $_POST['cboSubCategoria'];
-
+$proveedor = $_POST['cboProveedor'];
+echo $proveedor;
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
 	//De NOMBRE
 	if (empty(trim($nombre))) {
@@ -98,6 +99,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 		header("location: ../alta.php");
 		exit;
 	}
+	//De Proveedor
+	if ((int) $proveedor == 0) {
+		$_SESSION['mensaje_error'] = "El campo Proveedor debe ser seleccionado";
+		header("location: ../alta.php");
+		exit;
+	}
 	//De SubCategoria
 	if ((int) $subcategoria == 0) {
 		$_SESSION['mensaje_error'] = "El campo SubCategoria debe ser seleccionado";
@@ -111,6 +118,7 @@ $producto->setCodigoBarra($codigoBarra);
 $producto->setContenido($contenido);
 $producto->setPrecioCompra($precioCompra);
 $producto->setPrecioVenta($precioVenta);
+$producto->setIdProveedor($proveedor);
 $producto->setIdMarca($marca);
 $producto->setIdEnvase($envase);
 $producto->setIdSubCategoria($subcategoria);

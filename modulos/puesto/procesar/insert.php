@@ -10,7 +10,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 		echo $_SESSION['mensaje_error'];
 		header("location: ../alta.php");
 		exit;
-	} elseif (strlen(trim($lugar)) < 6) {
+	} elseif (strlen(trim($lugar)) < 2) {
 		$_SESSION['mensaje_error'] = "El campo Lugar debe contener al menos 6 caracteres";
 		header("location: ../alta.php");
 		exit;

@@ -1,13 +1,14 @@
 <?php
 require_once "../../../class/DetalleSolicitud.php";
 session_start();
-$usuarioLogueado = $_SESSION['usuario'];
+$usuario = $_POST['idUsuario'];
 $puesto = $_POST['puesto'];
+const EN_ESPERA = 1;
 	$fechaHora = date("Y-m-d H:i:s");	
     $solicitud = new Solicitud(); // guardamos la cabecera
-    $solicitud->setIdUsuario(1);
+    $solicitud->setIdUsuario($usuario);
     $solicitud->setFechaHoraPedido($fechaHora);
-    $solicitud->setIdEstado(1);
+    $solicitud->setIdEstado(EN_ESPERA);
     $solicitud->setIdPuesto($puesto);
     var_dump($solicitud);
     $solicitud->guardar();

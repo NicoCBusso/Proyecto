@@ -238,7 +238,7 @@ class Venta {
     {
         $total = 0;
         foreach ($this->_arrDetalleVenta as $detalleVenta) {
-            if($detalleVenta->getEstado() == 1){
+            if($detalleVenta->getEstado() != 3){
                 $total = $total+$detalleVenta->getPrecio();
             }
         }

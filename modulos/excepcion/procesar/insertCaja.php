@@ -3,7 +3,7 @@ require_once "../../../class/DetalleVenta.php";
 require_once "../../../class/Excepcion.php";
 require_once "../../../class/Producto.php";
 
-const CAJA = 5;
+const CAJA = 10;
 const EXCEPCIONCAMBIO = 1;
 const CANCELADO = 3;
 session_start();
@@ -16,7 +16,7 @@ foreach($_POST['items'] as $item){
 	$detalleVenta->setEstado(CANCELADO);
 	$detalleVenta->cancelar();
 
-	$detalleVentaNuevo = new DetalleVenta($item['idConsumicionACambiar']);
+	$detalleVentaNuevo = new DetalleVenta($item['idConsumicionCambiada']);
 	$detalleVentaNuevo->setIdVenta($detalleVenta->getIdVenta());
 	$detalleVentaNuevo->setProductoFinal();
 	$detalleVentaNuevo->setPrecio();

@@ -53,6 +53,7 @@ $listadoProducto = Producto::obtenerTodos();
                                   <th class="column-title">Sub Categoria </th>
                                   <th class="column-title">Envase </th>
                                   <th class="column-title">Marca </th>
+                                  <th class="column-title">Proveedor </th>
                                   <th class="column-title">Acciones </th> 
                                 </tr>
                               </thead>
@@ -68,6 +69,7 @@ $listadoProducto = Producto::obtenerTodos();
                                   <td class=" "><?php echo $producto->subcategoria->categoria->getNombre(); ?></td>
                                   <td class=" "><?php echo $producto->subcategoria->getNombre(); ?></td>
                                   <td class=" "><?php echo $producto->envase->getNombre(); ?></td>
+                                  <td class=" "><?php echo $producto->proveedor->getRazonSocial(); ?></td>
                                   <td class=" "><?php echo $producto->marca->getNombre(); ?></td>
                                   <td class=" last">
                                     <a href="actualizar.php?id=<?php echo $producto->getIdProducto(); ?>" role="button" class="btn btn-primary" title="Editar">Actualizar</a>
@@ -80,8 +82,6 @@ $listadoProducto = Producto::obtenerTodos();
                               </tbody>
                             </table>
                           </div>
-              
-            
                   </div>
                 </div>
               </div>

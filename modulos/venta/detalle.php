@@ -2,7 +2,11 @@
 require_once "../../class/Venta.php";
 $idVenta = $_GET['id'];
 $venta = Venta::obtenerPorId($idVenta);
-//highlight_string(var_export($listadoVentas,true));
+const SIN_CONSUMIR = 1;
+const CONSUMIDO = 2;
+const ANULADO = 3;
+//highlight_string(var_export($venta,true));
+//exit;
 ?>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -47,7 +51,7 @@ $venta = Venta::obtenerPorId($idVenta);
                             <tr class="even pointer">
                               <td class=" "><?php echo $venta->getIdVenta();?></td>
                               <td class=" "><?php echo $venta->usuario->getNombre();?></td>
-                              <td class=" "><?php echo $venta->obtenerTotal();?></td>                              
+                              <td class=" ">$<?php echo $venta->obtenerTotal();?></td>                              
                             </tr>
                           </tbody>
                         </table>
@@ -91,7 +95,17 @@ $venta = Venta::obtenerPorId($idVenta);
                                         <td class=" "><?php echo $detalleVenta->getIdDetalleVenta();?></td>
                                         <td class=" "><?php echo $detalleVenta->productoFinal->getNombre();?></td>
                                         <td class=" ">$<?php echo $detalleVenta->getPrecio();?></td> 
-                                        <td class=" "><?php echo $detalleVenta->getEstado();?></td>
+                                        <td class=" ">
+                                          <?php
+                                          if($detalleVenta->getEstado() == SIN_CONSUMIR){
+                                           echo "Sin Consumir";
+                                          }
+                                          elseif ($detalleVenta->getEstado() == CONSUMIDO) {
+                                            echo "Consumido";
+                                          } elseif ($detalleVenta->getEstado() == ANULADO) {
+                                            echo "Anulado";
+                                          }
+                                           ?></td>
                                       </tr>
                                   </tbody>
                                 <?php endforeach ?>

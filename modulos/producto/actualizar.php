@@ -3,11 +3,14 @@ require_once '../../class/Producto.php';
 require_once '../../class/Envase.php';
 require_once '../../class/Marca.php';
 require_once '../../class/SubCategoria.php';
+require_once '../../class/Proveedor.php';
+
 $id = $_GET['id'];
 $listadoEnvase = Envase::obtenerTodos();
 //highlight_string(var_export($listadoEnvase,true));
 $listadoMarca = Marca::obtenerTodos();
 $listadoCategoria = Categoria::obtenerTodos();
+$listadoProveedor = Proveedor::obtenerTodos();
 $producto = Producto::obtenerPorId($id);
 //highlight_string(var_export($producto,true));
 ?>
@@ -16,22 +19,8 @@ $producto = Producto::obtenerPorId($id);
 <head>
 	<script type="text/javascript" src="../../js/jquery-3.5.1.min.js"></script>
 	<script src="../../js/validaciones/validarProducto.js"></script>
-	<script type="text/javascript">
-		function cargarSubCategoria(){
-			var idCategoria = $("#cboCategoria").val();
-
-			var params = {id: idCategoria};
-
-			$.get("obtenerSubCategorias.php", params, function(datos){
-
-				$("#cboSubCategoria").html(datos);
-			});
-
-			
-
-		}
-	</script>
-	<title>Actualizar Producto</title>
+	<script type="text/javascript" src="../../js/functions/producto/functions.js" ></script>
+	<title>Glou Glou!</title>
 </head>
 <body class="nav-md">
 	<?php require_once "../../menu.php"; ?>
@@ -50,7 +39,7 @@ $producto = Producto::obtenerPorId($id);
 						<div class="col-md-12 col-sm-12 ">
 							<div class="x_panel">
 								<div class="x_title">
-									<h2>Agregar Producto <small></small></h2>
+									<h2>Actualizar Producto <small></small></h2>
 									<ul class="nav navbar-right panel_toolbox">
 										<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 										</li>
@@ -123,6 +112,18 @@ $producto = Producto::obtenerPorId($id);
 													<option value="0">Seleccionar</option>
 													<?php foreach ($listadoMarca as $marca): ?>
 														<option value="<?php echo $marca->getIdMarca();?>"><?php echo $marca->getNombre()?></option>
+													<?php endforeach ?>		
+												</select>
+											</div>
+										</div>
+										<div class="item form-group">
+											<label class="col-form-label col-md-3 col-sm-3 label-align" for="proveedor">Proveedor <span class="required">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6 ">
+												<select name="cboProveedor" id="cboProveedor" class="form-control">
+													<option value="0">Seleccionar</option>
+													<?php foreach ($listadoProveedor as $proveedor): ?>
+														<option value="<?php echo $proveedor->getIdProveedor();?>"><?php echo $proveedor->getRazonSocial()?></option>
 													<?php endforeach ?>		
 												</select>
 											</div>

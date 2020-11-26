@@ -46,7 +46,8 @@ $listadoPuesto = Puesto::obtenerTodos()
 	                    					<div id="datos">
 		                    					<br>
 		                    					<div>
-		                    						<h5><p><label>Cajero/a : <?php echo $usuarioLogueado->getUsername();?></label></p></h5>	                    						
+		                    						<h5><p><label>Cajero/a : <?php echo $usuarioLogueado->getUsername();?></label></p></h5>
+		                    						<input type="hidden" id="idUsuario" value="<?php echo $usuarioLogueado->getIdUsuario();?>">                   						
 		                    					</div>
 		                    					<div>
 		                    						<div id="acciones_venta">
@@ -259,14 +260,16 @@ $listadoPuesto = Puesto::obtenerTodos()
     funciones de guardar
 	-------------------*/
 	function guardarFormularioSolicitud(){
-		let puesto = $('#cboPuesto').val();		
+		let puesto = $('#cboPuesto').val();
+		let idUsuario = $('#idUsuario').val();	
 		if(detalle_solicitud.length >0){
 			$.ajax({
 				type: 'POST',
 				url: 'procesar/insert.php',
 				data: {
 					'items': detalle_solicitud,
-					'puesto': puesto
+					'puesto': puesto,
+					'idUsuario': idUsuario
 				},
 				success: function(data){
 					console.log(data)

@@ -7,7 +7,6 @@ function validar(){
 		alert("El nombre debe ser identificado sin numeros");
 		return;
 	}	
-		
 	var form = document.getElementById("frmDatos");
 	form.submit();
 }

@@ -4,6 +4,7 @@ require_once 'Marca.php';
 require_once 'MySQL.php';
 require_once 'SubCategoria.php';
 require_once 'ProductoFinal.php';
+require_once 'Proveedor.php';
 
 class Producto extends ProductoFinal{
     public $_idProducto;
@@ -13,26 +14,26 @@ class Producto extends ProductoFinal{
     public $_idSubCategoria;
     public $_idEnvase;
     public $_idMarca;
+    public $_idProveedor;
 
     public $marca;
     public $envase;
     public $subcategoria;
+    public $proveedor;
 
 
     public function guardar(){
     	parent::guardar();
-    	$sql = "INSERT INTO producto (id_producto,id_subcategoria,codigo_barra,contenido,precio_compra,id_producto_final,id_marca,id_envase) VALUES (NULL,$this->_idSubCategoria,$this->_codigoBarra,$this->_contenido,'$this->_precioCompra',$this->_idProductoFinal,$this->_idMarca,$this->_idEnvase)";
+    	$sql = "INSERT INTO producto (id_producto,id_subcategoria,codigo_barra,contenido,precio_compra,id_producto_final,id_marca,id_envase,id_proveedor) VALUES (NULL,$this->_idSubCategoria,$this->_codigoBarra,$this->_contenido,'$this->_precioCompra',$this->_idProductoFinal,$this->_idMarca,$this->_idEnvase,$this->_idProveedor)";
     	$mysql = new MySQL();
     	$idInsertado = $mysql->insertar($sql);
 
-    	$this->_idProducto= $idInsertado;
-        var_dump($sql);
-        echo "insertado";    	
+    	$this->_idProducto= $idInsertado;;    	
     }
 
     public function actualizar(){
         parent::actualizar();
-    	$sql="UPDATE producto SET id_subcategoria = $this->_idSubCategoria, codigo_barra = $this->_codigoBarra, contenido=$this->_contenido, precio_compra=$this->_precioCompra, id_marca=$this->_idMarca, id_envase= $this->_idEnvase WHERE id_producto = $this->_idProducto";
+    	$sql="UPDATE producto SET id_subcategoria = $this->_idSubCategoria, codigo_barra = $this->_codigoBarra, contenido=$this->_contenido, precio_compra=$this->_precioCompra, id_marca=$this->_idMarca, id_envase= $this->_idEnvase, id_producto = $this->_idProveedor WHERE id_producto = $this->_idProducto";
         var_dump($sql);
         $mysql = new MySQL();
         $mysql->actualizar($sql);    	
@@ -127,6 +128,8 @@ class Producto extends ProductoFinal{
       $producto->setEnvase();
       $producto->_idMarca = $registro['id_marca'];
       $producto->setMarca();
+      $producto->_idProveedor = $registro['id_proveedor'];
+      $producto->setProveedor();
       $producto->stock = Stock::obtenerParaSolicitud($producto->_idProducto);
 
     	return $producto;
@@ -274,4 +277,47 @@ class Producto extends ProductoFinal{
         $this->subcategoria = SubCategoria::obtenerPorIdProducto($this->_idProducto);
     }
 
+
+    /**
+     * @return mixed
+     */
+    public function getIdProveedor()
+    {
+        return $this->_idProveedor;
+    }
+
+    /**
+     * @param mixed $_idProveedor
+     *
+     * @return self
+     */
+    public function setIdProveedor($_idProveedor)
+    {
+        $this->_idProveedor = $_idProveedor;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getProveedor()
+    {
+        return $this->proveedor;
+    }
+
+    /**
+     * @param mixed $proveedor
+     *
+     * @return self
+     */
+    public function setProveedor()
+    { 
+      if (is_null($this->_idProveedor)) {
+            return;
+        }
+      $this->proveedor = Proveedor::obtenerPorId($this->_idProveedor);
+
+      return $this;
+    }
 }

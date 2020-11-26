@@ -3,8 +3,10 @@ require_once '../../class/Producto.php';
 require_once '../../class/Envase.php';
 require_once '../../class/Marca.php';
 require_once '../../class/SubCategoria.php';
+require_once '../../class/Proveedor.php';
 
 $listadoEnvase = Envase::obtenerTodos();
+$listadoProveedor = Proveedor::obtenerTodos();
 //highlight_string(var_export($listadoEnvase,true));
 $listadoMarca = Marca::obtenerTodos();
 $listadoCategoria = Categoria::obtenerTodos();
@@ -19,15 +21,7 @@ $listadoCategoria = Categoria::obtenerTodos();
 	<title>Alta Producto</title>
 </head>
 <body class="nav-md">
-	<?php require_once "../../menu.php"; ?>
-	<?php if (isset($_SESSION['mensaje_error'])) :?>
-		<h3><font color="red">
-			<?php
-				echo $_SESSION['mensaje_error']; 
-		        unset($_SESSION['mensaje_error']);
-		    ?>
-	    </font></h3>
-    <?php endif;?>
+	<?php require_once "../../menu.php"; ?>	
 	<div class="right_col" role="main">
 				<div class="">
 					<div class="clearfix"></div>
@@ -51,6 +45,14 @@ $listadoCategoria = Categoria::obtenerTodos();
 								<div class="x_content">
 									<br />
 									<form  data-parsley-validate class="form-horizontal form-label-left" name="frmDatos" id="frmDatos" method="POST" action="procesar/insert.php">
+										<?php if (isset($_SESSION['mensaje_error'])) :?>
+											<h4><font color="red">
+												<?php
+													echo $_SESSION['mensaje_error']; 
+											        unset($_SESSION['mensaje_error']);
+											    ?>
+										    </font></h4>
+									    <?php endif;?>
 
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Nombre <span class="required">*</span>
@@ -100,6 +102,20 @@ $listadoCategoria = Categoria::obtenerTodos();
 												</select>
 											</div>
 										</div>
+
+										<div class="item form-group">
+											<label class="col-form-label col-md-3 col-sm-3 label-align" for="proveedor">Proveedor <span class="required">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6 ">
+												<select name="cboProveedor" id="cboProveedor" class="form-control">
+													<option value="0">Seleccionar</option>
+													<?php foreach ($listadoProveedor as $proveedor): ?>
+														<option value="<?php echo $proveedor->getIdProveedor();?>"><?php echo $proveedor->getRazonSocial()?></option>
+													<?php endforeach ?>		
+												</select>
+											</div>
+										</div>
+
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align" for="marca">Marca <span class="required">*</span>
 											</label>

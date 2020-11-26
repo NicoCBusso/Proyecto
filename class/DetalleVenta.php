@@ -240,7 +240,10 @@ class DetalleVenta{
     }
 
     public static function obtenerPorIdVenta($id){
-    	$sql = "SELECT * FROM detalleventa INNER JOIN venta ON detalleventa.id_venta = venta.id_venta WHERE venta.id_venta = ".$id;
+    	$sql = "SELECT detalleventa.id_detalle_venta,detalleventa.estado,"
+                ."detalleventa.id_producto_final,detalleventa.precio,"
+                ."detalleventa.id_venta" 
+                ." FROM detalleventa INNER JOIN venta ON detalleventa.id_venta = venta.id_venta WHERE venta.id_venta = ".$id;
     	//var_dump($sql);
 
     	$mysql = new MySQL();

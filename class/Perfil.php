@@ -70,12 +70,12 @@ class Perfil{
     	$idInsertado = $mysql->insertar($sql);
 
     	$this->_idPerfil= $idInsertado;
-        echo "insertado";
+
     }
     public function actualizar() {
 
         $sql = "UPDATE perfil SET nombre = '$this->_descripcion' WHERE id_perfil = $this->_idPerfil";
-        var_dump($sql);
+
         $mysql = new MySQL();
         $mysql->actualizar($sql);
 
@@ -103,8 +103,7 @@ class Perfil{
 
         $registro = $datos->fetch_assoc();
 
-        $perfil = new Perfil($registro['nombre']);   
-        $perfil->_idPerfil = $registro['id_perfil'];
+        $perfil = self::_generarPerfil($registro);
 
         return $perfil;
 
@@ -117,18 +116,23 @@ class Perfil{
         $mysql->desconectar();
 
         $registro = $datos->fetch_assoc();
-        $perfil = new Perfil($registro['nombre']);
-        $perfil->_idPerfil = $registro['id_perfil'];
+        $perfil = self::_generarPerfil($registro);
         $perfil->_arrModulos = Modulo::obtenerModulosPorIdPerfil($perfil->_idPerfil);
         return $perfil;
     }
+
+    public function _generarPerfil($registro){
+        $perfil = new Perfil($registro['nombre']);
+        $perfil->_descripcion = $registro['nombre'];
+        $perfil->_idPerfil = $registro['id_perfil'];
+        return $perfil;
+    }
+
     public function _generarListadoPerfil($datos){
         $listado = array();
         while ($registro = $datos->fetch_assoc())
             {
-            $perfil = new Perfil($registro['nombre']);
-            $perfil->_descripcion = $registro['nombre'];
-        	$perfil->_idPerfil = $registro['id_perfil'];
+            $perfil = self::_generarPerfil($registro);
             $listado[] = $perfil;
             }
         return $listado;
