@@ -56,7 +56,7 @@ class Proveedor extends Persona{
     }
 
     public static function consultarRazonSocial($razonSocial){
-        $sql = "SELECT razon_social FROM proveedor WHERE razon_social = ". $razonSocial;
+        $sql = "SELECT razon_social FROM proveedor WHERE razon_social =  '$razonSocial'";
 
         $mysql = new MySQL();
         $datos = $mysql->consultar($sql);

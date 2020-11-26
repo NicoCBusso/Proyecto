@@ -36,34 +36,32 @@ $provincia = Provincia::obtenerPorId($id);
                       <div class="row">
                           <div class="col-sm-12">
                             <div class="card-box table-responsive">
-                    <p class="text-muted font-13 m-b-30">
-                      <a href="alta.php" role="button" class="btn btn-primary">Agregar</a>
-                    </p>
-                    <table id="datatable" class="table" style="width:100%">
-                      <thead>
-                        <tr>
-                        	<th>ID</th>
-							<th>Provincia</th>
-							<th>Pais</th>
-                        </tr>
-                      </thead>
-                        <tbody>                       
-                          <tr>
-                            <td><?php echo $provincia->getIdProvincia(); ?></td>
-							<td><?php echo $provincia->getDescripcion(); ?></td>
-							<td><?php echo $provincia->pais->getDescripcion(); ?></td>
-                          </tr> 
-                        </tbody>
-                    </table>
-                    <a href="listado.php"  class="btn btn-primary" role="button">Atras</a>
+                              <table id="datatable" class="table" style="width:100%">
+                                <thead>
+                                  <tr>
+                                  	<th>ID</th>
+                      							<th>Provincia</th>
+                      							<th>Pais</th>
+                                  </tr>
+                                </thead>
+                                  <tbody>                       
+                                    <tr>
+                                      <td><?php echo $provincia->getIdProvincia(); ?></td>
+                        							<td><?php echo $provincia->getDescripcion(); ?></td>
+                        							<td><?php echo $provincia->pais->getDescripcion(); ?></td>
+                                    </tr> 
+                                  </tbody>
+                              </table>
+                            <a href="listado.php"  class="btn btn-primary" role="button">Atras</a>
+                          </div>
+                        </div>
+                    </div>
                   </div>
-                  </div>
+                </div>
               </div>
             </div>
-
-    </div>
-  </div>
-
+          </div>
+        </div>
   <?php require_once"../../footer.php"; ?>              
 </body>
 </html>

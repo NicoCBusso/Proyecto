@@ -60,7 +60,7 @@ class Pais {
         return $listado;
     }
     public static function consultarDescripcion($descripcion){
-        $sql = "SELECT nombre FROM pais WHERE nombre = ". $descripcion;
+        $sql = "SELECT nombre FROM pais WHERE nombre =  '$descripcion'";
 
         $mysql = new MySQL();
         $datos = $mysql->consultar($sql);

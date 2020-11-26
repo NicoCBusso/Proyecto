@@ -50,7 +50,7 @@
 											<div class="col-md-6 col-sm-6 offset-md-3">
 												<a href="listado.php" role="button" class="btn btn-primary">Cancelar</a>
 												<button class="btn btn-primary" type="reset">Borrar</button>
-												<input type="button" value="Guardar" class="btn btn-success" onclick="validar();">											
+												<input type="button" value="Guardar" class="btn btn-success" onclick="validar();">	
 											</div>
 										</div>
 

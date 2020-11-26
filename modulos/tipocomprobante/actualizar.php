@@ -1,14 +1,14 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <?php
-require_once '../../class/Envase.php';
+require_once '../../class/TipoComprobante.php';
 $id = $_GET ['id'];
 
-$envase = Envase::obtenerPorId($id);
+$tipoComprobante = TipoComprobante::obtenerPorId($id);
 ?>
 <html>
 <head>
 	<script src="../../js/validaciones/validarEnvase.js"></script>
-	<title>Actualizar Envase</title>
+	<title>Actualizar TipoComprobante</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 </head>
 <body class="nav-md">
@@ -20,7 +20,7 @@ $envase = Envase::obtenerPorId($id);
 						<div class="col-md-12 col-sm-12 ">
 							<div class="x_panel">
 								<div class="x_title">
-									<h2>Modificacion de Envase</h2>
+									<h2>Modificacion de Tipo de Comprobante</h2>
 									<ul class="nav navbar-right panel_toolbox">
 										<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 										</li>
@@ -40,12 +40,12 @@ $envase = Envase::obtenerPorId($id);
 											    ?>
 										    </font></h3>
 									    <?php endif;?>
-										<input type="hidden" name="txtId" value="<?php echo $envase->getIdEnvase(); ?>">
+										<input type="hidden" name="txtId" value="<?php echo $tipoComprobante->getIdTipoComprobante(); ?>">
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Nombre <span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input type="text" id="txtNombre" required="required" class="form-control" name="txtNombre" value="<?php echo $envase->getNombre(); ?>">
+												<input type="text" id="txtNombre" required="required" class="form-control" name="txtNombre" value="<?php echo $tipoComprobante->getDescripcion(); ?>">
 											</div>
 										</div>
 

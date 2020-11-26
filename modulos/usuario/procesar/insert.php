@@ -13,7 +13,8 @@ $imagen = $_FILES['fileImagen'];
 $estadoPersona = 1;
 $imagenNombre = $username;
 $dirImagenes = '../../../img/usuarios/';
-
+//echo Usuario::consultarUsername($username);
+//exit;
 
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
 	//De Username
@@ -34,7 +35,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 		$_SESSION['mensaje_error'] = "El Username debe ser identificado con letras y numeros";
 		header("location: ../alta.php");
 		exit;
-	} elseif (empty(Usuario::consultarUsername($username))){
+	} elseif (!empty(Usuario::consultarUsername($username))){
 		$_SESSION['mensaje_error'] = "Username ya utilizado";
 		header("location: ../alta.php");
 		exit;

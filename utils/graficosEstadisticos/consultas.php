@@ -25,9 +25,12 @@ function productoMasVendido(){
 	$mysql = new MySQL();
 	$datos = $mysql->consultar($sql);
 	$mysql->desconectar();
-
-	$registro = $datos->fetch_assoc();
-	return $registro['producto'];
+	if($datos->num_rows > 0 ){
+		$registro = $datos->fetch_assoc();
+		return $registro['producto'];
+	} else {
+		return;
+	}
 }
 
 function tragoMasVendido(){
@@ -40,9 +43,12 @@ function tragoMasVendido(){
 	$mysql = new MySQL();
 	$datos = $mysql->consultar($sql);
 	$mysql->desconectar();
-
-	$registro = $datos->fetch_assoc();
-	return $registro['trago'];
+	if($datos->num_rows > 0 ){
+		$registro = $datos->fetch_assoc();
+		return $registro['trago'];
+	} else {
+		return;
+	}
 }
 
 function cantidadVendidasDelMes(){

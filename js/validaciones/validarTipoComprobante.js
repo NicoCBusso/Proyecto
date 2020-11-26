@@ -13,7 +13,7 @@ function validar(){
 		return;
 	}
 	if(!isNaN(nombre)){
-		alert("El envase debe ser identificado sin numeros");
+		alert("El nombre debe ser identificado sin numeros");
 		return;
 	}	
 		

@@ -1,15 +1,8 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<?php
-require_once '../../class/Envase.php';
-$id = $_GET ['id'];
-
-$envase = Envase::obtenerPorId($id);
-?>
+<!DOCTYPE html>
 <html>
 <head>
-	<script src="../../js/validaciones/validarEnvase.js"></script>
-	<title>Actualizar Envase</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<script src="../../js/validaciones/validarTipoComprobante.js"></script>
+	<title>Glou Glou!</title>
 </head>
 <body class="nav-md">
 	<?php require_once "../../menu.php"; ?>	
@@ -20,9 +13,18 @@ $envase = Envase::obtenerPorId($id);
 						<div class="col-md-12 col-sm-12 ">
 							<div class="x_panel">
 								<div class="x_title">
-									<h2>Modificacion de Envase</h2>
+									<h2>Agregar Tipo de Comprobante</h2>
 									<ul class="nav navbar-right panel_toolbox">
 										<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+										</li>
+										<li class="dropdown">
+											<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+											<ul class="dropdown-menu" role="menu">
+												<li><a class="dropdown-item" href="#">Settings 1</a>
+												</li>
+												<li><a class="dropdown-item" href="#">Settings 2</a>
+												</li>
+											</ul>
 										</li>
 										<li><a class="close-link"><i class="fa fa-close"></i></a>
 										</li>
@@ -31,30 +33,29 @@ $envase = Envase::obtenerPorId($id);
 								</div>
 								<div class="x_content">
 									<br />
-									<form  data-parsley-validate class="form-horizontal form-label-left" name="frmDatos" id="frmDatos" method="POST" action="procesar/update.php">
+									<form  data-parsley-validate class="form-horizontal form-label-left" name="frmDatos" id="frmDatos" method="POST" action="procesar/insert.php">
 										<?php if (isset($_SESSION['mensaje_error'])) :?>
-											<h3><font color="red">
+											<h4><font color="red">
 												<?php
 													echo $_SESSION['mensaje_error']; 
 											        unset($_SESSION['mensaje_error']);
 											    ?>
-										    </font></h3>
+										    </font></h4>
 									    <?php endif;?>
-										<input type="hidden" name="txtId" value="<?php echo $envase->getIdEnvase(); ?>">
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Nombre <span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input type="text" id="txtNombre" required="required" class="form-control" name="txtNombre" value="<?php echo $envase->getNombre(); ?>">
+												<input type="text" id="txtNombre" required="required" class="form-control" name="txtNombre" >
 											</div>
 										</div>
 
 										<div class="ln_solid"></div>
 										<div class="item form-group">
 											<div class="col-md-6 col-sm-6 offset-md-3">
-												<a href="listado.php" role="button" class="btn btn-primary">Cancelar</a>												
+												<a href="listado.php" role="button" class="btn btn-primary">Cancelar</a>
 												<button class="btn btn-primary" type="reset">Borrar</button>
-												<input type="button" value="Actualizar" class="btn btn-success" onclick="validar();">											
+												<input type="button" value="Guardar" class="btn btn-success" onclick="validar();">											
 											</div>
 										</div>
 

@@ -48,7 +48,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 		$_SESSION['mensaje_error'] = "El numero debe ser identificado con solo numeros";
 		header("location: ../alta.php?id_persona=$idPersona&idLlamada=$idLlamada&modulo=$modulo");
 		exit;
-	} elseif (strlen(trim($numero)) < 5) {
+	} elseif (strlen(trim($numero)) > 5) {
 		$_SESSION['mensaje_error'] = "El campo numero debe contener una Altura real";
 		header("location: ../alta.php?id_persona=$idPersona&idLlamada=$idLlamada&modulo=$modulo");
 		exit;

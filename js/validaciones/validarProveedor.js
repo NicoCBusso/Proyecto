@@ -5,8 +5,8 @@ function validar(){
 		alert("El campo Razon Social no debe estar vacio");
 		return;
 	}
-	if(razonSocial.length < 4){
-		alert("El campo Razon Social debe contener al menos 4 caracteres");
+	if(razonSocial.length < 1){
+		alert("El campo Razon Social debe contener al menos 2 caracteres");
 		return;
 	}
 	if(razonSocial.length > 101){

@@ -14,8 +14,8 @@
 			echo $_SESSION['mensaje_error'];
 			header("location: ../alta.php");
 			exit;
-		} elseif (strlen(trim($razonsocial)) < 4) {
-			$_SESSION['mensaje_error'] = "El campo Razon Social debe contener al menos 4 caracteres";
+		} elseif (strlen(trim($razonsocial)) < 1) {
+			$_SESSION['mensaje_error'] = "El campo Razon Social debe contener al menos 2 caracteres";
 			header("location: ../alta.php");
 			exit;
 		} elseif (strlen(trim($razonsocial)) > 101) {
@@ -26,7 +26,7 @@
 			$_SESSION['mensaje_error'] = "El razonsocial debe ser identificado sin numeros";
 			header("location: ../alta.php");
 			exit;
-		} elseif (empty(Proveedor::consultarRazonSocial($razonsocial))){
+		} elseif (!empty(Proveedor::consultarRazonSocial($razonsocial))){
 			$_SESSION['mensaje_error'] = "Razon Social ya utilizado";
 			header("location: ../alta.php");
 			exit;

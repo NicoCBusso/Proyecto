@@ -38,7 +38,7 @@ class Usuario extends PersonaFisica {
 
     }
     public static function consultarUsername($username){
-        $sql = "SELECT username FROM usuario WHERE username = ".$username;
+        $sql = "SELECT * FROM usuario INNER JOIN personafisica ON usuario.id_persona_fisica = usuario.id_persona_fisica WHERE username = '$username'";
 
         $mysql = new MySQL();
         $datos = $mysql->consultar($sql);
@@ -47,6 +47,7 @@ class Usuario extends PersonaFisica {
         if ($datos->num_rows > 0) {
             $registro = $datos->fetch_assoc();
             $usuario = self::_generarUsuario($registro);
+            return $usuario;
         } else {
             return;
         }

@@ -41,8 +41,8 @@ class Empleado extends PersonaFisica{
     }
 
     public static function obtenerPorDNI($dni){
-        $sql = "";
-
+        $sql = "SELECT * FROM empleado INNER JOIN personafisica ON empleado.id_persona_fisica = personafisica.id_persona_fisica"
+                ." WHERE personafisica.dni =".$dni;
         $mysql = new MySQL();
         $datos = $mysql->consultar($sql);
         $mysql->desconectar();

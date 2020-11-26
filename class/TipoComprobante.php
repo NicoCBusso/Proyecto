@@ -51,18 +51,18 @@ class TipoComprobante{
     }
 
     public function guardar(){
-        $sql = "INSERT INTO tipocomprobante (id_tipo_comprobante,descripcion) VALUES (NULL,'$this->_descripcion','$this->_directorio')";
+        $sql = "INSERT INTO tipocomprobante (id_tipo_comprobante,descripcion) VALUES (NULL,'$this->_descripcion')";
 
         $mysql = new MySQL();
         $idInsertado = $mysql->insertar($sql);
 
         $this->_idTipoComprobante= $idInsertado;
-        echo "insertado";
+        //echo "insertado";
     }
     public function actualizar() {
 
         $sql = "UPDATE tipocomprobante SET descripcion = '$this->_descripcion' WHERE id_tipo_comprobante = $this->_idTipoComprobante";
-        var_dump($sql);
+        //var_dump($sql);
         $mysql = new MySQL();
         $mysql->actualizar($sql);
 

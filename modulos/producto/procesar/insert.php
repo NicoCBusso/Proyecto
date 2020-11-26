@@ -45,6 +45,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 		$_SESSION['mensaje_error'] = "El campo Codigo Barra debe contener 10 digitos, sin punto.";
 		header("location: ../alta.php");
 		exit;
+	} elseif (!empty(Producto::obtenerPorCodigoBarra($codigoBarra))){
+		$_SESSION['mensaje_error'] = "El Codigo Barra ya sido utilizado";
+		header("location: ../alta.php");
+		exit;
 	}
 	//De CONTENIDO
 	if (empty(trim($contenido))) {

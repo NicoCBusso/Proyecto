@@ -21,7 +21,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 		$_SESSION['mensaje_error'] = "El campo pais debe ser identificado sin numeros";
 		header("location: ../alta.php");
 		exit;
-	} elseif (empty(Pais::consultarDescripcion($nombre))){
+	} elseif (!empty(Pais::consultarDescripcion($nombre))){
 		$_SESSION['mensaje_error'] = "Existe ya ese pais";
 		header("location: ../alta.php");
 		exit;
