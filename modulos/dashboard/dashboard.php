@@ -5,7 +5,6 @@
 	<title>Glou Glou</title>
 </head>
 <body>
-
   <?php 
     require_once "../../utils/graficosEstadisticos/consultas.php";
     $cantidadVentas = cantidadVendidasDelMes();
@@ -16,16 +15,19 @@
     $productoMasVendidoDelMes = productoMasVendido();
     $tragoMasVendidoDelMes = tragoMasVendido();
     $puestoConMasSalida = puestoConMasSalida();
-    $totalFacturadoAño = totalFacturadoDelAño();
-    //echo $productoMasVendidoDelMes;
-    //exit;    
+    $totalFacturadoAño = totalFacturadoDelAño();    
   ?>
 
-	<?php require_once "../../menu.php"; ?>
+	<?php
+    const ADMINISTRADOR = 1;
+    require_once "../../menu.php";    
+  ?>
 
 	<div class="right_col" role="main">
+    
           <!-- top tiles -->
     <div class="row" style="display: inline-block;" >
+      <?php if($usuarioLogueado->getIdPerfil() == ADMINISTRADOR): ?>
 
             <div class="tile_count">
               <div class="col-md-2 col-sm-4  tile_stats_count">
@@ -111,7 +113,10 @@
             </div>
           </div>
                    
+  
+  <?php endif; ?>
   </div>
+</div>
 
     <script>
     //variables declaradas jiji
@@ -241,7 +246,8 @@
     }
   });
 </script>
-<?php 
+
+<?php  
 	include('../../footer.php');
 ?>
 </body>
