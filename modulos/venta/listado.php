@@ -46,7 +46,7 @@ require_once "../../class/Venta.php";
                     <table id="tablaVenta" class="table table-striped jambo_table bulk_action">
                       <thead>
                         <tr class="headings">                            
-                          <th class="column-title">Nombre</th>
+                          <th class="column-title">ID</th>
                           <th class="column-title">Cajero/a</th>
                           <th class="column-title">Fecha Hora Emision</th>
                           <th class="column-title">Fecha Hora Expiracion</th>
